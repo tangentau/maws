@@ -12,3 +12,1098 @@ Mar 11 20:23:55 symfony [info] {sfWebDebugLogger} Factories 216.70 ms (1)
 Mar 11 20:23:55 symfony [info] {sfWebDebugLogger} Action "default/index" 0.33 ms (1)
 Mar 11 20:23:55 symfony [info] {sfWebDebugLogger} View "Success" for "default/index" 28.38 ms (1)
 Mar 11 20:23:55 symfony [info] {sfWebResponse} Send content (43781 o)
+Mar 11 22:13:08 symfony [info] {sfPatternRouting} Match route "default_index" (/:module) for /testmodule with parameters array (  'module' => 'testmodule',  'action' => 'index',)
+Mar 11 22:13:08 symfony [info] {sfFilterChain} Executing filter "sfRenderingFilter"
+Mar 11 22:13:08 symfony [info] {sfFilterChain} Executing filter "sfExecutionFilter"
+Mar 11 22:13:08 symfony [info] {testmoduleActions} Call "testmoduleActions->executeIndex()"
+Mar 11 22:13:08 symfony [debug] {sfPropelLogger} time:  0.023 sec | slow:  NO | mem:    8.5 MB | mempeak:    8.5 MB | memdelta:      0.0 B | SET NAMES 'utf8'
+Mar 11 22:13:08 symfony [debug] {sfPropelLogger} time:  0.020 sec | slow:  NO | mem:    9.0 MB | mempeak:    9.0 MB | memdelta:      0.0 B | SELECT sf_test.ID, sf_test.NAME FROM `sf_test`
+Mar 11 22:13:08 symfony [info] {sfPHPView} Render "/home/tangentau/NetBeansProjects/sfproject/apps/frontend/modules/testmodule/templates/indexSuccess.php"
+Mar 11 22:13:08 symfony [info] {sfPHPView} Decorate content with "/home/tangentau/NetBeansProjects/sfproject/apps/frontend/templates/layout.php"
+Mar 11 22:13:08 symfony [info] {sfPHPView} Render "/home/tangentau/NetBeansProjects/sfproject/apps/frontend/templates/layout.php"
+Mar 11 22:13:08 symfony [info] {sfWebResponse} Send status "HTTP/1.1 200 OK"
+Mar 11 22:13:08 symfony [info] {sfWebResponse} Send header "Content-Type: text/html; charset=utf-8"
+Mar 11 22:13:08 symfony [info] {sfWebDebugLogger} Configuration 64.91 ms (10)
+Mar 11 22:13:08 symfony [info] {sfWebDebugLogger} Factories 241.85 ms (1)
+Mar 11 22:13:08 symfony [info] {sfWebDebugLogger} Action "testmodule/index" 155.82 ms (1)
+Mar 11 22:13:08 symfony [info] {sfWebDebugLogger} View "Success" for "testmodule/index" 84.10 ms (1)
+Mar 11 22:13:08 symfony [info] {sfWebResponse} Send content (60866 o)
+Mar 11 22:13:11 symfony [info] {sfPatternRouting} Match route "default" (/:module/:action/*) for /testmodule/new with parameters array (  'module' => 'testmodule',  'action' => 'new',)
+Mar 11 22:13:11 symfony [info] {sfFilterChain} Executing filter "sfRenderingFilter"
+Mar 11 22:13:11 symfony [info] {sfFilterChain} Executing filter "sfExecutionFilter"
+Mar 11 22:13:11 symfony [info] {testmoduleActions} Call "testmoduleActions->executeNew()"
+Mar 11 22:13:11 symfony [info] {sfPHPView} Render "/home/tangentau/NetBeansProjects/sfproject/apps/frontend/modules/testmodule/templates/newSuccess.php"
+Mar 11 22:13:11 symfony [info] {sfPartialView} Render "/home/tangentau/NetBeansProjects/sfproject/apps/frontend/modules/testmodule/templates/_form.php"
+Mar 11 22:13:11 symfony [info] {sfPHPView} Decorate content with "/home/tangentau/NetBeansProjects/sfproject/apps/frontend/templates/layout.php"
+Mar 11 22:13:11 symfony [info] {sfPHPView} Render "/home/tangentau/NetBeansProjects/sfproject/apps/frontend/templates/layout.php"
+Mar 11 22:13:11 symfony [info] {sfWebResponse} Send status "HTTP/1.1 200 OK"
+Mar 11 22:13:11 symfony [info] {sfWebResponse} Send header "Content-Type: text/html; charset=utf-8"
+Mar 11 22:13:11 symfony [info] {sfWebDebugLogger} Configuration 2.39 ms (9)
+Mar 11 22:13:11 symfony [info] {sfWebDebugLogger} Factories 53.05 ms (1)
+Mar 11 22:13:11 symfony [info] {sfWebDebugLogger} Action "testmodule/new" 37.88 ms (1)
+Mar 11 22:13:11 symfony [info] {sfWebDebugLogger} View "Success" for "testmodule/new" 56.37 ms (1)
+Mar 11 22:13:11 symfony [info] {sfWebDebugLogger} Partial "testmodule/_form" 27.29 ms (1)
+Mar 11 22:13:11 symfony [info] {sfWebResponse} Send content (48933 o)
+Mar 11 22:13:20 symfony [info] {sfPatternRouting} Match route "default" (/:module/:action/*) for /testmodule/create with parameters array (  'module' => 'testmodule',  'action' => 'create',)
+Mar 11 22:13:20 symfony [info] {sfFilterChain} Executing filter "sfRenderingFilter"
+Mar 11 22:13:20 symfony [info] {sfFilterChain} Executing filter "sfExecutionFilter"
+Mar 11 22:13:20 symfony [info] {testmoduleActions} Call "testmoduleActions->executeCreate()"
+Mar 11 22:13:20 symfony [debug] {sfPropelLogger} time:  0.000 sec | slow:  NO | mem:    9.0 MB | mempeak:    9.0 MB | memdelta:      0.0 B | SET NAMES 'utf8'
+Mar 11 22:13:20 symfony [debug] {sfPropelLogger} time:  0.012 sec | slow:  NO | mem:    9.5 MB | mempeak:    9.5 MB | memdelta:      0.0 B | INSERT INTO sf_test (`ID`,`NAME`) VALUES (NULL,'testNyaaa!!! ^)))')
+Mar 11 22:13:20 symfony [info] {sfFrontWebController} Redirect to "http://localhost:8080/frontend_dev.php/testmodule/edit/id/1"
+Mar 11 22:13:20 symfony [info] {sfWebResponse} Send status "HTTP/1.1 302 Found"
+Mar 11 22:13:20 symfony [info] {sfWebResponse} Send header "Location: http://localhost:8080/frontend_dev.php/testmodule/edit/id/1"
+Mar 11 22:13:20 symfony [info] {sfWebResponse} Send header "Content-Type: text/html; charset=utf-8"
+Mar 11 22:13:20 symfony [info] {sfWebDebugLogger} Configuration 2.08 ms (8)
+Mar 11 22:13:20 symfony [info] {sfWebDebugLogger} Factories 55.54 ms (1)
+Mar 11 22:13:20 symfony [info] {sfWebDebugLogger} Action "testmodule/create" 92.44 ms (1)
+Mar 11 22:13:20 symfony [info] {sfWebResponse} Send content (130 o)
+Mar 11 22:13:20 symfony [info] {sfPatternRouting} Match route "default" (/:module/:action/*) for /testmodule/edit/id/1 with parameters array (  'module' => 'testmodule',  'action' => 'edit',  'id' => '1',)
+Mar 11 22:13:20 symfony [info] {sfFilterChain} Executing filter "sfRenderingFilter"
+Mar 11 22:13:20 symfony [info] {sfFilterChain} Executing filter "sfExecutionFilter"
+Mar 11 22:13:20 symfony [info] {testmoduleActions} Call "testmoduleActions->executeEdit()"
+Mar 11 22:13:20 symfony [debug] {sfPropelLogger} time:  0.000 sec | slow:  NO | mem:    7.5 MB | mempeak:    7.5 MB | memdelta:      0.0 B | SET NAMES 'utf8'
+Mar 11 22:13:21 symfony [debug] {sfPropelLogger} time:  0.048 sec | slow:  NO | mem:    8.0 MB | mempeak:    8.0 MB | memdelta:      0.0 B | SELECT sf_test.ID, sf_test.NAME FROM `sf_test` WHERE sf_test.ID='1'
+Mar 11 22:13:21 symfony [info] {sfPHPView} Render "/home/tangentau/NetBeansProjects/sfproject/apps/frontend/modules/testmodule/templates/editSuccess.php"
+Mar 11 22:13:21 symfony [info] {sfPartialView} Render "/home/tangentau/NetBeansProjects/sfproject/apps/frontend/modules/testmodule/templates/_form.php"
+Mar 11 22:13:21 symfony [info] {sfPHPView} Decorate content with "/home/tangentau/NetBeansProjects/sfproject/apps/frontend/templates/layout.php"
+Mar 11 22:13:21 symfony [info] {sfPHPView} Render "/home/tangentau/NetBeansProjects/sfproject/apps/frontend/templates/layout.php"
+Mar 11 22:13:21 symfony [info] {sfWebResponse} Send status "HTTP/1.1 200 OK"
+Mar 11 22:13:21 symfony [info] {sfWebResponse} Send header "Content-Type: text/html; charset=utf-8"
+Mar 11 22:13:21 symfony [info] {sfWebDebugLogger} Configuration 1.57 ms (9)
+Mar 11 22:13:21 symfony [info] {sfWebDebugLogger} Factories 30.89 ms (1)
+Mar 11 22:13:21 symfony [info] {sfWebDebugLogger} Action "testmodule/edit" 80.23 ms (1)
+Mar 11 22:13:21 symfony [info] {sfWebDebugLogger} View "Success" for "testmodule/edit" 22.00 ms (1)
+Mar 11 22:13:21 symfony [info] {sfWebDebugLogger} Partial "testmodule/_form" 7.18 ms (1)
+Mar 11 22:13:21 symfony [info] {sfWebResponse} Send content (68527 o)
+Mar 11 22:13:23 symfony [info] {sfPatternRouting} Match route "default_index" (/:module) for /testmodule with parameters array (  'module' => 'testmodule',  'action' => 'index',)
+Mar 11 22:13:23 symfony [info] {sfFilterChain} Executing filter "sfRenderingFilter"
+Mar 11 22:13:23 symfony [info] {sfFilterChain} Executing filter "sfExecutionFilter"
+Mar 11 22:13:23 symfony [info] {testmoduleActions} Call "testmoduleActions->executeIndex()"
+Mar 11 22:13:23 symfony [debug] {sfPropelLogger} time:  0.000 sec | slow:  NO | mem:    7.5 MB | mempeak:    7.5 MB | memdelta:      0.0 B | SET NAMES 'utf8'
+Mar 11 22:13:23 symfony [debug] {sfPropelLogger} time:  0.001 sec | slow:  NO | mem:    8.0 MB | mempeak:    8.0 MB | memdelta:      0.0 B | SELECT sf_test.ID, sf_test.NAME FROM `sf_test`
+Mar 11 22:13:23 symfony [info] {sfPHPView} Render "/home/tangentau/NetBeansProjects/sfproject/apps/frontend/modules/testmodule/templates/indexSuccess.php"
+Mar 11 22:13:23 symfony [info] {sfPHPView} Decorate content with "/home/tangentau/NetBeansProjects/sfproject/apps/frontend/templates/layout.php"
+Mar 11 22:13:23 symfony [info] {sfPHPView} Render "/home/tangentau/NetBeansProjects/sfproject/apps/frontend/templates/layout.php"
+Mar 11 22:13:23 symfony [info] {sfWebResponse} Send status "HTTP/1.1 200 OK"
+Mar 11 22:13:23 symfony [info] {sfWebResponse} Send header "Content-Type: text/html; charset=utf-8"
+Mar 11 22:13:23 symfony [info] {sfWebDebugLogger} Configuration 1.95 ms (9)
+Mar 11 22:13:23 symfony [info] {sfWebDebugLogger} Factories 35.99 ms (1)
+Mar 11 22:13:23 symfony [info] {sfWebDebugLogger} Action "testmodule/index" 21.44 ms (1)
+Mar 11 22:13:23 symfony [info] {sfWebDebugLogger} View "Success" for "testmodule/index" 12.67 ms (1)
+Mar 11 22:13:23 symfony [info] {sfWebResponse} Send content (61271 o)
+Mar 11 22:13:24 symfony [info] {sfPatternRouting} Match route "default" (/:module/:action/*) for /testmodule/new with parameters array (  'module' => 'testmodule',  'action' => 'new',)
+Mar 11 22:13:24 symfony [info] {sfFilterChain} Executing filter "sfRenderingFilter"
+Mar 11 22:13:24 symfony [info] {sfFilterChain} Executing filter "sfExecutionFilter"
+Mar 11 22:13:24 symfony [info] {testmoduleActions} Call "testmoduleActions->executeNew()"
+Mar 11 22:13:24 symfony [info] {sfPHPView} Render "/home/tangentau/NetBeansProjects/sfproject/apps/frontend/modules/testmodule/templates/newSuccess.php"
+Mar 11 22:13:24 symfony [info] {sfPartialView} Render "/home/tangentau/NetBeansProjects/sfproject/apps/frontend/modules/testmodule/templates/_form.php"
+Mar 11 22:13:24 symfony [info] {sfPHPView} Decorate content with "/home/tangentau/NetBeansProjects/sfproject/apps/frontend/templates/layout.php"
+Mar 11 22:13:24 symfony [info] {sfPHPView} Render "/home/tangentau/NetBeansProjects/sfproject/apps/frontend/templates/layout.php"
+Mar 11 22:13:24 symfony [info] {sfWebResponse} Send status "HTTP/1.1 200 OK"
+Mar 11 22:13:24 symfony [info] {sfWebResponse} Send header "Content-Type: text/html; charset=utf-8"
+Mar 11 22:13:24 symfony [info] {sfWebDebugLogger} Configuration 1.50 ms (9)
+Mar 11 22:13:24 symfony [info] {sfWebDebugLogger} Factories 31.88 ms (1)
+Mar 11 22:13:24 symfony [info] {sfWebDebugLogger} Action "testmodule/new" 22.15 ms (1)
+Mar 11 22:13:24 symfony [info] {sfWebDebugLogger} View "Success" for "testmodule/new" 18.16 ms (1)
+Mar 11 22:13:24 symfony [info] {sfWebDebugLogger} Partial "testmodule/_form" 4.86 ms (1)
+Mar 11 22:13:24 symfony [info] {sfWebResponse} Send content (48931 o)
+Mar 11 22:13:31 symfony [info] {sfPatternRouting} Match route "default" (/:module/:action/*) for /testmodule/create with parameters array (  'module' => 'testmodule',  'action' => 'create',)
+Mar 11 22:13:31 symfony [info] {sfFilterChain} Executing filter "sfRenderingFilter"
+Mar 11 22:13:31 symfony [info] {sfFilterChain} Executing filter "sfExecutionFilter"
+Mar 11 22:13:31 symfony [info] {testmoduleActions} Call "testmoduleActions->executeCreate()"
+Mar 11 22:13:31 symfony [debug] {sfPropelLogger} time:  0.000 sec | slow:  NO | mem:    9.0 MB | mempeak:    9.0 MB | memdelta:      0.0 B | SET NAMES 'utf8'
+Mar 11 22:13:31 symfony [debug] {sfPropelLogger} time:  0.001 sec | slow:  NO | mem:    9.5 MB | mempeak:    9.5 MB | memdelta:      0.0 B | INSERT INTO sf_test (`ID`,`NAME`) VALUES (NULL,'fgklhg;dfg; ildfgd grtgr "%^&%$& "%$^')
+Mar 11 22:13:31 symfony [info] {sfFrontWebController} Redirect to "http://localhost:8080/frontend_dev.php/testmodule/edit/id/2"
+Mar 11 22:13:31 symfony [info] {sfWebResponse} Send status "HTTP/1.1 302 Found"
+Mar 11 22:13:31 symfony [info] {sfWebResponse} Send header "Location: http://localhost:8080/frontend_dev.php/testmodule/edit/id/2"
+Mar 11 22:13:31 symfony [info] {sfWebResponse} Send header "Content-Type: text/html; charset=utf-8"
+Mar 11 22:13:31 symfony [info] {sfWebDebugLogger} Configuration 2.09 ms (8)
+Mar 11 22:13:31 symfony [info] {sfWebDebugLogger} Factories 51.96 ms (1)
+Mar 11 22:13:31 symfony [info] {sfWebDebugLogger} Action "testmodule/create" 65.53 ms (1)
+Mar 11 22:13:31 symfony [info] {sfWebResponse} Send content (130 o)
+Mar 11 22:13:31 symfony [info] {sfPatternRouting} Match route "default" (/:module/:action/*) for /testmodule/edit/id/2 with parameters array (  'module' => 'testmodule',  'action' => 'edit',  'id' => '2',)
+Mar 11 22:13:31 symfony [info] {sfFilterChain} Executing filter "sfRenderingFilter"
+Mar 11 22:13:31 symfony [info] {sfFilterChain} Executing filter "sfExecutionFilter"
+Mar 11 22:13:31 symfony [info] {testmoduleActions} Call "testmoduleActions->executeEdit()"
+Mar 11 22:13:31 symfony [debug] {sfPropelLogger} time:  0.000 sec | slow:  NO | mem:    7.5 MB | mempeak:    7.5 MB | memdelta:      0.0 B | SET NAMES 'utf8'
+Mar 11 22:13:31 symfony [debug] {sfPropelLogger} time:  0.000 sec | slow:  NO | mem:    8.0 MB | mempeak:    8.0 MB | memdelta:      0.0 B | SELECT sf_test.ID, sf_test.NAME FROM `sf_test` WHERE sf_test.ID='2'
+Mar 11 22:13:31 symfony [info] {sfPHPView} Render "/home/tangentau/NetBeansProjects/sfproject/apps/frontend/modules/testmodule/templates/editSuccess.php"
+Mar 11 22:13:31 symfony [info] {sfPartialView} Render "/home/tangentau/NetBeansProjects/sfproject/apps/frontend/modules/testmodule/templates/_form.php"
+Mar 11 22:13:31 symfony [info] {sfPHPView} Decorate content with "/home/tangentau/NetBeansProjects/sfproject/apps/frontend/templates/layout.php"
+Mar 11 22:13:31 symfony [info] {sfPHPView} Render "/home/tangentau/NetBeansProjects/sfproject/apps/frontend/templates/layout.php"
+Mar 11 22:13:31 symfony [info] {sfWebResponse} Send status "HTTP/1.1 200 OK"
+Mar 11 22:13:31 symfony [info] {sfWebResponse} Send header "Content-Type: text/html; charset=utf-8"
+Mar 11 22:13:31 symfony [info] {sfWebDebugLogger} Configuration 1.49 ms (9)
+Mar 11 22:13:31 symfony [info] {sfWebDebugLogger} Factories 35.42 ms (1)
+Mar 11 22:13:31 symfony [info] {sfWebDebugLogger} Action "testmodule/edit" 36.24 ms (1)
+Mar 11 22:13:31 symfony [info] {sfWebDebugLogger} View "Success" for "testmodule/edit" 20.28 ms (1)
+Mar 11 22:13:31 symfony [info] {sfWebDebugLogger} Partial "testmodule/_form" 6.04 ms (1)
+Mar 11 22:13:31 symfony [info] {sfWebResponse} Send content (68565 o)
+Mar 11 22:13:32 symfony [info] {sfPatternRouting} Match route "default_index" (/:module) for /testmodule with parameters array (  'module' => 'testmodule',  'action' => 'index',)
+Mar 11 22:13:32 symfony [info] {sfFilterChain} Executing filter "sfRenderingFilter"
+Mar 11 22:13:32 symfony [info] {sfFilterChain} Executing filter "sfExecutionFilter"
+Mar 11 22:13:32 symfony [info] {testmoduleActions} Call "testmoduleActions->executeIndex()"
+Mar 11 22:13:32 symfony [debug] {sfPropelLogger} time:  0.004 sec | slow:  NO | mem:    7.5 MB | mempeak:    7.5 MB | memdelta:      0.0 B | SET NAMES 'utf8'
+Mar 11 22:13:32 symfony [debug] {sfPropelLogger} time:  0.000 sec | slow:  NO | mem:    8.0 MB | mempeak:    8.0 MB | memdelta:      0.0 B | SELECT sf_test.ID, sf_test.NAME FROM `sf_test`
+Mar 11 22:13:32 symfony [info] {sfPHPView} Render "/home/tangentau/NetBeansProjects/sfproject/apps/frontend/modules/testmodule/templates/indexSuccess.php"
+Mar 11 22:13:32 symfony [info] {sfPHPView} Decorate content with "/home/tangentau/NetBeansProjects/sfproject/apps/frontend/templates/layout.php"
+Mar 11 22:13:32 symfony [info] {sfPHPView} Render "/home/tangentau/NetBeansProjects/sfproject/apps/frontend/templates/layout.php"
+Mar 11 22:13:32 symfony [info] {sfWebResponse} Send status "HTTP/1.1 200 OK"
+Mar 11 22:13:32 symfony [info] {sfWebResponse} Send header "Content-Type: text/html; charset=utf-8"
+Mar 11 22:13:32 symfony [info] {sfWebDebugLogger} Configuration 2.27 ms (9)
+Mar 11 22:13:32 symfony [info] {sfWebDebugLogger} Factories 54.49 ms (1)
+Mar 11 22:13:32 symfony [info] {sfWebDebugLogger} Action "testmodule/index" 37.03 ms (1)
+Mar 11 22:13:32 symfony [info] {sfWebDebugLogger} View "Success" for "testmodule/index" 16.83 ms (1)
+Mar 11 22:13:32 symfony [info] {sfWebResponse} Send content (61435 o)
+Mar 11 22:15:47 symfony [info] {sfPatternRouting} Match route "default" (/:module/:action/*) for /testmodule/show/id/1 with parameters array (  'module' => 'testmodule',  'action' => 'show',  'id' => '1',)
+Mar 11 22:15:47 symfony [info] {sfFilterChain} Executing filter "sfRenderingFilter"
+Mar 11 22:15:47 symfony [info] {sfFilterChain} Executing filter "sfExecutionFilter"
+Mar 11 22:15:47 symfony [info] {testmoduleActions} Call "testmoduleActions->executeShow()"
+Mar 11 22:15:47 symfony [debug] {sfPropelLogger} time:  0.001 sec | slow:  NO | mem:    7.5 MB | mempeak:    7.5 MB | memdelta:      0.0 B | SET NAMES 'utf8'
+Mar 11 22:15:47 symfony [debug] {sfPropelLogger} time:  0.002 sec | slow:  NO | mem:    8.0 MB | mempeak:    8.0 MB | memdelta:      0.0 B | SELECT sf_test.ID, sf_test.NAME FROM `sf_test` WHERE sf_test.ID='1'
+Mar 11 22:15:47 symfony [info] {sfPHPView} Render "/home/tangentau/NetBeansProjects/sfproject/apps/frontend/modules/testmodule/templates/showSuccess.php"
+Mar 11 22:15:47 symfony [info] {sfPHPView} Decorate content with "/home/tangentau/NetBeansProjects/sfproject/apps/frontend/templates/layout.php"
+Mar 11 22:15:47 symfony [info] {sfPHPView} Render "/home/tangentau/NetBeansProjects/sfproject/apps/frontend/templates/layout.php"
+Mar 11 22:15:47 symfony [info] {sfWebResponse} Send status "HTTP/1.1 200 OK"
+Mar 11 22:15:47 symfony [info] {sfWebResponse} Send header "Content-Type: text/html; charset=utf-8"
+Mar 11 22:15:47 symfony [info] {sfWebDebugLogger} Configuration 2.53 ms (9)
+Mar 11 22:15:47 symfony [info] {sfWebDebugLogger} Factories 93.07 ms (1)
+Mar 11 22:15:47 symfony [info] {sfWebDebugLogger} Action "testmodule/show" 113.11 ms (1)
+Mar 11 22:15:47 symfony [info] {sfWebDebugLogger} View "Success" for "testmodule/show" 32.54 ms (1)
+Mar 11 22:15:47 symfony [info] {sfWebResponse} Send content (61528 o)
+Mar 11 22:15:49 symfony [info] {sfPatternRouting} Match route "default" (/:module/:action/*) for /testmodule/edit/id/1 with parameters array (  'module' => 'testmodule',  'action' => 'edit',  'id' => '1',)
+Mar 11 22:15:49 symfony [info] {sfFilterChain} Executing filter "sfRenderingFilter"
+Mar 11 22:15:49 symfony [info] {sfFilterChain} Executing filter "sfExecutionFilter"
+Mar 11 22:15:49 symfony [info] {testmoduleActions} Call "testmoduleActions->executeEdit()"
+Mar 11 22:15:49 symfony [debug] {sfPropelLogger} time:  0.000 sec | slow:  NO | mem:    7.5 MB | mempeak:    7.5 MB | memdelta:      0.0 B | SET NAMES 'utf8'
+Mar 11 22:15:49 symfony [debug] {sfPropelLogger} time:  0.002 sec | slow:  NO | mem:    8.0 MB | mempeak:    8.0 MB | memdelta:      0.0 B | SELECT sf_test.ID, sf_test.NAME FROM `sf_test` WHERE sf_test.ID='1'
+Mar 11 22:15:49 symfony [info] {sfPHPView} Render "/home/tangentau/NetBeansProjects/sfproject/apps/frontend/modules/testmodule/templates/editSuccess.php"
+Mar 11 22:15:49 symfony [info] {sfPartialView} Render "/home/tangentau/NetBeansProjects/sfproject/apps/frontend/modules/testmodule/templates/_form.php"
+Mar 11 22:15:49 symfony [info] {sfPHPView} Decorate content with "/home/tangentau/NetBeansProjects/sfproject/apps/frontend/templates/layout.php"
+Mar 11 22:15:49 symfony [info] {sfPHPView} Render "/home/tangentau/NetBeansProjects/sfproject/apps/frontend/templates/layout.php"
+Mar 11 22:15:49 symfony [info] {sfWebResponse} Send status "HTTP/1.1 200 OK"
+Mar 11 22:15:49 symfony [info] {sfWebResponse} Send header "Content-Type: text/html; charset=utf-8"
+Mar 11 22:15:49 symfony [info] {sfWebDebugLogger} Configuration 2.06 ms (9)
+Mar 11 22:15:49 symfony [info] {sfWebDebugLogger} Factories 49.71 ms (1)
+Mar 11 22:15:49 symfony [info] {sfWebDebugLogger} Action "testmodule/edit" 40.18 ms (1)
+Mar 11 22:15:49 symfony [info] {sfWebDebugLogger} View "Success" for "testmodule/edit" 22.19 ms (1)
+Mar 11 22:15:49 symfony [info] {sfWebDebugLogger} Partial "testmodule/_form" 7.54 ms (1)
+Mar 11 22:15:49 symfony [info] {sfWebResponse} Send content (68533 o)
+Mar 11 22:15:55 symfony [info] {sfPatternRouting} Match route "default" (/:module/:action/*) for /testmodule/update/id/1 with parameters array (  'module' => 'testmodule',  'action' => 'update',  'id' => '1',)
+Mar 11 22:15:55 symfony [info] {sfFilterChain} Executing filter "sfRenderingFilter"
+Mar 11 22:15:55 symfony [info] {sfFilterChain} Executing filter "sfExecutionFilter"
+Mar 11 22:15:55 symfony [info] {testmoduleActions} Call "testmoduleActions->executeUpdate()"
+Mar 11 22:15:55 symfony [debug] {sfPropelLogger} time:  0.000 sec | slow:  NO | mem:    7.5 MB | mempeak:    7.5 MB | memdelta:      0.0 B | SET NAMES 'utf8'
+Mar 11 22:15:55 symfony [debug] {sfPropelLogger} time:  0.000 sec | slow:  NO | mem:    8.0 MB | mempeak:    8.0 MB | memdelta:      0.0 B | SELECT sf_test.ID, sf_test.NAME FROM `sf_test` WHERE sf_test.ID='1'
+Mar 11 22:15:55 symfony [debug] {sfPropelLogger} time:  0.008 sec | slow:  NO | mem:    9.5 MB | mempeak:    9.5 MB | memdelta:      0.0 B | SELECT COUNT(*) FROM `sf_test` WHERE sf_test.ID='1'
+Mar 11 22:15:55 symfony [debug] {sfPropelLogger} time:  0.044 sec | slow:  NO | mem:    9.8 MB | mempeak:    9.8 MB | memdelta:      0.0 B | UPDATE sf_test SET `NAME`='testNyaaa!!! :)))' WHERE sf_test.ID=1
+Mar 11 22:15:55 symfony [info] {sfFrontWebController} Redirect to "http://localhost:8080/frontend_dev.php/testmodule/edit/id/1"
+Mar 11 22:15:55 symfony [info] {sfWebResponse} Send status "HTTP/1.1 302 Found"
+Mar 11 22:15:55 symfony [info] {sfWebResponse} Send header "Location: http://localhost:8080/frontend_dev.php/testmodule/edit/id/1"
+Mar 11 22:15:55 symfony [info] {sfWebResponse} Send header "Content-Type: text/html; charset=utf-8"
+Mar 11 22:15:55 symfony [info] {sfWebDebugLogger} Configuration 2.10 ms (8)
+Mar 11 22:15:55 symfony [info] {sfWebDebugLogger} Factories 51.95 ms (1)
+Mar 11 22:15:55 symfony [info] {sfWebDebugLogger} Action "testmodule/update" 135.23 ms (1)
+Mar 11 22:15:55 symfony [info] {sfWebResponse} Send content (130 o)
+Mar 11 22:15:56 symfony [info] {sfPatternRouting} Match route "default" (/:module/:action/*) for /testmodule/edit/id/1 with parameters array (  'module' => 'testmodule',  'action' => 'edit',  'id' => '1',)
+Mar 11 22:15:56 symfony [info] {sfFilterChain} Executing filter "sfRenderingFilter"
+Mar 11 22:15:56 symfony [info] {sfFilterChain} Executing filter "sfExecutionFilter"
+Mar 11 22:15:56 symfony [info] {testmoduleActions} Call "testmoduleActions->executeEdit()"
+Mar 11 22:15:56 symfony [debug] {sfPropelLogger} time:  0.001 sec | slow:  NO | mem:    7.5 MB | mempeak:    7.5 MB | memdelta:      0.0 B | SET NAMES 'utf8'
+Mar 11 22:15:56 symfony [debug] {sfPropelLogger} time:  0.001 sec | slow:  NO | mem:    8.0 MB | mempeak:    8.0 MB | memdelta:      0.0 B | SELECT sf_test.ID, sf_test.NAME FROM `sf_test` WHERE sf_test.ID='1'
+Mar 11 22:15:56 symfony [info] {sfPHPView} Render "/home/tangentau/NetBeansProjects/sfproject/apps/frontend/modules/testmodule/templates/editSuccess.php"
+Mar 11 22:15:56 symfony [info] {sfPartialView} Render "/home/tangentau/NetBeansProjects/sfproject/apps/frontend/modules/testmodule/templates/_form.php"
+Mar 11 22:15:56 symfony [info] {sfPHPView} Decorate content with "/home/tangentau/NetBeansProjects/sfproject/apps/frontend/templates/layout.php"
+Mar 11 22:15:56 symfony [info] {sfPHPView} Render "/home/tangentau/NetBeansProjects/sfproject/apps/frontend/templates/layout.php"
+Mar 11 22:15:56 symfony [info] {sfWebResponse} Send status "HTTP/1.1 200 OK"
+Mar 11 22:15:56 symfony [info] {sfWebResponse} Send header "Content-Type: text/html; charset=utf-8"
+Mar 11 22:15:56 symfony [info] {sfWebDebugLogger} Configuration 2.58 ms (9)
+Mar 11 22:15:56 symfony [info] {sfWebDebugLogger} Factories 52.09 ms (1)
+Mar 11 22:15:56 symfony [info] {sfWebDebugLogger} Action "testmodule/edit" 55.78 ms (1)
+Mar 11 22:15:56 symfony [info] {sfWebDebugLogger} View "Success" for "testmodule/edit" 21.12 ms (1)
+Mar 11 22:15:56 symfony [info] {sfWebDebugLogger} Partial "testmodule/_form" 7.41 ms (1)
+Mar 11 22:15:56 symfony [info] {sfWebResponse} Send content (68533 o)
+Mar 11 22:15:57 symfony [info] {sfPatternRouting} Match route "default_index" (/:module) for /testmodule with parameters array (  'module' => 'testmodule',  'action' => 'index',)
+Mar 11 22:15:57 symfony [info] {sfFilterChain} Executing filter "sfRenderingFilter"
+Mar 11 22:15:57 symfony [info] {sfFilterChain} Executing filter "sfExecutionFilter"
+Mar 11 22:15:57 symfony [info] {testmoduleActions} Call "testmoduleActions->executeIndex()"
+Mar 11 22:15:57 symfony [debug] {sfPropelLogger} time:  0.000 sec | slow:  NO | mem:    7.5 MB | mempeak:    7.5 MB | memdelta:      0.0 B | SET NAMES 'utf8'
+Mar 11 22:15:57 symfony [debug] {sfPropelLogger} time:  0.001 sec | slow:  NO | mem:    8.0 MB | mempeak:    8.0 MB | memdelta:      0.0 B | SELECT sf_test.ID, sf_test.NAME FROM `sf_test`
+Mar 11 22:15:57 symfony [info] {sfPHPView} Render "/home/tangentau/NetBeansProjects/sfproject/apps/frontend/modules/testmodule/templates/indexSuccess.php"
+Mar 11 22:15:57 symfony [info] {sfPHPView} Decorate content with "/home/tangentau/NetBeansProjects/sfproject/apps/frontend/templates/layout.php"
+Mar 11 22:15:57 symfony [info] {sfPHPView} Render "/home/tangentau/NetBeansProjects/sfproject/apps/frontend/templates/layout.php"
+Mar 11 22:15:57 symfony [info] {sfWebResponse} Send status "HTTP/1.1 200 OK"
+Mar 11 22:15:57 symfony [info] {sfWebResponse} Send header "Content-Type: text/html; charset=utf-8"
+Mar 11 22:15:57 symfony [info] {sfWebDebugLogger} Configuration 2.40 ms (9)
+Mar 11 22:15:57 symfony [info] {sfWebDebugLogger} Factories 52.93 ms (1)
+Mar 11 22:15:57 symfony [info] {sfWebDebugLogger} Action "testmodule/index" 38.48 ms (1)
+Mar 11 22:15:57 symfony [info] {sfWebDebugLogger} View "Success" for "testmodule/index" 23.00 ms (1)
+Mar 11 22:15:57 symfony [info] {sfWebResponse} Send content (61436 o)
+Mar 11 22:55:48 symfony [info] {sfPatternRouting} Match route "default_index" (/:module) for /testmodule with parameters array (  'module' => 'testmodule',  'action' => 'index',)
+Mar 11 22:55:48 symfony [info] {myUser} Automatic user logout due to timeout
+Mar 11 22:55:48 symfony [info] {myUser} User is not authenticated
+Mar 11 22:55:48 symfony [info] {sfFilterChain} Executing filter "sfRenderingFilter"
+Mar 11 22:55:48 symfony [info] {sfFilterChain} Executing filter "sfExecutionFilter"
+Mar 11 22:55:48 symfony [info] {testmoduleActions} Call "testmoduleActions->executeIndex()"
+Mar 11 22:55:49 symfony [debug] {sfPropelLogger} time:  0.029 sec | slow:  NO | mem:    7.5 MB | mempeak:    7.5 MB | memdelta:      0.0 B | SET NAMES 'utf8'
+Mar 11 22:55:49 symfony [debug] {sfPropelLogger} time:  0.043 sec | slow:  NO | mem:    8.0 MB | mempeak:    8.0 MB | memdelta:      0.0 B | SELECT sf_test.ID, sf_test.NAME FROM `sf_test`
+Mar 11 22:55:49 symfony [info] {sfPHPView} Render "/home/tangentau/NetBeansProjects/sfproject/apps/frontend/modules/testmodule/templates/indexSuccess.php"
+Mar 11 22:55:49 symfony [info] {sfPHPView} Decorate content with "/home/tangentau/NetBeansProjects/sfproject/apps/frontend/templates/layout.php"
+Mar 11 22:55:49 symfony [info] {sfPHPView} Render "/home/tangentau/NetBeansProjects/sfproject/apps/frontend/templates/layout.php"
+Mar 11 22:55:49 symfony [info] {sfWebResponse} Send status "HTTP/1.1 200 OK"
+Mar 11 22:55:49 symfony [info] {sfWebResponse} Send header "Content-Type: text/html; charset=utf-8"
+Mar 11 22:55:49 symfony [info] {sfWebDebugLogger} Configuration 3.14 ms (9)
+Mar 11 22:55:49 symfony [info] {sfWebDebugLogger} Factories 267.12 ms (1)
+Mar 11 22:55:49 symfony [info] {sfWebDebugLogger} Action "testmodule/index" 717.17 ms (1)
+Mar 11 22:55:49 symfony [info] {sfWebDebugLogger} View "Success" for "testmodule/index" 186.40 ms (1)
+Mar 11 22:55:49 symfony [info] {sfWebResponse} Send content (64903 o)
+Mar 12 21:02:18 symfony [info] {sfPatternRouting} Match route "default_index" (/:module) for /testmodule with parameters array (  'module' => 'testmodule',  'action' => 'index',)
+Mar 12 21:02:18 symfony [info] {sfFilterChain} Executing filter "sfRenderingFilter"
+Mar 12 21:02:18 symfony [info] {sfFilterChain} Executing filter "sfExecutionFilter"
+Mar 12 21:02:18 symfony [info] {testmoduleActions} Call "testmoduleActions->executeIndex()"
+Mar 12 21:02:19 symfony [debug] {sfPropelLogger} time:  0.044 sec | slow:  NO | mem:    7.5 MB | mempeak:    7.5 MB | memdelta:      0.0 B | SET NAMES 'utf8'
+Mar 12 21:02:19 symfony [debug] {sfPropelLogger} time:  0.027 sec | slow:  NO | mem:    8.0 MB | mempeak:    8.0 MB | memdelta:      0.0 B | SELECT sf_test.ID, sf_test.NAME FROM `sf_test`
+Mar 12 21:02:19 symfony [info] {sfPHPView} Render "/home/tangentau/NetBeansProjects/sfproject/apps/frontend/modules/testmodule/templates/indexSuccess.php"
+Mar 12 21:02:19 symfony [info] {sfPHPView} Decorate content with "/home/tangentau/NetBeansProjects/sfproject/apps/frontend/templates/layout.php"
+Mar 12 21:02:19 symfony [info] {sfPHPView} Render "/home/tangentau/NetBeansProjects/sfproject/apps/frontend/templates/layout.php"
+Mar 12 21:02:19 symfony [info] {sfWebResponse} Send status "HTTP/1.1 200 OK"
+Mar 12 21:02:19 symfony [info] {sfWebResponse} Send header "Content-Type: text/html; charset=utf-8"
+Mar 12 21:02:19 symfony [info] {sfWebDebugLogger} Configuration 3.12 ms (9)
+Mar 12 21:02:19 symfony [info] {sfWebDebugLogger} Factories 358.48 ms (1)
+Mar 12 21:02:19 symfony [info] {sfWebDebugLogger} Action "testmodule/index" 617.96 ms (1)
+Mar 12 21:02:19 symfony [info] {sfWebDebugLogger} View "Success" for "testmodule/index" 136.53 ms (1)
+Mar 12 21:02:19 symfony [info] {sfWebResponse} Send content (60957 o)
+Mar 12 21:02:22 symfony [info] {sfPatternRouting} Match route "default" (/:module/:action/*) for /testmodule/new with parameters array (  'module' => 'testmodule',  'action' => 'new',)
+Mar 12 21:02:22 symfony [info] {sfFilterChain} Executing filter "sfRenderingFilter"
+Mar 12 21:02:22 symfony [info] {sfFilterChain} Executing filter "sfExecutionFilter"
+Mar 12 21:02:22 symfony [info] {testmoduleActions} Call "testmoduleActions->executeNew()"
+Mar 12 21:02:22 symfony [info] {sfPHPView} Render "/home/tangentau/NetBeansProjects/sfproject/apps/frontend/modules/testmodule/templates/newSuccess.php"
+Mar 12 21:02:22 symfony [info] {sfPartialView} Render "/home/tangentau/NetBeansProjects/sfproject/apps/frontend/modules/testmodule/templates/_form.php"
+Mar 12 21:02:22 symfony [info] {sfPHPView} Decorate content with "/home/tangentau/NetBeansProjects/sfproject/apps/frontend/templates/layout.php"
+Mar 12 21:02:22 symfony [info] {sfPHPView} Render "/home/tangentau/NetBeansProjects/sfproject/apps/frontend/templates/layout.php"
+Mar 12 21:02:22 symfony [info] {sfWebResponse} Send status "HTTP/1.1 200 OK"
+Mar 12 21:02:22 symfony [info] {sfWebResponse} Send header "Content-Type: text/html; charset=utf-8"
+Mar 12 21:02:22 symfony [info] {sfWebDebugLogger} Configuration 1.56 ms (9)
+Mar 12 21:02:22 symfony [info] {sfWebDebugLogger} Factories 53.41 ms (1)
+Mar 12 21:02:22 symfony [info] {sfWebDebugLogger} Action "testmodule/new" 163.28 ms (1)
+Mar 12 21:02:22 symfony [info] {sfWebDebugLogger} View "Success" for "testmodule/new" 72.91 ms (1)
+Mar 12 21:02:22 symfony [info] {sfWebDebugLogger} Partial "testmodule/_form" 15.29 ms (1)
+Mar 12 21:02:22 symfony [info] {sfWebResponse} Send content (48831 o)
+Mar 12 21:02:27 symfony [info] {sfPatternRouting} Match route "default" (/:module/:action/*) for /testmodule/create with parameters array (  'module' => 'testmodule',  'action' => 'create',)
+Mar 12 21:02:27 symfony [info] {sfFilterChain} Executing filter "sfRenderingFilter"
+Mar 12 21:02:27 symfony [info] {sfFilterChain} Executing filter "sfExecutionFilter"
+Mar 12 21:02:27 symfony [info] {testmoduleActions} Call "testmoduleActions->executeCreate()"
+Mar 12 21:02:27 symfony [debug] {sfPropelLogger} time:  0.012 sec | slow:  NO | mem:    9.0 MB | mempeak:    9.0 MB | memdelta:      0.0 B | SET NAMES 'utf8'
+Mar 12 21:02:27 symfony [debug] {sfPropelLogger} time:  0.070 sec | slow:  NO | mem:    9.5 MB | mempeak:    9.5 MB | memdelta:      0.0 B | INSERT INTO sf_test (`ID`,`NAME`) VALUES (NULL,'дрдшшр')
+Mar 12 21:02:27 symfony [info] {sfFrontWebController} Redirect to "http://localhost:8080/frontend_dev.php/testmodule/edit/id/3"
+Mar 12 21:02:27 symfony [info] {sfWebResponse} Send status "HTTP/1.1 302 Found"
+Mar 12 21:02:27 symfony [info] {sfWebResponse} Send header "Location: http://localhost:8080/frontend_dev.php/testmodule/edit/id/3"
+Mar 12 21:02:27 symfony [info] {sfWebResponse} Send header "Content-Type: text/html; charset=utf-8"
+Mar 12 21:02:27 symfony [info] {sfWebDebugLogger} Configuration 1.98 ms (8)
+Mar 12 21:02:27 symfony [info] {sfWebDebugLogger} Factories 50.90 ms (1)
+Mar 12 21:02:27 symfony [info] {sfWebDebugLogger} Action "testmodule/create" 236.04 ms (1)
+Mar 12 21:02:27 symfony [info] {sfWebResponse} Send content (130 o)
+Mar 12 21:02:28 symfony [info] {sfPatternRouting} Match route "default" (/:module/:action/*) for /testmodule/edit/id/3 with parameters array (  'module' => 'testmodule',  'action' => 'edit',  'id' => '3',)
+Mar 12 21:02:28 symfony [info] {sfFilterChain} Executing filter "sfRenderingFilter"
+Mar 12 21:02:28 symfony [info] {sfFilterChain} Executing filter "sfExecutionFilter"
+Mar 12 21:02:28 symfony [info] {testmoduleActions} Call "testmoduleActions->executeEdit()"
+Mar 12 21:02:28 symfony [debug] {sfPropelLogger} time:  0.003 sec | slow:  NO | mem:    7.5 MB | mempeak:    7.5 MB | memdelta:      0.0 B | SET NAMES 'utf8'
+Mar 12 21:02:28 symfony [debug] {sfPropelLogger} time:  0.058 sec | slow:  NO | mem:    8.0 MB | mempeak:    8.0 MB | memdelta:      0.0 B | SELECT sf_test.ID, sf_test.NAME FROM `sf_test` WHERE sf_test.ID='3'
+Mar 12 21:02:28 symfony [info] {sfPHPView} Render "/home/tangentau/NetBeansProjects/sfproject/apps/frontend/modules/testmodule/templates/editSuccess.php"
+Mar 12 21:02:28 symfony [info] {sfPartialView} Render "/home/tangentau/NetBeansProjects/sfproject/apps/frontend/modules/testmodule/templates/_form.php"
+Mar 12 21:02:28 symfony [info] {sfPHPView} Decorate content with "/home/tangentau/NetBeansProjects/sfproject/apps/frontend/templates/layout.php"
+Mar 12 21:02:28 symfony [info] {sfPHPView} Render "/home/tangentau/NetBeansProjects/sfproject/apps/frontend/templates/layout.php"
+Mar 12 21:02:28 symfony [info] {sfWebResponse} Send status "HTTP/1.1 200 OK"
+Mar 12 21:02:28 symfony [info] {sfWebResponse} Send header "Content-Type: text/html; charset=utf-8"
+Mar 12 21:02:28 symfony [info] {sfWebDebugLogger} Configuration 2.22 ms (9)
+Mar 12 21:02:28 symfony [info] {sfWebDebugLogger} Factories 50.35 ms (1)
+Mar 12 21:02:28 symfony [info] {sfWebDebugLogger} Action "testmodule/edit" 104.27 ms (1)
+Mar 12 21:02:28 symfony [info] {sfWebDebugLogger} View "Success" for "testmodule/edit" 30.01 ms (1)
+Mar 12 21:02:28 symfony [info] {sfWebDebugLogger} Partial "testmodule/_form" 7.72 ms (1)
+Mar 12 21:02:28 symfony [info] {sfWebResponse} Send content (68415 o)
+Mar 12 21:02:32 symfony [info] {sfPatternRouting} Match route "default_index" (/:module) for /testmodule with parameters array (  'module' => 'testmodule',  'action' => 'index',)
+Mar 12 21:02:32 symfony [info] {sfFilterChain} Executing filter "sfRenderingFilter"
+Mar 12 21:02:32 symfony [info] {sfFilterChain} Executing filter "sfExecutionFilter"
+Mar 12 21:02:32 symfony [info] {testmoduleActions} Call "testmoduleActions->executeIndex()"
+Mar 12 21:02:32 symfony [debug] {sfPropelLogger} time:  0.000 sec | slow:  NO | mem:    7.5 MB | mempeak:    7.5 MB | memdelta:      0.0 B | SET NAMES 'utf8'
+Mar 12 21:02:32 symfony [debug] {sfPropelLogger} time:  0.072 sec | slow:  NO | mem:    8.0 MB | mempeak:    8.0 MB | memdelta:      0.0 B | SELECT sf_test.ID, sf_test.NAME FROM `sf_test`
+Mar 12 21:02:32 symfony [info] {sfPHPView} Render "/home/tangentau/NetBeansProjects/sfproject/apps/frontend/modules/testmodule/templates/indexSuccess.php"
+Mar 12 21:02:32 symfony [info] {sfPHPView} Decorate content with "/home/tangentau/NetBeansProjects/sfproject/apps/frontend/templates/layout.php"
+Mar 12 21:02:32 symfony [info] {sfPHPView} Render "/home/tangentau/NetBeansProjects/sfproject/apps/frontend/templates/layout.php"
+Mar 12 21:02:32 symfony [info] {sfWebResponse} Send status "HTTP/1.1 200 OK"
+Mar 12 21:02:32 symfony [info] {sfWebResponse} Send header "Content-Type: text/html; charset=utf-8"
+Mar 12 21:02:32 symfony [info] {sfWebDebugLogger} Configuration 2.19 ms (9)
+Mar 12 21:02:32 symfony [info] {sfWebDebugLogger} Factories 54.20 ms (1)
+Mar 12 21:02:32 symfony [info] {sfWebDebugLogger} Action "testmodule/index" 104.75 ms (1)
+Mar 12 21:02:32 symfony [info] {sfWebDebugLogger} View "Success" for "testmodule/index" 13.01 ms (1)
+Mar 12 21:02:32 symfony [info] {sfWebResponse} Send content (61449 o)
+Mar 12 21:29:22 symfony [info] {sfPatternRouting} Match route "default_index" (/:module) for /testmodule with parameters array (  'module' => 'testmodule',  'action' => 'index',)
+Mar 12 21:29:22 symfony [info] {sfFilterChain} Executing filter "sfRenderingFilter"
+Mar 12 21:29:22 symfony [info] {sfFilterChain} Executing filter "sfExecutionFilter"
+Mar 12 21:29:22 symfony [info] {testmoduleActions} Call "testmoduleActions->executeIndex()"
+Mar 12 21:29:22 symfony [debug] {sfPropelLogger} time:  0.000 sec | slow:  NO | mem:    7.5 MB | mempeak:    7.5 MB | memdelta:      0.0 B | SET NAMES 'utf8'
+Mar 12 21:29:22 symfony [debug] {sfPropelLogger} time:  0.001 sec | slow:  NO | mem:    8.0 MB | mempeak:    8.0 MB | memdelta:      0.0 B | SELECT sf_test.ID, sf_test.NAME FROM `sf_test`
+Mar 12 21:29:22 symfony [info] {sfPHPView} Render "/home/tangentau/NetBeansProjects/sfproject/apps/frontend/modules/testmodule/templates/indexSuccess.php"
+Mar 12 21:29:22 symfony [info] {sfPHPView} Decorate content with "/home/tangentau/NetBeansProjects/sfproject/apps/frontend/templates/layout.php"
+Mar 12 21:29:22 symfony [info] {sfPHPView} Render "/home/tangentau/NetBeansProjects/sfproject/apps/frontend/templates/layout.php"
+Mar 12 21:29:22 symfony [info] {sfWebResponse} Send status "HTTP/1.1 200 OK"
+Mar 12 21:29:22 symfony [info] {sfWebResponse} Send header "Content-Type: text/html; charset=utf-8"
+Mar 12 21:29:22 symfony [info] {sfWebDebugLogger} Configuration 3.28 ms (9)
+Mar 12 21:29:22 symfony [info] {sfWebDebugLogger} Factories 261.28 ms (1)
+Mar 12 21:29:22 symfony [info] {sfWebDebugLogger} Action "testmodule/index" 98.24 ms (1)
+Mar 12 21:29:22 symfony [info] {sfWebDebugLogger} View "Success" for "testmodule/index" 66.42 ms (1)
+Mar 12 21:29:22 symfony [info] {sfWebResponse} Send content (60664 o)
+Mar 12 21:29:24 symfony [info] {sfPatternRouting} Match route "default" (/:module/:action/*) for /testmodule/new with parameters array (  'module' => 'testmodule',  'action' => 'new',)
+Mar 12 21:29:24 symfony [info] {sfFilterChain} Executing filter "sfRenderingFilter"
+Mar 12 21:29:24 symfony [info] {sfFilterChain} Executing filter "sfExecutionFilter"
+Mar 12 21:29:24 symfony [info] {testmoduleActions} Call "testmoduleActions->executeNew()"
+Mar 12 21:29:24 symfony [info] {sfPHPView} Render "/home/tangentau/NetBeansProjects/sfproject/apps/frontend/modules/testmodule/templates/newSuccess.php"
+Mar 12 21:29:24 symfony [info] {sfPartialView} Render "/home/tangentau/NetBeansProjects/sfproject/apps/frontend/modules/testmodule/templates/_form.php"
+Mar 12 21:29:24 symfony [info] {sfPHPView} Decorate content with "/home/tangentau/NetBeansProjects/sfproject/apps/frontend/templates/layout.php"
+Mar 12 21:29:24 symfony [info] {sfPHPView} Render "/home/tangentau/NetBeansProjects/sfproject/apps/frontend/templates/layout.php"
+Mar 12 21:29:24 symfony [info] {sfWebResponse} Send status "HTTP/1.1 200 OK"
+Mar 12 21:29:24 symfony [info] {sfWebResponse} Send header "Content-Type: text/html; charset=utf-8"
+Mar 12 21:29:24 symfony [info] {sfWebDebugLogger} Configuration 2.08 ms (9)
+Mar 12 21:29:24 symfony [info] {sfWebDebugLogger} Factories 49.64 ms (1)
+Mar 12 21:29:24 symfony [info] {sfWebDebugLogger} Action "testmodule/new" 130.96 ms (1)
+Mar 12 21:29:24 symfony [info] {sfWebDebugLogger} View "Success" for "testmodule/new" 65.37 ms (1)
+Mar 12 21:29:24 symfony [info] {sfWebDebugLogger} Partial "testmodule/_form" 19.37 ms (1)
+Mar 12 21:29:24 symfony [info] {sfWebResponse} Send content (48831 o)
+Mar 12 21:29:29 symfony [info] {sfPatternRouting} Match route "default" (/:module/:action/*) for /testmodule/create with parameters array (  'module' => 'testmodule',  'action' => 'create',)
+Mar 12 21:29:29 symfony [info] {sfFilterChain} Executing filter "sfRenderingFilter"
+Mar 12 21:29:29 symfony [info] {sfFilterChain} Executing filter "sfExecutionFilter"
+Mar 12 21:29:29 symfony [info] {testmoduleActions} Call "testmoduleActions->executeCreate()"
+Mar 12 21:29:29 symfony [debug] {sfPropelLogger} time:  0.002 sec | slow:  NO | mem:    9.0 MB | mempeak:    9.0 MB | memdelta:      0.0 B | SET NAMES 'utf8'
+Mar 12 21:29:29 symfony [debug] {sfPropelLogger} time:  0.000 sec | slow:  NO | mem:    9.5 MB | mempeak:    9.5 MB | memdelta:      0.0 B | INSERT INTO sf_test (`ID`,`NAME`) VALUES (NULL,'fdgdfgdfвапвап')
+Mar 12 21:29:29 symfony [info] {sfFrontWebController} Redirect to "http://localhost:8080/frontend_dev.php/testmodule/edit/id/1"
+Mar 12 21:29:29 symfony [info] {sfWebResponse} Send status "HTTP/1.1 302 Found"
+Mar 12 21:29:29 symfony [info] {sfWebResponse} Send header "Location: http://localhost:8080/frontend_dev.php/testmodule/edit/id/1"
+Mar 12 21:29:29 symfony [info] {sfWebResponse} Send header "Content-Type: text/html; charset=utf-8"
+Mar 12 21:29:29 symfony [info] {sfWebDebugLogger} Configuration 1.92 ms (8)
+Mar 12 21:29:29 symfony [info] {sfWebDebugLogger} Factories 47.77 ms (1)
+Mar 12 21:29:29 symfony [info] {sfWebDebugLogger} Action "testmodule/create" 79.16 ms (1)
+Mar 12 21:29:29 symfony [info] {sfWebResponse} Send content (130 o)
+Mar 12 21:29:29 symfony [info] {sfPatternRouting} Match route "default" (/:module/:action/*) for /testmodule/edit/id/1 with parameters array (  'module' => 'testmodule',  'action' => 'edit',  'id' => '1',)
+Mar 12 21:29:29 symfony [info] {sfFilterChain} Executing filter "sfRenderingFilter"
+Mar 12 21:29:29 symfony [info] {sfFilterChain} Executing filter "sfExecutionFilter"
+Mar 12 21:29:29 symfony [info] {testmoduleActions} Call "testmoduleActions->executeEdit()"
+Mar 12 21:29:29 symfony [debug] {sfPropelLogger} time:  0.000 sec | slow:  NO | mem:    7.5 MB | mempeak:    7.5 MB | memdelta:      0.0 B | SET NAMES 'utf8'
+Mar 12 21:29:29 symfony [debug] {sfPropelLogger} time:  0.011 sec | slow:  NO | mem:    8.0 MB | mempeak:    8.0 MB | memdelta:      0.0 B | SELECT sf_test.ID, sf_test.NAME FROM `sf_test` WHERE sf_test.ID='1'
+Mar 12 21:29:29 symfony [info] {sfPHPView} Render "/home/tangentau/NetBeansProjects/sfproject/apps/frontend/modules/testmodule/templates/editSuccess.php"
+Mar 12 21:29:29 symfony [info] {sfPartialView} Render "/home/tangentau/NetBeansProjects/sfproject/apps/frontend/modules/testmodule/templates/_form.php"
+Mar 12 21:29:29 symfony [info] {sfPHPView} Decorate content with "/home/tangentau/NetBeansProjects/sfproject/apps/frontend/templates/layout.php"
+Mar 12 21:29:29 symfony [info] {sfPHPView} Render "/home/tangentau/NetBeansProjects/sfproject/apps/frontend/templates/layout.php"
+Mar 12 21:29:29 symfony [info] {sfWebResponse} Send status "HTTP/1.1 200 OK"
+Mar 12 21:29:29 symfony [info] {sfWebResponse} Send header "Content-Type: text/html; charset=utf-8"
+Mar 12 21:29:29 symfony [info] {sfWebDebugLogger} Configuration 3.34 ms (9)
+Mar 12 21:29:29 symfony [info] {sfWebDebugLogger} Factories 35.72 ms (1)
+Mar 12 21:29:29 symfony [info] {sfWebDebugLogger} Action "testmodule/edit" 48.67 ms (1)
+Mar 12 21:29:29 symfony [info] {sfWebDebugLogger} View "Success" for "testmodule/edit" 27.94 ms (1)
+Mar 12 21:29:29 symfony [info] {sfWebDebugLogger} Partial "testmodule/_form" 6.20 ms (1)
+Mar 12 21:29:29 symfony [info] {sfWebResponse} Send content (68428 o)
+Mar 12 21:29:31 symfony [info] {sfPatternRouting} Match route "default_index" (/:module) for /testmodule with parameters array (  'module' => 'testmodule',  'action' => 'index',)
+Mar 12 21:29:31 symfony [info] {sfFilterChain} Executing filter "sfRenderingFilter"
+Mar 12 21:29:31 symfony [info] {sfFilterChain} Executing filter "sfExecutionFilter"
+Mar 12 21:29:31 symfony [info] {testmoduleActions} Call "testmoduleActions->executeIndex()"
+Mar 12 21:29:32 symfony [debug] {sfPropelLogger} time:  0.007 sec | slow:  NO | mem:    7.5 MB | mempeak:    7.5 MB | memdelta:      0.0 B | SET NAMES 'utf8'
+Mar 12 21:29:32 symfony [debug] {sfPropelLogger} time:  0.002 sec | slow:  NO | mem:    8.0 MB | mempeak:    8.0 MB | memdelta:      0.0 B | SELECT sf_test.ID, sf_test.NAME FROM `sf_test`
+Mar 12 21:29:32 symfony [info] {sfPHPView} Render "/home/tangentau/NetBeansProjects/sfproject/apps/frontend/modules/testmodule/templates/indexSuccess.php"
+Mar 12 21:29:32 symfony [info] {sfPHPView} Decorate content with "/home/tangentau/NetBeansProjects/sfproject/apps/frontend/templates/layout.php"
+Mar 12 21:29:32 symfony [info] {sfPHPView} Render "/home/tangentau/NetBeansProjects/sfproject/apps/frontend/templates/layout.php"
+Mar 12 21:29:32 symfony [info] {sfWebResponse} Send status "HTTP/1.1 200 OK"
+Mar 12 21:29:32 symfony [info] {sfWebResponse} Send header "Content-Type: text/html; charset=utf-8"
+Mar 12 21:29:32 symfony [info] {sfWebDebugLogger} Configuration 12.54 ms (9)
+Mar 12 21:29:32 symfony [info] {sfWebDebugLogger} Factories 63.52 ms (1)
+Mar 12 21:29:32 symfony [info] {sfWebDebugLogger} Action "testmodule/index" 45.31 ms (1)
+Mar 12 21:29:32 symfony [info] {sfWebDebugLogger} View "Success" for "testmodule/index" 31.12 ms (1)
+Mar 12 21:29:32 symfony [info] {sfWebResponse} Send content (61174 o)
+Mar 12 23:02:52 symfony [info] {sfPatternRouting} Connect sfRoute "sf_guard_signin" (/login)
+Mar 12 23:02:52 symfony [info] {sfPatternRouting} Connect sfRoute "sf_guard_signout" (/logout)
+Mar 12 23:02:52 symfony [info] {sfPatternRouting} Connect sfRoute "sf_guard_password" (/request_password)
+Mar 12 23:02:52 symfony [info] {sfPatternRouting} Match route "default_index" (/:module) for /testmodule with parameters array (  'module' => 'testmodule',  'action' => 'index',)
+Mar 12 23:02:52 symfony [info] {sfFilterChain} Executing filter "sfRenderingFilter"
+Mar 12 23:02:52 symfony [info] {sfFilterChain} Executing filter "sfBasicSecurityFilter"
+Mar 12 23:02:52 symfony [info] {sfBasicSecurityFilter} Action "testmodule/index" requires authentication, forwarding to "default/login"
+Mar 12 23:02:52 symfony [info] {sfFilterChain} Executing filter "sfRenderingFilter"
+Mar 12 23:02:52 symfony [info] {sfFilterChain} Executing filter "sfBasicSecurityFilter"
+Mar 12 23:02:52 symfony [info] {sfFilterChain} Executing filter "sfExecutionFilter"
+Mar 12 23:02:52 symfony [info] {defaultActions} Call "defaultActions->executeLogin()"
+Mar 12 23:02:53 symfony [info] {sfPHPView} Render "/lib/vendor/symfony/lib/controller/default/templates/loginSuccess.php"
+Mar 12 23:02:53 symfony [info] {sfPHPView} Decorate content with "/lib/vendor/symfony/lib/controller/default/templates/defaultLayout.php"
+Mar 12 23:02:53 symfony [info] {sfPHPView} Render "/lib/vendor/symfony/lib/controller/default/templates/defaultLayout.php"
+Mar 12 23:02:53 symfony [info] {sfWebResponse} Send status "HTTP/1.1 200 OK"
+Mar 12 23:02:53 symfony [info] {sfWebResponse} Send header "Content-Type: text/html; charset=utf-8"
+Mar 12 23:02:53 symfony [info] {sfWebDebugLogger} Configuration 419.84 ms (12)
+Mar 12 23:02:53 symfony [info] {sfWebDebugLogger} Factories 434.82 ms (1)
+Mar 12 23:02:53 symfony [info] {sfWebDebugLogger} Action "default/login" 0.65 ms (1)
+Mar 12 23:02:53 symfony [info] {sfWebDebugLogger} View "Success" for "default/login" 114.72 ms (1)
+Mar 12 23:02:53 symfony [info] {sfWebResponse} Send content (70395 o)
+Mar 12 23:03:04 symfony [info] {sfPatternRouting} Connect sfRoute "sf_guard_signin" (/login)
+Mar 12 23:03:04 symfony [info] {sfPatternRouting} Connect sfRoute "sf_guard_signout" (/logout)
+Mar 12 23:03:04 symfony [info] {sfPatternRouting} Connect sfRoute "sf_guard_password" (/request_password)
+Mar 12 23:03:04 symfony [info] {sfPatternRouting} Match route "default" (/:module/:action/*) for /testmodule/login with parameters array (  'module' => 'testmodule',  'action' => 'login',)
+Mar 12 23:03:04 symfony [info] {sfFrontWebController} Action "testmodule/login" does not exist
+Mar 12 23:03:04 symfony [err] {sfError404Exception} Action "testmodule/login" does not exist.
+Mar 12 23:03:04 symfony [info] {sfWebResponse} Send status "HTTP/1.1 404 Not Found"
+Mar 12 23:03:04 symfony [info] {sfWebResponse} Send header "Content-Type: text/html; charset=utf-8"
+Mar 12 23:03:04 symfony [info] {sfWebDebugLogger} Configuration 0.95 ms (5)
+Mar 12 23:03:04 symfony [info] {sfWebDebugLogger} Factories 35.64 ms (1)
+Mar 12 23:03:08 symfony [info] {sfPatternRouting} Connect sfRoute "sf_guard_signin" (/login)
+Mar 12 23:03:08 symfony [info] {sfPatternRouting} Connect sfRoute "sf_guard_signout" (/logout)
+Mar 12 23:03:08 symfony [info] {sfPatternRouting} Connect sfRoute "sf_guard_password" (/request_password)
+Mar 12 23:03:08 symfony [info] {sfPatternRouting} Match route "default" (/:module/:action/*) for /default/login with parameters array (  'module' => 'default',  'action' => 'login',)
+Mar 12 23:03:08 symfony [info] {sfFilterChain} Executing filter "sfRenderingFilter"
+Mar 12 23:03:08 symfony [info] {sfFilterChain} Executing filter "sfBasicSecurityFilter"
+Mar 12 23:03:08 symfony [info] {sfFilterChain} Executing filter "sfExecutionFilter"
+Mar 12 23:03:08 symfony [info] {defaultActions} Call "defaultActions->executeLogin()"
+Mar 12 23:03:08 symfony [info] {sfPHPView} Render "/lib/vendor/symfony/lib/controller/default/templates/loginSuccess.php"
+Mar 12 23:03:08 symfony [info] {sfPHPView} Decorate content with "/lib/vendor/symfony/lib/controller/default/templates/defaultLayout.php"
+Mar 12 23:03:08 symfony [info] {sfPHPView} Render "/lib/vendor/symfony/lib/controller/default/templates/defaultLayout.php"
+Mar 12 23:03:08 symfony [info] {sfWebResponse} Send status "HTTP/1.1 200 OK"
+Mar 12 23:03:08 symfony [info] {sfWebResponse} Send header "Content-Type: text/html; charset=utf-8"
+Mar 12 23:03:08 symfony [info] {sfWebDebugLogger} Configuration 2.16 ms (9)
+Mar 12 23:03:08 symfony [info] {sfWebDebugLogger} Factories 43.09 ms (1)
+Mar 12 23:03:08 symfony [info] {sfWebDebugLogger} Action "default/login" 0.25 ms (1)
+Mar 12 23:03:08 symfony [info] {sfWebDebugLogger} View "Success" for "default/login" 13.44 ms (1)
+Mar 12 23:03:08 symfony [info] {sfWebResponse} Send content (55956 o)
+Mar 12 23:03:15 symfony [info] {sfPatternRouting} Connect sfRoute "sf_guard_signin" (/login)
+Mar 12 23:03:15 symfony [info] {sfPatternRouting} Connect sfRoute "sf_guard_signout" (/logout)
+Mar 12 23:03:15 symfony [info] {sfPatternRouting} Connect sfRoute "sf_guard_password" (/request_password)
+Mar 12 23:03:15 symfony [info] {sfPatternRouting} Match route "sf_guard_signin" (/login) for /login with parameters array (  'module' => 'sfGuardAuth',  'action' => 'signin',)
+Mar 12 23:03:15 symfony [info] {sfFilterChain} Executing filter "sfRenderingFilter"
+Mar 12 23:03:15 symfony [info] {sfFilterChain} Executing filter "sfExecutionFilter"
+Mar 12 23:03:15 symfony [info] {sfGuardAuthActions} Call "sfGuardAuthActions->executeSignin()"
+Mar 12 23:03:15 symfony [info] {sfFrontWebController} Redirect to "http://localhost:8080/frontend_dev.php/default/login"
+Mar 12 23:03:15 symfony [info] {sfWebResponse} Send status "HTTP/1.1 302 Found"
+Mar 12 23:03:15 symfony [info] {sfWebResponse} Send header "Location: http://localhost:8080/frontend_dev.php/default/login"
+Mar 12 23:03:15 symfony [info] {sfWebResponse} Send header "Content-Type: text/html; charset=utf-8"
+Mar 12 23:03:15 symfony [info] {sfWebDebugLogger} Configuration 20.42 ms (9)
+Mar 12 23:03:15 symfony [info] {sfWebDebugLogger} Factories 42.74 ms (1)
+Mar 12 23:03:15 symfony [info] {sfWebDebugLogger} Action "sfGuardAuth/signin" 48.76 ms (1)
+Mar 12 23:03:15 symfony [info] {sfWebResponse} Send content (123 o)
+Mar 12 23:03:15 symfony [info] {sfPatternRouting} Connect sfRoute "sf_guard_signin" (/login)
+Mar 12 23:03:15 symfony [info] {sfPatternRouting} Connect sfRoute "sf_guard_signout" (/logout)
+Mar 12 23:03:15 symfony [info] {sfPatternRouting} Connect sfRoute "sf_guard_password" (/request_password)
+Mar 12 23:03:15 symfony [info] {sfPatternRouting} Match route "default" (/:module/:action/*) for /default/login with parameters array (  'module' => 'default',  'action' => 'login',)
+Mar 12 23:03:15 symfony [info] {sfFilterChain} Executing filter "sfRenderingFilter"
+Mar 12 23:03:15 symfony [info] {sfFilterChain} Executing filter "sfBasicSecurityFilter"
+Mar 12 23:03:15 symfony [info] {sfFilterChain} Executing filter "sfExecutionFilter"
+Mar 12 23:03:15 symfony [info] {defaultActions} Call "defaultActions->executeLogin()"
+Mar 12 23:03:15 symfony [info] {sfPHPView} Render "/lib/vendor/symfony/lib/controller/default/templates/loginSuccess.php"
+Mar 12 23:03:15 symfony [info] {sfPHPView} Decorate content with "/lib/vendor/symfony/lib/controller/default/templates/defaultLayout.php"
+Mar 12 23:03:15 symfony [info] {sfPHPView} Render "/lib/vendor/symfony/lib/controller/default/templates/defaultLayout.php"
+Mar 12 23:03:15 symfony [info] {sfWebResponse} Send status "HTTP/1.1 200 OK"
+Mar 12 23:03:15 symfony [info] {sfWebResponse} Send header "Content-Type: text/html; charset=utf-8"
+Mar 12 23:03:15 symfony [info] {sfWebDebugLogger} Configuration 1.75 ms (9)
+Mar 12 23:03:15 symfony [info] {sfWebDebugLogger} Factories 34.05 ms (1)
+Mar 12 23:03:15 symfony [info] {sfWebDebugLogger} Action "default/login" 0.25 ms (1)
+Mar 12 23:03:15 symfony [info] {sfWebDebugLogger} View "Success" for "default/login" 16.66 ms (1)
+Mar 12 23:03:15 symfony [info] {sfWebResponse} Send content (55989 o)
+Mar 12 23:03:43 symfony [info] {sfPatternRouting} Connect sfRoute "sf_guard_signin" (/login)
+Mar 12 23:03:43 symfony [info] {sfPatternRouting} Connect sfRoute "sf_guard_signout" (/logout)
+Mar 12 23:03:43 symfony [info] {sfPatternRouting} Connect sfRoute "sf_guard_password" (/request_password)
+Mar 12 23:03:43 symfony [info] {sfPatternRouting} Match route "sf_guard_signin" (/login) for /login with parameters array (  'module' => 'sfGuardAuth',  'action' => 'signin',)
+Mar 12 23:03:43 symfony [info] {sfFilterChain} Executing filter "sfRenderingFilter"
+Mar 12 23:03:43 symfony [info] {sfFilterChain} Executing filter "sfExecutionFilter"
+Mar 12 23:03:43 symfony [info] {sfGuardAuthActions} Call "sfGuardAuthActions->executeSignin()"
+Mar 12 23:03:43 symfony [info] {sfFrontWebController} Redirect to "http://localhost:8080/frontend_dev.php/default/login"
+Mar 12 23:03:43 symfony [info] {sfWebResponse} Send status "HTTP/1.1 302 Found"
+Mar 12 23:03:43 symfony [info] {sfWebResponse} Send header "Location: http://localhost:8080/frontend_dev.php/default/login"
+Mar 12 23:03:43 symfony [info] {sfWebResponse} Send header "Content-Type: text/html; charset=utf-8"
+Mar 12 23:03:43 symfony [info] {sfWebDebugLogger} Configuration 1.54 ms (8)
+Mar 12 23:03:43 symfony [info] {sfWebDebugLogger} Factories 159.17 ms (1)
+Mar 12 23:03:43 symfony [info] {sfWebDebugLogger} Action "sfGuardAuth/signin" 15.68 ms (1)
+Mar 12 23:03:43 symfony [info] {sfWebResponse} Send content (123 o)
+Mar 12 23:03:43 symfony [info] {sfPatternRouting} Connect sfRoute "sf_guard_signin" (/login)
+Mar 12 23:03:43 symfony [info] {sfPatternRouting} Connect sfRoute "sf_guard_signout" (/logout)
+Mar 12 23:03:43 symfony [info] {sfPatternRouting} Connect sfRoute "sf_guard_password" (/request_password)
+Mar 12 23:03:43 symfony [info] {sfPatternRouting} Match route "default" (/:module/:action/*) for /default/login with parameters array (  'module' => 'default',  'action' => 'login',)
+Mar 12 23:03:43 symfony [info] {sfFilterChain} Executing filter "sfRenderingFilter"
+Mar 12 23:03:43 symfony [info] {sfFilterChain} Executing filter "sfBasicSecurityFilter"
+Mar 12 23:03:43 symfony [info] {sfFilterChain} Executing filter "sfExecutionFilter"
+Mar 12 23:03:43 symfony [info] {defaultActions} Call "defaultActions->executeLogin()"
+Mar 12 23:03:43 symfony [info] {sfPHPView} Render "/lib/vendor/symfony/lib/controller/default/templates/loginSuccess.php"
+Mar 12 23:03:43 symfony [info] {sfPHPView} Decorate content with "/lib/vendor/symfony/lib/controller/default/templates/defaultLayout.php"
+Mar 12 23:03:43 symfony [info] {sfPHPView} Render "/lib/vendor/symfony/lib/controller/default/templates/defaultLayout.php"
+Mar 12 23:03:43 symfony [info] {sfWebResponse} Send status "HTTP/1.1 200 OK"
+Mar 12 23:03:43 symfony [info] {sfWebResponse} Send header "Content-Type: text/html; charset=utf-8"
+Mar 12 23:03:43 symfony [info] {sfWebDebugLogger} Configuration 1.75 ms (9)
+Mar 12 23:03:43 symfony [info] {sfWebDebugLogger} Factories 35.30 ms (1)
+Mar 12 23:03:43 symfony [info] {sfWebDebugLogger} Action "default/login" 0.31 ms (1)
+Mar 12 23:03:43 symfony [info] {sfWebDebugLogger} View "Success" for "default/login" 13.23 ms (1)
+Mar 12 23:03:43 symfony [info] {sfWebResponse} Send content (55990 o)
+Mar 12 23:04:01 symfony [info] {sfPatternRouting} Connect sfRoute "sf_guard_signin" (/login)
+Mar 12 23:04:01 symfony [info] {sfPatternRouting} Connect sfRoute "sf_guard_signout" (/logout)
+Mar 12 23:04:01 symfony [info] {sfPatternRouting} Connect sfRoute "sf_guard_password" (/request_password)
+Mar 12 23:04:01 symfony [info] {sfPatternRouting} Match route "default_index" (/:module) for /testmodule with parameters array (  'module' => 'testmodule',  'action' => 'index',)
+Mar 12 23:04:01 symfony [info] {sfFilterChain} Executing filter "sfRenderingFilter"
+Mar 12 23:04:01 symfony [info] {sfFilterChain} Executing filter "sfBasicSecurityFilter"
+Mar 12 23:04:01 symfony [info] {sfBasicSecurityFilter} Action "testmodule/index" requires authentication, forwarding to "default/login"
+Mar 12 23:04:01 symfony [info] {sfFilterChain} Executing filter "sfRenderingFilter"
+Mar 12 23:04:01 symfony [info] {sfFilterChain} Executing filter "sfBasicSecurityFilter"
+Mar 12 23:04:01 symfony [info] {sfFilterChain} Executing filter "sfExecutionFilter"
+Mar 12 23:04:01 symfony [info] {defaultActions} Call "defaultActions->executeLogin()"
+Mar 12 23:04:01 symfony [info] {sfPHPView} Render "/lib/vendor/symfony/lib/controller/default/templates/loginSuccess.php"
+Mar 12 23:04:01 symfony [info] {sfPHPView} Decorate content with "/lib/vendor/symfony/lib/controller/default/templates/defaultLayout.php"
+Mar 12 23:04:01 symfony [info] {sfPHPView} Render "/lib/vendor/symfony/lib/controller/default/templates/defaultLayout.php"
+Mar 12 23:04:01 symfony [info] {sfWebResponse} Send status "HTTP/1.1 200 OK"
+Mar 12 23:04:01 symfony [info] {sfWebResponse} Send header "Content-Type: text/html; charset=utf-8"
+Mar 12 23:04:01 symfony [info] {sfWebDebugLogger} Configuration 119.26 ms (13)
+Mar 12 23:04:01 symfony [info] {sfWebDebugLogger} Factories 202.71 ms (1)
+Mar 12 23:04:01 symfony [info] {sfWebDebugLogger} Action "default/login" 0.36 ms (1)
+Mar 12 23:04:01 symfony [info] {sfWebDebugLogger} View "Success" for "default/login" 30.23 ms (1)
+Mar 12 23:04:01 symfony [info] {sfWebResponse} Send content (70732 o)
+Mar 12 23:04:09 symfony [info] {sfPatternRouting} Connect sfRoute "sf_guard_signin" (/login)
+Mar 12 23:04:09 symfony [info] {sfPatternRouting} Connect sfRoute "sf_guard_signout" (/logout)
+Mar 12 23:04:09 symfony [info] {sfPatternRouting} Connect sfRoute "sf_guard_password" (/request_password)
+Mar 12 23:04:09 symfony [info] {sfPatternRouting} Match route "default" (/:module/:action/*) for /testmodule/login/ with parameters array (  'module' => 'testmodule',  'action' => 'login',)
+Mar 12 23:04:09 symfony [info] {sfFrontWebController} Action "testmodule/login" does not exist
+Mar 12 23:04:09 symfony [err] {sfError404Exception} Action "testmodule/login" does not exist.
+Mar 12 23:04:09 symfony [info] {sfWebResponse} Send status "HTTP/1.1 404 Not Found"
+Mar 12 23:04:09 symfony [info] {sfWebResponse} Send header "Content-Type: text/html; charset=utf-8"
+Mar 12 23:04:09 symfony [info] {sfWebDebugLogger} Configuration 1.27 ms (5)
+Mar 12 23:04:09 symfony [info] {sfWebDebugLogger} Factories 33.02 ms (1)
+Mar 12 23:04:17 symfony [info] {sfPatternRouting} Connect sfRoute "sf_guard_signin" (/login)
+Mar 12 23:04:17 symfony [info] {sfPatternRouting} Connect sfRoute "sf_guard_signout" (/logout)
+Mar 12 23:04:17 symfony [info] {sfPatternRouting} Connect sfRoute "sf_guard_password" (/request_password)
+Mar 12 23:04:17 symfony [err] {sfError404Exception} Empty module and/or action after parsing the URL "/login/" (/).
+Mar 12 23:04:17 symfony [info] {sfWebResponse} Send status "HTTP/1.1 404 Not Found"
+Mar 12 23:04:17 symfony [info] {sfWebResponse} Send header "Content-Type: text/html; charset=utf-8"
+Mar 12 23:04:17 symfony [info] {sfWebDebugLogger} Configuration 1.46 ms (5)
+Mar 12 23:04:17 symfony [info] {sfWebDebugLogger} Factories 52.71 ms (1)
+Mar 12 23:04:42 symfony [info] {sfPatternRouting} Connect sfRoute "sf_guard_signin" (/login)
+Mar 12 23:04:42 symfony [info] {sfPatternRouting} Connect sfRoute "sf_guard_signout" (/logout)
+Mar 12 23:04:42 symfony [info] {sfPatternRouting} Connect sfRoute "sf_guard_password" (/request_password)
+Mar 12 23:04:42 symfony [err] {sfError404Exception} Empty module and/or action after parsing the URL "/login/" (/).
+Mar 12 23:04:43 symfony [info] {sfWebResponse} Send status "HTTP/1.1 404 Not Found"
+Mar 12 23:04:43 symfony [info] {sfWebResponse} Send header "Content-Type: text/html; charset=utf-8"
+Mar 12 23:04:43 symfony [info] {sfWebDebugLogger} Configuration 211.92 ms (5)
+Mar 12 23:04:43 symfony [info] {sfWebDebugLogger} Factories 176.84 ms (1)
+Mar 12 23:04:45 symfony [info] {sfPatternRouting} Connect sfRoute "sf_guard_signin" (/login)
+Mar 12 23:04:45 symfony [info] {sfPatternRouting} Connect sfRoute "sf_guard_signout" (/logout)
+Mar 12 23:04:45 symfony [info] {sfPatternRouting} Connect sfRoute "sf_guard_password" (/request_password)
+Mar 12 23:04:45 symfony [info] {sfPatternRouting} Match route "default" (/:module/:action/*) for /testmodule/login/ with parameters array (  'module' => 'testmodule',  'action' => 'login',)
+Mar 12 23:04:45 symfony [info] {sfFrontWebController} Action "testmodule/login" does not exist
+Mar 12 23:04:45 symfony [err] {sfError404Exception} Action "testmodule/login" does not exist.
+Mar 12 23:04:45 symfony [info] {sfWebResponse} Send status "HTTP/1.1 404 Not Found"
+Mar 12 23:04:45 symfony [info] {sfWebResponse} Send header "Content-Type: text/html; charset=utf-8"
+Mar 12 23:04:45 symfony [info] {sfWebDebugLogger} Configuration 0.92 ms (5)
+Mar 12 23:04:45 symfony [info] {sfWebDebugLogger} Factories 48.54 ms (1)
+Mar 12 23:04:47 symfony [info] {sfPatternRouting} Connect sfRoute "sf_guard_signin" (/login)
+Mar 12 23:04:47 symfony [info] {sfPatternRouting} Connect sfRoute "sf_guard_signout" (/logout)
+Mar 12 23:04:47 symfony [info] {sfPatternRouting} Connect sfRoute "sf_guard_password" (/request_password)
+Mar 12 23:04:47 symfony [info] {sfPatternRouting} Match route "default_index" (/:module) for /testmodule with parameters array (  'module' => 'testmodule',  'action' => 'index',)
+Mar 12 23:04:47 symfony [info] {sfFilterChain} Executing filter "sfRenderingFilter"
+Mar 12 23:04:47 symfony [info] {sfFilterChain} Executing filter "sfBasicSecurityFilter"
+Mar 12 23:04:47 symfony [info] {sfBasicSecurityFilter} Action "testmodule/index" requires authentication, forwarding to "default/login"
+Mar 12 23:04:47 symfony [info] {sfFilterChain} Executing filter "sfRenderingFilter"
+Mar 12 23:04:47 symfony [info] {sfFilterChain} Executing filter "sfBasicSecurityFilter"
+Mar 12 23:04:47 symfony [info] {sfFilterChain} Executing filter "sfExecutionFilter"
+Mar 12 23:04:47 symfony [info] {defaultActions} Call "defaultActions->executeLogin()"
+Mar 12 23:04:47 symfony [info] {sfPHPView} Render "/lib/vendor/symfony/lib/controller/default/templates/loginSuccess.php"
+Mar 12 23:04:47 symfony [info] {sfPHPView} Decorate content with "/lib/vendor/symfony/lib/controller/default/templates/defaultLayout.php"
+Mar 12 23:04:47 symfony [info] {sfPHPView} Render "/lib/vendor/symfony/lib/controller/default/templates/defaultLayout.php"
+Mar 12 23:04:47 symfony [info] {sfWebResponse} Send status "HTTP/1.1 200 OK"
+Mar 12 23:04:47 symfony [info] {sfWebResponse} Send header "Content-Type: text/html; charset=utf-8"
+Mar 12 23:04:47 symfony [info] {sfWebDebugLogger} Configuration 40.95 ms (13)
+Mar 12 23:04:47 symfony [info] {sfWebDebugLogger} Factories 81.50 ms (1)
+Mar 12 23:04:47 symfony [info] {sfWebDebugLogger} Action "default/login" 0.39 ms (1)
+Mar 12 23:04:47 symfony [info] {sfWebDebugLogger} View "Success" for "default/login" 23.65 ms (1)
+Mar 12 23:04:47 symfony [info] {sfWebResponse} Send content (70730 o)
+Mar 12 23:10:16 symfony [info] {sfPatternRouting} Connect sfRoute "sf_guard_signin" (/login)
+Mar 12 23:10:16 symfony [info] {sfPatternRouting} Connect sfRoute "sf_guard_signout" (/logout)
+Mar 12 23:10:16 symfony [info] {sfPatternRouting} Connect sfRoute "sf_guard_password" (/request_password)
+Mar 12 23:10:16 symfony [info] {sfPatternRouting} Match route "default_index" (/:module) for /testmodule with parameters array (  'module' => 'testmodule',  'action' => 'index',)
+Mar 12 23:10:16 symfony [info] {sfFilterChain} Executing filter "sfRenderingFilter"
+Mar 12 23:10:16 symfony [info] {sfFilterChain} Executing filter "sfBasicSecurityFilter"
+Mar 12 23:10:16 symfony [info] {sfBasicSecurityFilter} Action "testmodule/index" requires authentication, forwarding to "default/login"
+Mar 12 23:10:16 symfony [info] {sfFilterChain} Executing filter "sfRenderingFilter"
+Mar 12 23:10:16 symfony [info] {sfFilterChain} Executing filter "sfBasicSecurityFilter"
+Mar 12 23:10:16 symfony [info] {sfFilterChain} Executing filter "sfExecutionFilter"
+Mar 12 23:10:16 symfony [info] {defaultActions} Call "defaultActions->executeLogin()"
+Mar 12 23:10:16 symfony [info] {sfPHPView} Render "/lib/vendor/symfony/lib/controller/default/templates/loginSuccess.php"
+Mar 12 23:10:16 symfony [info] {sfPHPView} Decorate content with "/lib/vendor/symfony/lib/controller/default/templates/defaultLayout.php"
+Mar 12 23:10:16 symfony [info] {sfPHPView} Render "/lib/vendor/symfony/lib/controller/default/templates/defaultLayout.php"
+Mar 12 23:10:16 symfony [info] {sfWebResponse} Send status "HTTP/1.1 200 OK"
+Mar 12 23:10:16 symfony [info] {sfWebResponse} Send header "Content-Type: text/html; charset=utf-8"
+Mar 12 23:10:16 symfony [info] {sfWebDebugLogger} Configuration 171.54 ms (12)
+Mar 12 23:10:16 symfony [info] {sfWebDebugLogger} Factories 99.10 ms (1)
+Mar 12 23:10:16 symfony [info] {sfWebDebugLogger} Action "default/login" 0.40 ms (1)
+Mar 12 23:10:16 symfony [info] {sfWebDebugLogger} View "Success" for "default/login" 16.66 ms (1)
+Mar 12 23:10:16 symfony [info] {sfWebResponse} Send content (70774 o)
+Mar 12 23:10:18 symfony [info] {sfPatternRouting} Connect sfRoute "sf_guard_signin" (/login)
+Mar 12 23:10:18 symfony [info] {sfPatternRouting} Connect sfRoute "sf_guard_signout" (/logout)
+Mar 12 23:10:18 symfony [info] {sfPatternRouting} Connect sfRoute "sf_guard_password" (/request_password)
+Mar 12 23:10:18 symfony [info] {sfPatternRouting} Match route "default" (/:module/:action/*) for /default/login with parameters array (  'module' => 'default',  'action' => 'login',)
+Mar 12 23:10:18 symfony [info] {sfFilterChain} Executing filter "sfRenderingFilter"
+Mar 12 23:10:18 symfony [info] {sfFilterChain} Executing filter "sfBasicSecurityFilter"
+Mar 12 23:10:18 symfony [info] {sfFilterChain} Executing filter "sfExecutionFilter"
+Mar 12 23:10:18 symfony [info] {defaultActions} Call "defaultActions->executeLogin()"
+Mar 12 23:10:18 symfony [info] {sfPHPView} Render "/lib/vendor/symfony/lib/controller/default/templates/loginSuccess.php"
+Mar 12 23:10:18 symfony [info] {sfPHPView} Decorate content with "/lib/vendor/symfony/lib/controller/default/templates/defaultLayout.php"
+Mar 12 23:10:18 symfony [info] {sfPHPView} Render "/lib/vendor/symfony/lib/controller/default/templates/defaultLayout.php"
+Mar 12 23:10:18 symfony [info] {sfWebResponse} Send status "HTTP/1.1 200 OK"
+Mar 12 23:10:18 symfony [info] {sfWebResponse} Send header "Content-Type: text/html; charset=utf-8"
+Mar 12 23:10:18 symfony [info] {sfWebDebugLogger} Configuration 1.73 ms (9)
+Mar 12 23:10:18 symfony [info] {sfWebDebugLogger} Factories 43.29 ms (1)
+Mar 12 23:10:18 symfony [info] {sfWebDebugLogger} Action "default/login" 0.32 ms (1)
+Mar 12 23:10:18 symfony [info] {sfWebDebugLogger} View "Success" for "default/login" 26.83 ms (1)
+Mar 12 23:10:18 symfony [info] {sfWebResponse} Send content (56110 o)
+Mar 12 23:10:25 symfony [info] {sfPatternRouting} Connect sfRoute "sf_guard_signin" (/login)
+Mar 12 23:10:25 symfony [info] {sfPatternRouting} Connect sfRoute "sf_guard_signout" (/logout)
+Mar 12 23:10:25 symfony [info] {sfPatternRouting} Connect sfRoute "sf_guard_password" (/request_password)
+Mar 12 23:10:25 symfony [info] {sfPatternRouting} Match route "homepage" (/) for / with parameters array (  'module' => 'default',  'action' => 'index',)
+Mar 12 23:10:25 symfony [info] {sfFilterChain} Executing filter "sfRenderingFilter"
+Mar 12 23:10:25 symfony [info] {sfFilterChain} Executing filter "sfBasicSecurityFilter"
+Mar 12 23:10:25 symfony [info] {sfBasicSecurityFilter} Action "default/index" requires authentication, forwarding to "default/login"
+Mar 12 23:10:25 symfony [info] {sfFilterChain} Executing filter "sfRenderingFilter"
+Mar 12 23:10:25 symfony [info] {sfFilterChain} Executing filter "sfBasicSecurityFilter"
+Mar 12 23:10:25 symfony [info] {sfFilterChain} Executing filter "sfExecutionFilter"
+Mar 12 23:10:25 symfony [info] {defaultActions} Call "defaultActions->executeLogin()"
+Mar 12 23:10:25 symfony [info] {sfPHPView} Render "/lib/vendor/symfony/lib/controller/default/templates/loginSuccess.php"
+Mar 12 23:10:25 symfony [info] {sfPHPView} Decorate content with "/lib/vendor/symfony/lib/controller/default/templates/defaultLayout.php"
+Mar 12 23:10:25 symfony [info] {sfPHPView} Render "/lib/vendor/symfony/lib/controller/default/templates/defaultLayout.php"
+Mar 12 23:10:25 symfony [info] {sfWebResponse} Send status "HTTP/1.1 200 OK"
+Mar 12 23:10:25 symfony [info] {sfWebResponse} Send header "Content-Type: text/html; charset=utf-8"
+Mar 12 23:10:25 symfony [info] {sfWebDebugLogger} Configuration 4.02 ms (12)
+Mar 12 23:10:25 symfony [info] {sfWebDebugLogger} Factories 58.36 ms (1)
+Mar 12 23:10:25 symfony [info] {sfWebDebugLogger} Action "default/login" 0.34 ms (1)
+Mar 12 23:10:25 symfony [info] {sfWebDebugLogger} View "Success" for "default/login" 11.91 ms (1)
+Mar 12 23:10:25 symfony [info] {sfWebResponse} Send content (70521 o)
+Mar 12 23:10:31 symfony [info] {sfPatternRouting} Connect sfRoute "sf_guard_signin" (/login)
+Mar 12 23:10:31 symfony [info] {sfPatternRouting} Connect sfRoute "sf_guard_signout" (/logout)
+Mar 12 23:10:31 symfony [info] {sfPatternRouting} Connect sfRoute "sf_guard_password" (/request_password)
+Mar 12 23:10:31 symfony [info] {sfPatternRouting} Match route "sf_guard_signin" (/login) for /login with parameters array (  'module' => 'sfGuardAuth',  'action' => 'signin',)
+Mar 12 23:10:31 symfony [info] {sfFilterChain} Executing filter "sfRenderingFilter"
+Mar 12 23:10:31 symfony [info] {sfFilterChain} Executing filter "sfExecutionFilter"
+Mar 12 23:10:31 symfony [info] {sfGuardAuthActions} Call "sfGuardAuthActions->executeSignin()"
+Mar 12 23:10:31 symfony [info] {sfFrontWebController} Redirect to "http://localhost:8080/frontend_dev.php/default/login"
+Mar 12 23:10:31 symfony [info] {sfWebResponse} Send status "HTTP/1.1 302 Found"
+Mar 12 23:10:31 symfony [info] {sfWebResponse} Send header "Location: http://localhost:8080/frontend_dev.php/default/login"
+Mar 12 23:10:31 symfony [info] {sfWebResponse} Send header "Content-Type: text/html; charset=utf-8"
+Mar 12 23:10:31 symfony [info] {sfWebDebugLogger} Configuration 19.79 ms (9)
+Mar 12 23:10:31 symfony [info] {sfWebDebugLogger} Factories 51.24 ms (1)
+Mar 12 23:10:31 symfony [info] {sfWebDebugLogger} Action "sfGuardAuth/signin" 15.57 ms (1)
+Mar 12 23:10:31 symfony [info] {sfWebResponse} Send content (123 o)
+Mar 12 23:10:31 symfony [info] {sfPatternRouting} Connect sfRoute "sf_guard_signin" (/login)
+Mar 12 23:10:31 symfony [info] {sfPatternRouting} Connect sfRoute "sf_guard_signout" (/logout)
+Mar 12 23:10:31 symfony [info] {sfPatternRouting} Connect sfRoute "sf_guard_password" (/request_password)
+Mar 12 23:10:31 symfony [info] {sfPatternRouting} Match route "default" (/:module/:action/*) for /default/login with parameters array (  'module' => 'default',  'action' => 'login',)
+Mar 12 23:10:31 symfony [info] {sfFilterChain} Executing filter "sfRenderingFilter"
+Mar 12 23:10:31 symfony [info] {sfFilterChain} Executing filter "sfBasicSecurityFilter"
+Mar 12 23:10:31 symfony [info] {sfFilterChain} Executing filter "sfExecutionFilter"
+Mar 12 23:10:31 symfony [info] {defaultActions} Call "defaultActions->executeLogin()"
+Mar 12 23:10:31 symfony [info] {sfPHPView} Render "/lib/vendor/symfony/lib/controller/default/templates/loginSuccess.php"
+Mar 12 23:10:31 symfony [info] {sfPHPView} Decorate content with "/lib/vendor/symfony/lib/controller/default/templates/defaultLayout.php"
+Mar 12 23:10:31 symfony [info] {sfPHPView} Render "/lib/vendor/symfony/lib/controller/default/templates/defaultLayout.php"
+Mar 12 23:10:31 symfony [info] {sfWebResponse} Send status "HTTP/1.1 200 OK"
+Mar 12 23:10:31 symfony [info] {sfWebResponse} Send header "Content-Type: text/html; charset=utf-8"
+Mar 12 23:10:31 symfony [info] {sfWebDebugLogger} Configuration 1.66 ms (9)
+Mar 12 23:10:31 symfony [info] {sfWebDebugLogger} Factories 34.08 ms (1)
+Mar 12 23:10:31 symfony [info] {sfWebDebugLogger} Action "default/login" 0.25 ms (1)
+Mar 12 23:10:31 symfony [info] {sfWebDebugLogger} View "Success" for "default/login" 15.22 ms (1)
+Mar 12 23:10:31 symfony [info] {sfWebResponse} Send content (56031 o)
+Mar 12 23:10:52 symfony [info] {sfPatternRouting} Connect sfRoute "sf_guard_signin" (/login)
+Mar 12 23:10:52 symfony [info] {sfPatternRouting} Connect sfRoute "sf_guard_signout" (/logout)
+Mar 12 23:10:52 symfony [info] {sfPatternRouting} Connect sfRoute "sf_guard_password" (/request_password)
+Mar 12 23:10:52 symfony [info] {sfPatternRouting} Match route "homepage" (/) for / with parameters array (  'module' => 'default',  'action' => 'index',)
+Mar 12 23:10:52 symfony [info] {sfFilterChain} Executing filter "sfRenderingFilter"
+Mar 12 23:10:52 symfony [info] {sfFilterChain} Executing filter "sfExecutionFilter"
+Mar 12 23:10:52 symfony [info] {defaultActions} Call "defaultActions->executeIndex()"
+Mar 12 23:10:52 symfony [info] {sfPHPView} Render "/lib/vendor/symfony/lib/controller/default/templates/indexSuccess.php"
+Mar 12 23:10:52 symfony [info] {sfPHPView} Decorate content with "/lib/vendor/symfony/lib/controller/default/templates/defaultLayout.php"
+Mar 12 23:10:52 symfony [info] {sfPHPView} Render "/lib/vendor/symfony/lib/controller/default/templates/defaultLayout.php"
+Mar 12 23:10:52 symfony [info] {sfWebResponse} Send status "HTTP/1.1 200 OK"
+Mar 12 23:10:52 symfony [info] {sfWebResponse} Send header "Content-Type: text/html; charset=utf-8"
+Mar 12 23:10:52 symfony [info] {sfWebDebugLogger} Configuration 27.70 ms (10)
+Mar 12 23:10:52 symfony [info] {sfWebDebugLogger} Factories 65.84 ms (1)
+Mar 12 23:10:52 symfony [info] {sfWebDebugLogger} Action "default/index" 0.25 ms (1)
+Mar 12 23:10:52 symfony [info] {sfWebDebugLogger} View "Success" for "default/index" 31.41 ms (1)
+Mar 12 23:10:52 symfony [info] {sfWebResponse} Send content (52926 o)
+Mar 12 23:11:00 symfony [info] {sfPatternRouting} Connect sfRoute "sf_guard_signin" (/login)
+Mar 12 23:11:00 symfony [info] {sfPatternRouting} Connect sfRoute "sf_guard_signout" (/logout)
+Mar 12 23:11:00 symfony [info] {sfPatternRouting} Connect sfRoute "sf_guard_password" (/request_password)
+Mar 12 23:11:00 symfony [info] {sfPatternRouting} Match route "default_index" (/:module) for /testmodule with parameters array (  'module' => 'testmodule',  'action' => 'index',)
+Mar 12 23:11:00 symfony [info] {sfFilterChain} Executing filter "sfRenderingFilter"
+Mar 12 23:11:00 symfony [info] {sfFilterChain} Executing filter "sfExecutionFilter"
+Mar 12 23:11:00 symfony [info] {testmoduleActions} Call "testmoduleActions->executeIndex()"
+Mar 12 23:11:00 symfony [debug] {sfPropelLogger} time:  0.000 sec | slow:  NO | mem:    9.0 MB | mempeak:    9.0 MB | memdelta:      0.0 B | SET NAMES 'utf8'
+Mar 12 23:11:00 symfony [debug] {sfPropelLogger} time:  0.067 sec | slow:  NO | mem:    9.3 MB | mempeak:    9.3 MB | memdelta:      0.0 B | SELECT sf_test.ID, sf_test.NAME FROM `sf_test`
+Mar 12 23:11:00 symfony [info] {sfPHPView} Render "/home/tangentau/NetBeansProjects/sfproject/apps/frontend/modules/testmodule/templates/indexSuccess.php"
+Mar 12 23:11:00 symfony [info] {sfPHPView} Decorate content with "/home/tangentau/NetBeansProjects/sfproject/apps/frontend/templates/layout.php"
+Mar 12 23:11:00 symfony [info] {sfPHPView} Render "/home/tangentau/NetBeansProjects/sfproject/apps/frontend/templates/layout.php"
+Mar 12 23:11:00 symfony [info] {sfWebResponse} Send status "HTTP/1.1 200 OK"
+Mar 12 23:11:00 symfony [info] {sfWebResponse} Send header "Content-Type: text/html; charset=utf-8"
+Mar 12 23:11:00 symfony [info] {sfWebDebugLogger} Configuration 25.19 ms (10)
+Mar 12 23:11:00 symfony [info] {sfWebDebugLogger} Factories 60.20 ms (1)
+Mar 12 23:11:00 symfony [info] {sfWebDebugLogger} Action "testmodule/index" 158.29 ms (1)
+Mar 12 23:11:00 symfony [info] {sfWebDebugLogger} View "Success" for "testmodule/index" 53.80 ms (1)
+Mar 12 23:11:00 symfony [info] {sfWebResponse} Send content (70268 o)
+Mar 12 23:15:09 symfony [info] {sfPatternRouting} Connect sfRoute "sf_guard_signin" (/login)
+Mar 12 23:15:09 symfony [info] {sfPatternRouting} Connect sfRoute "sf_guard_signout" (/logout)
+Mar 12 23:15:09 symfony [info] {sfPatternRouting} Connect sfRoute "sf_guard_password" (/request_password)
+Mar 12 23:15:09 symfony [info] {sfPatternRouting} Match route "default_index" (/:module) for /testmodule with parameters array (  'module' => 'testmodule',  'action' => 'index',)
+Mar 12 23:15:09 symfony [info] {sfFilterChain} Executing filter "sfRenderingFilter"
+Mar 12 23:15:09 symfony [info] {sfFilterChain} Executing filter "sfBasicSecurityFilter"
+Mar 12 23:15:09 symfony [info] {sfBasicSecurityFilter} Action "testmodule/index" requires authentication, forwarding to "default/login"
+Mar 12 23:15:09 symfony [info] {sfFilterChain} Executing filter "sfRenderingFilter"
+Mar 12 23:15:09 symfony [info] {sfFilterChain} Executing filter "sfBasicSecurityFilter"
+Mar 12 23:15:09 symfony [info] {sfFilterChain} Executing filter "sfExecutionFilter"
+Mar 12 23:15:09 symfony [info] {defaultActions} Call "defaultActions->executeLogin()"
+Mar 12 23:15:09 symfony [info] {sfPHPView} Render "/lib/vendor/symfony/lib/controller/default/templates/loginSuccess.php"
+Mar 12 23:15:09 symfony [info] {sfPHPView} Decorate content with "/lib/vendor/symfony/lib/controller/default/templates/defaultLayout.php"
+Mar 12 23:15:09 symfony [info] {sfPHPView} Render "/lib/vendor/symfony/lib/controller/default/templates/defaultLayout.php"
+Mar 12 23:15:09 symfony [info] {sfWebResponse} Send status "HTTP/1.1 200 OK"
+Mar 12 23:15:09 symfony [info] {sfWebResponse} Send header "Content-Type: text/html; charset=utf-8"
+Mar 12 23:15:09 symfony [info] {sfWebDebugLogger} Configuration 216.20 ms (12)
+Mar 12 23:15:09 symfony [info] {sfWebDebugLogger} Factories 95.08 ms (1)
+Mar 12 23:15:09 symfony [info] {sfWebDebugLogger} Action "default/login" 0.33 ms (1)
+Mar 12 23:15:09 symfony [info] {sfWebDebugLogger} View "Success" for "default/login" 14.95 ms (1)
+Mar 12 23:15:09 symfony [info] {sfWebResponse} Send content (70774 o)
+Mar 12 23:15:12 symfony [info] {sfPatternRouting} Connect sfRoute "sf_guard_signin" (/login)
+Mar 12 23:15:12 symfony [info] {sfPatternRouting} Connect sfRoute "sf_guard_signout" (/logout)
+Mar 12 23:15:12 symfony [info] {sfPatternRouting} Connect sfRoute "sf_guard_password" (/request_password)
+Mar 12 23:15:12 symfony [info] {sfPatternRouting} Match route "default" (/:module/:action/*) for /default/login with parameters array (  'module' => 'default',  'action' => 'login',)
+Mar 12 23:15:12 symfony [info] {sfFilterChain} Executing filter "sfRenderingFilter"
+Mar 12 23:15:12 symfony [info] {sfFilterChain} Executing filter "sfBasicSecurityFilter"
+Mar 12 23:15:12 symfony [info] {sfFilterChain} Executing filter "sfExecutionFilter"
+Mar 12 23:15:12 symfony [info] {defaultActions} Call "defaultActions->executeLogin()"
+Mar 12 23:15:12 symfony [info] {sfPHPView} Render "/lib/vendor/symfony/lib/controller/default/templates/loginSuccess.php"
+Mar 12 23:15:12 symfony [info] {sfPHPView} Decorate content with "/lib/vendor/symfony/lib/controller/default/templates/defaultLayout.php"
+Mar 12 23:15:12 symfony [info] {sfPHPView} Render "/lib/vendor/symfony/lib/controller/default/templates/defaultLayout.php"
+Mar 12 23:15:12 symfony [info] {sfWebResponse} Send status "HTTP/1.1 200 OK"
+Mar 12 23:15:12 symfony [info] {sfWebResponse} Send header "Content-Type: text/html; charset=utf-8"
+Mar 12 23:15:12 symfony [info] {sfWebDebugLogger} Configuration 1.79 ms (9)
+Mar 12 23:15:12 symfony [info] {sfWebDebugLogger} Factories 33.09 ms (1)
+Mar 12 23:15:12 symfony [info] {sfWebDebugLogger} Action "default/login" 0.26 ms (1)
+Mar 12 23:15:12 symfony [info] {sfWebDebugLogger} View "Success" for "default/login" 13.78 ms (1)
+Mar 12 23:15:12 symfony [info] {sfWebResponse} Send content (56110 o)
+Mar 12 23:16:10 symfony [info] {sfPatternRouting} Connect sfRoute "sf_guard_signin" (/login)
+Mar 12 23:16:10 symfony [info] {sfPatternRouting} Connect sfRoute "sf_guard_signout" (/logout)
+Mar 12 23:16:10 symfony [info] {sfPatternRouting} Connect sfRoute "sf_guard_password" (/request_password)
+Mar 12 23:16:10 symfony [info] {sfPatternRouting} Match route "default" (/:module/:action/*) for /default/login with parameters array (  'module' => 'default',  'action' => 'login',)
+Mar 12 23:16:10 symfony [info] {sfFrontWebController} Action "default/login" does not exist
+Mar 12 23:16:10 symfony [err] {sfError404Exception} Action "default/login" does not exist.
+Mar 12 23:16:11 symfony [info] {sfWebResponse} Send status "HTTP/1.1 404 Not Found"
+Mar 12 23:16:11 symfony [info] {sfWebResponse} Send header "Content-Type: text/html; charset=utf-8"
+Mar 12 23:16:11 symfony [info] {sfWebDebugLogger} Configuration 1.53 ms (5)
+Mar 12 23:16:11 symfony [info] {sfWebDebugLogger} Factories 59.76 ms (1)
+Mar 12 23:16:15 symfony [info] {sfPatternRouting} Connect sfRoute "sf_guard_signin" (/login)
+Mar 12 23:16:15 symfony [info] {sfPatternRouting} Connect sfRoute "sf_guard_signout" (/logout)
+Mar 12 23:16:15 symfony [info] {sfPatternRouting} Connect sfRoute "sf_guard_password" (/request_password)
+Mar 12 23:16:15 symfony [err] {sfError404Exception} Empty module and/or action after parsing the URL "/default/" (/).
+Mar 12 23:16:15 symfony [info] {sfWebResponse} Send status "HTTP/1.1 404 Not Found"
+Mar 12 23:16:15 symfony [info] {sfWebResponse} Send header "Content-Type: text/html; charset=utf-8"
+Mar 12 23:16:15 symfony [info] {sfWebDebugLogger} Configuration 0.92 ms (5)
+Mar 12 23:16:15 symfony [info] {sfWebDebugLogger} Factories 35.60 ms (1)
+Mar 12 23:16:20 symfony [info] {sfPatternRouting} Connect sfRoute "sf_guard_signin" (/login)
+Mar 12 23:16:20 symfony [info] {sfPatternRouting} Connect sfRoute "sf_guard_signout" (/logout)
+Mar 12 23:16:20 symfony [info] {sfPatternRouting} Connect sfRoute "sf_guard_password" (/request_password)
+Mar 12 23:16:20 symfony [info] {sfPatternRouting} Match route "default_index" (/:module) for /default with parameters array (  'module' => 'default',  'action' => 'index',)
+Mar 12 23:16:20 symfony [info] {sfFilterChain} Executing filter "sfRenderingFilter"
+Mar 12 23:16:20 symfony [info] {sfFilterChain} Executing filter "sfBasicSecurityFilter"
+Mar 12 23:16:20 symfony [info] {sfBasicSecurityFilter} Action "default/index" requires authentication, forwarding to "default/login"
+Mar 12 23:16:20 symfony [info] {sfFrontWebController} Action "default/login" does not exist
+Mar 12 23:16:20 symfony [err] {sfError404Exception} Action "default/login" does not exist.
+Mar 12 23:16:20 symfony [info] {sfWebResponse} Send status "HTTP/1.1 404 Not Found"
+Mar 12 23:16:20 symfony [info] {sfWebResponse} Send header "Content-Type: text/html; charset=utf-8"
+Mar 12 23:16:20 symfony [info] {sfWebDebugLogger} Configuration 1.56 ms (8)
+Mar 12 23:16:20 symfony [info] {sfWebDebugLogger} Factories 40.08 ms (1)
+Mar 12 23:16:27 symfony [info] {sfPatternRouting} Connect sfRoute "sf_guard_signin" (/login)
+Mar 12 23:16:27 symfony [info] {sfPatternRouting} Connect sfRoute "sf_guard_signout" (/logout)
+Mar 12 23:16:27 symfony [info] {sfPatternRouting} Connect sfRoute "sf_guard_password" (/request_password)
+Mar 12 23:16:27 symfony [info] {sfPatternRouting} Match route "homepage" (/) for / with parameters array (  'module' => 'default',  'action' => 'index',)
+Mar 12 23:16:27 symfony [info] {sfFilterChain} Executing filter "sfRenderingFilter"
+Mar 12 23:16:27 symfony [info] {sfFilterChain} Executing filter "sfBasicSecurityFilter"
+Mar 12 23:16:27 symfony [info] {sfBasicSecurityFilter} Action "default/index" requires authentication, forwarding to "default/login"
+Mar 12 23:16:27 symfony [info] {sfFrontWebController} Action "default/login" does not exist
+Mar 12 23:16:27 symfony [err] {sfError404Exception} Action "default/login" does not exist.
+Mar 12 23:16:27 symfony [info] {sfWebResponse} Send status "HTTP/1.1 404 Not Found"
+Mar 12 23:16:27 symfony [info] {sfWebResponse} Send header "Content-Type: text/html; charset=utf-8"
+Mar 12 23:16:27 symfony [info] {sfWebDebugLogger} Configuration 1.88 ms (8)
+Mar 12 23:16:27 symfony [info] {sfWebDebugLogger} Factories 59.69 ms (1)
+Mar 12 23:18:01 symfony [info] {sfPatternRouting} Connect sfRoute "sf_guard_signin" (/login)
+Mar 12 23:18:01 symfony [info] {sfPatternRouting} Connect sfRoute "sf_guard_signout" (/logout)
+Mar 12 23:18:01 symfony [info] {sfPatternRouting} Connect sfRoute "sf_guard_password" (/request_password)
+Mar 12 23:18:01 symfony [info] {sfPatternRouting} Match route "homepage" (/) for / with parameters array (  'module' => 'default',  'action' => 'index',)
+Mar 12 23:18:01 symfony [info] {sfFilterChain} Executing filter "sfRenderingFilter"
+Mar 12 23:18:01 symfony [info] {sfFilterChain} Executing filter "sfBasicSecurityFilter"
+Mar 12 23:18:01 symfony [info] {sfBasicSecurityFilter} Action "default/index" requires authentication, forwarding to "default/login"
+Mar 12 23:18:01 symfony [info] {sfFilterChain} Executing filter "sfRenderingFilter"
+Mar 12 23:18:01 symfony [info] {sfFilterChain} Executing filter "sfBasicSecurityFilter"
+Mar 12 23:18:01 symfony [info] {sfFilterChain} Executing filter "sfExecutionFilter"
+Mar 12 23:18:01 symfony [info] {defaultActions} Call "defaultActions->executeLogin()"
+Mar 12 23:18:01 symfony [debug] {sfPropelLogger} time:  0.000 sec | slow:  NO | mem:    8.0 MB | mempeak:    8.0 MB | memdelta:      0.0 B | SET NAMES 'utf8'
+Mar 12 23:18:01 symfony [debug] {sfPropelLogger} time:  0.000 sec | slow:  NO | mem:    8.5 MB | mempeak:    8.5 MB | memdelta:      0.0 B | SELECT sf_test.ID, sf_test.NAME FROM `sf_test`
+Mar 12 23:18:01 symfony [info] {sfPHPView} Render "/lib/vendor/symfony/lib/controller/default/templates/loginSuccess.php"
+Mar 12 23:18:01 symfony [info] {sfPHPView} Decorate content with "/lib/vendor/symfony/lib/controller/default/templates/defaultLayout.php"
+Mar 12 23:18:01 symfony [info] {sfPHPView} Render "/lib/vendor/symfony/lib/controller/default/templates/defaultLayout.php"
+Mar 12 23:18:01 symfony [info] {sfWebResponse} Send status "HTTP/1.1 200 OK"
+Mar 12 23:18:01 symfony [info] {sfWebResponse} Send header "Content-Type: text/html; charset=utf-8"
+Mar 12 23:18:01 symfony [info] {sfWebDebugLogger} Configuration 4.17 ms (12)
+Mar 12 23:18:01 symfony [info] {sfWebDebugLogger} Factories 36.35 ms (1)
+Mar 12 23:18:01 symfony [info] {sfWebDebugLogger} Action "default/login" 29.18 ms (1)
+Mar 12 23:18:01 symfony [info] {sfWebDebugLogger} View "Success" for "default/login" 26.41 ms (1)
+Mar 12 23:18:01 symfony [info] {sfWebResponse} Send content (94863 o)
+Mar 12 23:18:04 symfony [info] {sfPatternRouting} Connect sfRoute "sf_guard_signin" (/login)
+Mar 12 23:18:04 symfony [info] {sfPatternRouting} Connect sfRoute "sf_guard_signout" (/logout)
+Mar 12 23:18:04 symfony [info] {sfPatternRouting} Connect sfRoute "sf_guard_password" (/request_password)
+Mar 12 23:18:04 symfony [info] {sfPatternRouting} Match route "default" (/:module/:action/*) for /default/login with parameters array (  'module' => 'default',  'action' => 'login',)
+Mar 12 23:18:04 symfony [info] {sfFilterChain} Executing filter "sfRenderingFilter"
+Mar 12 23:18:04 symfony [info] {sfFilterChain} Executing filter "sfBasicSecurityFilter"
+Mar 12 23:18:04 symfony [info] {sfFilterChain} Executing filter "sfExecutionFilter"
+Mar 12 23:18:04 symfony [info] {defaultActions} Call "defaultActions->executeLogin()"
+Mar 12 23:18:04 symfony [debug] {sfPropelLogger} time:  0.000 sec | slow:  NO | mem:    8.0 MB | mempeak:    8.0 MB | memdelta:      0.0 B | SET NAMES 'utf8'
+Mar 12 23:18:04 symfony [debug] {sfPropelLogger} time:  0.001 sec | slow:  NO | mem:    8.5 MB | mempeak:    8.5 MB | memdelta:      0.0 B | SELECT sf_test.ID, sf_test.NAME FROM `sf_test`
+Mar 12 23:18:04 symfony [info] {sfPHPView} Render "/lib/vendor/symfony/lib/controller/default/templates/loginSuccess.php"
+Mar 12 23:18:04 symfony [info] {sfPHPView} Decorate content with "/lib/vendor/symfony/lib/controller/default/templates/defaultLayout.php"
+Mar 12 23:18:04 symfony [info] {sfPHPView} Render "/lib/vendor/symfony/lib/controller/default/templates/defaultLayout.php"
+Mar 12 23:18:04 symfony [info] {sfWebResponse} Send status "HTTP/1.1 200 OK"
+Mar 12 23:18:04 symfony [info] {sfWebResponse} Send header "Content-Type: text/html; charset=utf-8"
+Mar 12 23:18:04 symfony [info] {sfWebDebugLogger} Configuration 2.07 ms (9)
+Mar 12 23:18:04 symfony [info] {sfWebDebugLogger} Factories 46.60 ms (1)
+Mar 12 23:18:04 symfony [info] {sfWebDebugLogger} Action "default/login" 18.96 ms (1)
+Mar 12 23:18:04 symfony [info] {sfWebDebugLogger} View "Success" for "default/login" 12.40 ms (1)
+Mar 12 23:18:05 symfony [info] {sfWebResponse} Send content (76151 o)
+Mar 12 23:18:06 symfony [info] {sfPatternRouting} Connect sfRoute "sf_guard_signin" (/login)
+Mar 12 23:18:06 symfony [info] {sfPatternRouting} Connect sfRoute "sf_guard_signout" (/logout)
+Mar 12 23:18:06 symfony [info] {sfPatternRouting} Connect sfRoute "sf_guard_password" (/request_password)
+Mar 12 23:18:06 symfony [info] {sfPatternRouting} Match route "default" (/:module/:action/*) for /default/login with parameters array (  'module' => 'default',  'action' => 'login',)
+Mar 12 23:18:06 symfony [info] {sfFilterChain} Executing filter "sfRenderingFilter"
+Mar 12 23:18:06 symfony [info] {sfFilterChain} Executing filter "sfBasicSecurityFilter"
+Mar 12 23:18:06 symfony [info] {sfFilterChain} Executing filter "sfExecutionFilter"
+Mar 12 23:18:06 symfony [info] {defaultActions} Call "defaultActions->executeLogin()"
+Mar 12 23:18:06 symfony [debug] {sfPropelLogger} time:  0.000 sec | slow:  NO | mem:    8.0 MB | mempeak:    8.0 MB | memdelta:      0.0 B | SET NAMES 'utf8'
+Mar 12 23:18:06 symfony [debug] {sfPropelLogger} time:  0.000 sec | slow:  NO | mem:    8.5 MB | mempeak:    8.5 MB | memdelta:      0.0 B | SELECT sf_test.ID, sf_test.NAME FROM `sf_test`
+Mar 12 23:18:06 symfony [info] {sfPHPView} Render "/lib/vendor/symfony/lib/controller/default/templates/loginSuccess.php"
+Mar 12 23:18:06 symfony [info] {sfPHPView} Decorate content with "/lib/vendor/symfony/lib/controller/default/templates/defaultLayout.php"
+Mar 12 23:18:06 symfony [info] {sfPHPView} Render "/lib/vendor/symfony/lib/controller/default/templates/defaultLayout.php"
+Mar 12 23:18:06 symfony [info] {sfWebResponse} Send status "HTTP/1.1 200 OK"
+Mar 12 23:18:06 symfony [info] {sfWebResponse} Send header "Content-Type: text/html; charset=utf-8"
+Mar 12 23:18:06 symfony [info] {sfWebDebugLogger} Configuration 2.49 ms (9)
+Mar 12 23:18:06 symfony [info] {sfWebDebugLogger} Factories 59.16 ms (1)
+Mar 12 23:18:06 symfony [info] {sfWebDebugLogger} Action "default/login" 22.58 ms (1)
+Mar 12 23:18:06 symfony [info] {sfWebDebugLogger} View "Success" for "default/login" 13.53 ms (1)
+Mar 12 23:18:06 symfony [info] {sfWebResponse} Send content (76165 o)
+Mar 12 23:28:06 symfony [info] {sfPatternRouting} Connect sfRoute "sf_guard_signin" (/login)
+Mar 12 23:28:06 symfony [info] {sfPatternRouting} Connect sfRoute "sf_guard_signout" (/logout)
+Mar 12 23:28:06 symfony [info] {sfPatternRouting} Connect sfRoute "sf_guard_password" (/request_password)
+Mar 12 23:28:06 symfony [info] {sfPatternRouting} Match route "default" (/:module/:action/*) for /default/login with parameters array (  'module' => 'default',  'action' => 'login',)
+Mar 12 23:28:06 symfony [info] {sfFrontWebController} Action "default/login" does not exist
+Mar 12 23:28:06 symfony [err] {sfError404Exception} Action "default/login" does not exist.
+Mar 12 23:28:06 symfony [info] {sfWebResponse} Send status "HTTP/1.1 404 Not Found"
+Mar 12 23:28:06 symfony [info] {sfWebResponse} Send header "Content-Type: text/html; charset=utf-8"
+Mar 12 23:28:06 symfony [info] {sfWebDebugLogger} Configuration 1.76 ms (5)
+Mar 12 23:28:06 symfony [info] {sfWebDebugLogger} Factories 96.98 ms (1)
+Mar 12 23:28:24 symfony [info] {sfPatternRouting} Connect sfRoute "sf_guard_signin" (/login)
+Mar 12 23:28:24 symfony [info] {sfPatternRouting} Connect sfRoute "sf_guard_signout" (/logout)
+Mar 12 23:28:24 symfony [info] {sfPatternRouting} Connect sfRoute "sf_guard_password" (/request_password)
+Mar 12 23:28:24 symfony [info] {sfPatternRouting} Match route "default" (/:module/:action/*) for /default/signin with parameters array (  'module' => 'default',  'action' => 'signin',)
+Mar 12 23:28:24 symfony [info] {sfFrontWebController} Action "default/signin" does not exist
+Mar 12 23:28:24 symfony [err] {sfError404Exception} Action "default/signin" does not exist.
+Mar 12 23:28:24 symfony [info] {sfWebResponse} Send status "HTTP/1.1 404 Not Found"
+Mar 12 23:28:24 symfony [info] {sfWebResponse} Send header "Content-Type: text/html; charset=utf-8"
+Mar 12 23:28:24 symfony [info] {sfWebDebugLogger} Configuration 1.53 ms (5)
+Mar 12 23:28:24 symfony [info] {sfWebDebugLogger} Factories 65.10 ms (1)
+Mar 12 23:28:30 symfony [info] {sfPatternRouting} Connect sfRoute "sf_guard_signin" (/login)
+Mar 12 23:28:30 symfony [info] {sfPatternRouting} Connect sfRoute "sf_guard_signout" (/logout)
+Mar 12 23:28:30 symfony [info] {sfPatternRouting} Connect sfRoute "sf_guard_password" (/request_password)
+Mar 12 23:28:30 symfony [info] {sfPatternRouting} Match route "default_index" (/:module) for /signin with parameters array (  'module' => 'signin',  'action' => 'index',)
+Mar 12 23:28:30 symfony [info] {sfFrontWebController} Action "signin/index" does not exist
+Mar 12 23:28:30 symfony [err] {sfError404Exception} Action "signin/index" does not exist.
+Mar 12 23:28:30 symfony [info] {sfWebResponse} Send status "HTTP/1.1 404 Not Found"
+Mar 12 23:28:30 symfony [info] {sfWebResponse} Send header "Content-Type: text/html; charset=utf-8"
+Mar 12 23:28:30 symfony [info] {sfWebDebugLogger} Configuration 0.91 ms (5)
+Mar 12 23:28:30 symfony [info] {sfWebDebugLogger} Factories 38.48 ms (1)
+Mar 12 23:33:01 symfony [info] {sfPatternRouting} Connect sfRoute "sf_guard_signin" (/login)
+Mar 12 23:33:01 symfony [info] {sfPatternRouting} Connect sfRoute "sf_guard_signout" (/logout)
+Mar 12 23:33:01 symfony [info] {sfPatternRouting} Connect sfRoute "sf_guard_password" (/request_password)
+Mar 12 23:33:01 symfony [info] {sfPatternRouting} Match route "default_index" (/:module) for /signin with parameters array (  'module' => 'signin',  'action' => 'index',)
+Mar 12 23:33:01 symfony [info] {sfFrontWebController} Action "signin/index" does not exist
+Mar 12 23:33:01 symfony [err] {sfError404Exception} Action "signin/index" does not exist.
+Mar 12 23:33:01 symfony [info] {sfWebResponse} Send status "HTTP/1.1 404 Not Found"
+Mar 12 23:33:01 symfony [info] {sfWebResponse} Send header "Content-Type: text/html; charset=utf-8"
+Mar 12 23:33:01 symfony [info] {sfWebDebugLogger} Configuration 416.87 ms (5)
+Mar 12 23:33:01 symfony [info] {sfWebDebugLogger} Factories 153.18 ms (1)
+Mar 12 23:33:05 symfony [info] {sfPatternRouting} Connect sfRoute "sf_guard_signin" (/login)
+Mar 12 23:33:05 symfony [info] {sfPatternRouting} Connect sfRoute "sf_guard_signout" (/logout)
+Mar 12 23:33:05 symfony [info] {sfPatternRouting} Connect sfRoute "sf_guard_password" (/request_password)
+Mar 12 23:33:05 symfony [info] {sfPatternRouting} Match route "homepage" (/) for / with parameters array (  'module' => 'default',  'action' => 'index',)
+Mar 12 23:33:05 symfony [info] {sfFilterChain} Executing filter "sfRenderingFilter"
+Mar 12 23:33:05 symfony [info] {sfFilterChain} Executing filter "sfBasicSecurityFilter"
+Mar 12 23:33:05 symfony [info] {sfBasicSecurityFilter} Action "default/index" requires authentication, forwarding to "sfGuardAuth/signin"
+Mar 12 23:33:05 symfony [info] {sfFilterChain} Executing filter "sfRenderingFilter"
+Mar 12 23:33:05 symfony [info] {sfFilterChain} Executing filter "sfExecutionFilter"
+Mar 12 23:33:05 symfony [info] {sfGuardAuthActions} Call "sfGuardAuthActions->executeSignin()"
+Mar 12 23:33:05 symfony [info] {sfPHPView} Render "/home/tangentau/NetBeansProjects/sfproject/plugins/sfGuardPlugin/modules/sfGuardAuth/templates/signinSuccess.php"
+Mar 12 23:33:05 symfony [info] {sfPHPView} Decorate content with "/home/tangentau/NetBeansProjects/sfproject/apps/frontend/templates/layout.php"
+Mar 12 23:33:05 symfony [info] {sfPHPView} Render "/home/tangentau/NetBeansProjects/sfproject/apps/frontend/templates/layout.php"
+Mar 12 23:33:05 symfony [info] {sfWebResponse} Send status "HTTP/1.1 401 Unauthorized"
+Mar 12 23:33:05 symfony [info] {sfWebResponse} Send header "Content-Type: text/html; charset=utf-8"
+Mar 12 23:33:05 symfony [info] {sfWebDebugLogger} Configuration 40.88 ms (13)
+Mar 12 23:33:05 symfony [info] {sfWebDebugLogger} Factories 44.29 ms (1)
+Mar 12 23:33:05 symfony [info] {sfWebDebugLogger} Action "sfGuardAuth/signin" 34.60 ms (1)
+Mar 12 23:33:05 symfony [info] {sfWebDebugLogger} View "Success" for "sfGuardAuth/signin" 82.77 ms (1)
+Mar 12 23:33:05 symfony [info] {sfWebResponse} Send content (66957 o)
+Mar 12 23:33:15 symfony [info] {sfPatternRouting} Connect sfRoute "sf_guard_signin" (/login)
+Mar 12 23:33:15 symfony [info] {sfPatternRouting} Connect sfRoute "sf_guard_signout" (/logout)
+Mar 12 23:33:15 symfony [info] {sfPatternRouting} Connect sfRoute "sf_guard_password" (/request_password)
+Mar 12 23:33:15 symfony [info] {sfPatternRouting} Match route "sf_guard_signin" (/login) for /login with parameters array (  'module' => 'sfGuardAuth',  'action' => 'signin',)
+Mar 12 23:33:15 symfony [info] {sfFilterChain} Executing filter "sfRenderingFilter"
+Mar 12 23:33:15 symfony [info] {sfFilterChain} Executing filter "sfExecutionFilter"
+Mar 12 23:33:15 symfony [info] {sfGuardAuthActions} Call "sfGuardAuthActions->executeSignin()"
+Mar 12 23:33:15 symfony [debug] {sfPropelLogger} time:  0.002 sec | slow:  NO | mem:    9.0 MB | mempeak:    9.0 MB | memdelta:      0.0 B | SET NAMES 'utf8'
+Mar 12 23:33:15 symfony [debug] {sfPropelLogger} time:  0.049 sec | slow:  NO | mem:    9.5 MB | mempeak:    9.5 MB | memdelta:      0.0 B | SELECT sf_guard_user.ID, sf_guard_user.USERNAME, sf_guard_user.ALGORITHM, sf_guard_user.SALT, sf_guard_user.PASSWORD, sf_guard_user.CREATED_AT, sf_guard_user.LAST_LOGIN, sf_guard_user.IS_ACTIVE, sf_guard_user.IS_SUPER_ADMIN FROM `sf_guard_user` WHERE sf_guard_user.USERNAME='tangentau' AND sf_guard_user.IS_ACTIVE=1 LIMIT 1
+Mar 12 23:33:15 symfony [info] {myUser} User is authenticated
+Mar 12 23:33:15 symfony [debug] {sfPropelLogger} time:  0.160 sec | slow: YES | mem:   12.3 MB | mempeak:   12.3 MB | memdelta:      0.0 B | SELECT sf_guard_user_permission.USER_ID, sf_guard_user_permission.PERMISSION_ID, sf_guard_permission.ID, sf_guard_permission.NAME, sf_guard_permission.DESCRIPTION FROM `sf_guard_user_permission` LEFT JOIN sf_guard_permission ON (sf_guard_user_permission.PERMISSION_ID=sf_guard_permission.ID) WHERE sf_guard_user_permission.USER_ID=1
+Mar 12 23:33:15 symfony [debug] {sfPropelLogger} time:  0.027 sec | slow:  NO | mem:   13.3 MB | mempeak:   13.3 MB | memdelta:      0.0 B | SELECT sf_guard_user_group.USER_ID, sf_guard_user_group.GROUP_ID, sf_guard_group.ID, sf_guard_group.NAME, sf_guard_group.DESCRIPTION FROM `sf_guard_user_group` LEFT JOIN sf_guard_group ON (sf_guard_user_group.GROUP_ID=sf_guard_group.ID) WHERE sf_guard_user_group.USER_ID=1
+Mar 12 23:33:15 symfony [info] {myUser} Add credential(s) ""
+Mar 12 23:33:15 symfony [debug] {sfPropelLogger} time:  0.109 sec | slow: YES | mem:   13.3 MB | mempeak:   13.3 MB | memdelta:      0.0 B | UPDATE sf_guard_user SET `LAST_LOGIN`='2010-03-12 23:33:15' WHERE sf_guard_user.ID=1
+Mar 12 23:33:16 symfony [info] {sfFrontWebController} Redirect to "http://localhost:8080/frontend_dev.php/"
+Mar 12 23:33:16 symfony [info] {sfWebResponse} Send status "HTTP/1.1 302 Found"
+Mar 12 23:33:16 symfony [info] {sfWebResponse} Send header "Location: http://localhost:8080/frontend_dev.php/"
+Mar 12 23:33:16 symfony [info] {sfWebResponse} Send header "Content-Type: text/html; charset=utf-8"
+Mar 12 23:33:16 symfony [info] {sfWebDebugLogger} Configuration 164.09 ms (10)
+Mar 12 23:33:16 symfony [info] {sfWebDebugLogger} Factories 65.81 ms (1)
+Mar 12 23:33:16 symfony [info] {sfWebDebugLogger} Action "sfGuardAuth/signin" 799.18 ms (1)
+Mar 12 23:33:16 symfony [info] {sfWebResponse} Send content (110 o)
+Mar 12 23:33:16 symfony [info] {sfPatternRouting} Connect sfRoute "sf_guard_signin" (/login)
+Mar 12 23:33:16 symfony [info] {sfPatternRouting} Connect sfRoute "sf_guard_signout" (/logout)
+Mar 12 23:33:16 symfony [info] {sfPatternRouting} Connect sfRoute "sf_guard_password" (/request_password)
+Mar 12 23:33:16 symfony [info] {sfPatternRouting} Match route "homepage" (/) for / with parameters array (  'module' => 'default',  'action' => 'index',)
+Mar 12 23:33:16 symfony [info] {sfFilterChain} Executing filter "sfRenderingFilter"
+Mar 12 23:33:16 symfony [info] {sfFilterChain} Executing filter "sfBasicSecurityFilter"
+Mar 12 23:33:16 symfony [info] {sfFilterChain} Executing filter "sfExecutionFilter"
+Mar 12 23:33:16 symfony [info] {defaultActions} Call "defaultActions->executeIndex()"
+Mar 12 23:33:16 symfony [debug] {sfPropelLogger} time:  0.013 sec | slow:  NO | mem:    8.0 MB | mempeak:    8.0 MB | memdelta:      0.0 B | SET NAMES 'utf8'
+Mar 12 23:33:16 symfony [debug] {sfPropelLogger} time:  0.000 sec | slow:  NO | mem:    8.5 MB | mempeak:    8.5 MB | memdelta:      0.0 B | SELECT sf_test.ID, sf_test.NAME FROM `sf_test`
+Mar 12 23:33:16 symfony [info] {sfPHPView} Render "/home/tangentau/NetBeansProjects/sfproject/apps/frontend/modules/default/templates/indexSuccess.php"
+Mar 12 23:33:16 symfony [info] {sfPHPView} Decorate content with "/home/tangentau/NetBeansProjects/sfproject/apps/frontend/templates/layout.php"
+Mar 12 23:33:16 symfony [info] {sfPHPView} Render "/home/tangentau/NetBeansProjects/sfproject/apps/frontend/templates/layout.php"
+Mar 12 23:33:16 symfony [info] {sfWebResponse} Send status "HTTP/1.1 200 OK"
+Mar 12 23:33:16 symfony [info] {sfWebResponse} Send header "Content-Type: text/html; charset=utf-8"
+Mar 12 23:33:16 symfony [info] {sfWebDebugLogger} Configuration 14.34 ms (10)
+Mar 12 23:33:16 symfony [info] {sfWebDebugLogger} Factories 58.40 ms (1)
+Mar 12 23:33:16 symfony [info] {sfWebDebugLogger} Action "default/index" 41.13 ms (1)
+Mar 12 23:33:16 symfony [info] {sfWebDebugLogger} View "Success" for "default/index" 24.90 ms (1)
+Mar 12 23:33:16 symfony [info] {sfWebResponse} Send content (75097 o)
+Mar 12 23:35:13 symfony [info] {sfPatternRouting} Connect sfRoute "sf_guard_signin" (/login)
+Mar 12 23:35:13 symfony [info] {sfPatternRouting} Connect sfRoute "sf_guard_signout" (/logout)
+Mar 12 23:35:13 symfony [info] {sfPatternRouting} Connect sfRoute "sf_guard_password" (/request_password)
+Mar 12 23:35:13 symfony [info] {sfPatternRouting} Match route "homepage" (/) for / with parameters array (  'module' => 'default',  'action' => 'index',)
+Mar 12 23:35:13 symfony [info] {sfFilterChain} Executing filter "sfRenderingFilter"
+Mar 12 23:35:13 symfony [info] {sfFilterChain} Executing filter "sfBasicSecurityFilter"
+Mar 12 23:35:13 symfony [info] {sfFilterChain} Executing filter "sfExecutionFilter"
+Mar 12 23:35:13 symfony [info] {defaultActions} Call "defaultActions->executeIndex()"
+Mar 12 23:35:13 symfony [debug] {sfPropelLogger} time:  0.000 sec | slow:  NO | mem:    9.8 MB | mempeak:    9.8 MB | memdelta:      0.0 B | SET NAMES 'utf8'
+Mar 12 23:35:13 symfony [debug] {sfPropelLogger} time:  0.000 sec | slow:  NO | mem:   10.3 MB | mempeak:   10.3 MB | memdelta:      0.0 B | SELECT sf_test.ID, sf_test.NAME FROM `sf_test`
+Mar 12 23:35:13 symfony [info] {sfPHPView} Render "/home/tangentau/NetBeansProjects/sfproject/apps/frontend/modules/default/templates/indexSuccess.php"
+Mar 12 23:35:13 symfony [info] {sfPHPView} Decorate content with "/home/tangentau/NetBeansProjects/sfproject/apps/frontend/templates/layout.php"
+Mar 12 23:35:13 symfony [info] {sfPHPView} Render "/home/tangentau/NetBeansProjects/sfproject/apps/frontend/templates/layout.php"
+Mar 12 23:35:13 symfony [info] {sfWebResponse} Send status "HTTP/1.1 200 OK"
+Mar 12 23:35:13 symfony [info] {sfWebResponse} Send header "Content-Type: text/html; charset=utf-8"
+Mar 12 23:35:13 symfony [info] {sfWebDebugLogger} Configuration 175.79 ms (9)
+Mar 12 23:35:13 symfony [info] {sfWebDebugLogger} Factories 109.00 ms (1)
+Mar 12 23:35:13 symfony [info] {sfWebDebugLogger} Action "default/index" 23.56 ms (1)
+Mar 12 23:35:13 symfony [info] {sfWebDebugLogger} View "Success" for "default/index" 17.92 ms (1)
+Mar 12 23:35:13 symfony [info] {sfWebResponse} Send content (75029 o)
+Mar 12 23:35:17 symfony [info] {sfPatternRouting} Connect sfRoute "sf_guard_signin" (/login)
+Mar 12 23:35:17 symfony [info] {sfPatternRouting} Connect sfRoute "sf_guard_signout" (/logout)
+Mar 12 23:35:17 symfony [info] {sfPatternRouting} Connect sfRoute "sf_guard_password" (/request_password)
+Mar 12 23:35:17 symfony [info] {sfPatternRouting} Match route "sf_guard_signout" (/logout) for /logout with parameters array (  'module' => 'sfGuardAuth',  'action' => 'signout',)
+Mar 12 23:35:17 symfony [info] {sfFilterChain} Executing filter "sfRenderingFilter"
+Mar 12 23:35:17 symfony [info] {sfFilterChain} Executing filter "sfExecutionFilter"
+Mar 12 23:35:17 symfony [info] {sfGuardAuthActions} Call "sfGuardAuthActions->executeSignout()"
+Mar 12 23:35:17 symfony [info] {myUser} User is not authenticated
+Mar 12 23:35:17 symfony [info] {sfFrontWebController} Redirect to "http://localhost:8080/frontend_dev.php/"
+Mar 12 23:35:17 symfony [info] {sfWebResponse} Send status "HTTP/1.1 302 Found"
+Mar 12 23:35:17 symfony [info] {sfWebResponse} Send header "Location: http://localhost:8080/frontend_dev.php/"
+Mar 12 23:35:17 symfony [info] {sfWebResponse} Send header "Content-Type: text/html; charset=utf-8"
+Mar 12 23:35:17 symfony [info] {sfWebResponse} Send cookie "sfRemember": ""
+Mar 12 23:35:17 symfony [info] {sfWebDebugLogger} Configuration 19.04 ms (9)
+Mar 12 23:35:17 symfony [info] {sfWebDebugLogger} Factories 35.89 ms (1)
+Mar 12 23:35:17 symfony [info] {sfWebDebugLogger} Action "sfGuardAuth/signout" 2.66 ms (1)
+Mar 12 23:35:17 symfony [info] {sfWebResponse} Send content (110 o)
+Mar 12 23:35:18 symfony [info] {sfPatternRouting} Connect sfRoute "sf_guard_signin" (/login)
+Mar 12 23:35:18 symfony [info] {sfPatternRouting} Connect sfRoute "sf_guard_signout" (/logout)
+Mar 12 23:35:18 symfony [info] {sfPatternRouting} Connect sfRoute "sf_guard_password" (/request_password)
+Mar 12 23:35:18 symfony [info] {sfPatternRouting} Match route "homepage" (/) for / with parameters array (  'module' => 'default',  'action' => 'index',)
+Mar 12 23:35:18 symfony [info] {sfFilterChain} Executing filter "sfRenderingFilter"
+Mar 12 23:35:18 symfony [info] {sfFilterChain} Executing filter "sfBasicSecurityFilter"
+Mar 12 23:35:18 symfony [info] {sfBasicSecurityFilter} Action "default/index" requires authentication, forwarding to "sfGuardAuth/signin"
+Mar 12 23:35:18 symfony [info] {sfFilterChain} Executing filter "sfRenderingFilter"
+Mar 12 23:35:18 symfony [info] {sfFilterChain} Executing filter "sfExecutionFilter"
+Mar 12 23:35:18 symfony [info] {sfGuardAuthActions} Call "sfGuardAuthActions->executeSignin()"
+Mar 12 23:35:18 symfony [info] {sfPHPView} Render "/home/tangentau/NetBeansProjects/sfproject/plugins/sfGuardPlugin/modules/sfGuardAuth/templates/signinSuccess.php"
+Mar 12 23:35:18 symfony [info] {sfPHPView} Decorate content with "/home/tangentau/NetBeansProjects/sfproject/apps/frontend/templates/layout.php"
+Mar 12 23:35:18 symfony [info] {sfPHPView} Render "/home/tangentau/NetBeansProjects/sfproject/apps/frontend/templates/layout.php"
+Mar 12 23:35:18 symfony [info] {sfWebResponse} Send status "HTTP/1.1 401 Unauthorized"
+Mar 12 23:35:18 symfony [info] {sfWebResponse} Send header "Content-Type: text/html; charset=utf-8"
+Mar 12 23:35:18 symfony [info] {sfWebDebugLogger} Configuration 15.26 ms (13)
+Mar 12 23:35:18 symfony [info] {sfWebDebugLogger} Factories 34.28 ms (1)
+Mar 12 23:35:18 symfony [info] {sfWebDebugLogger} Action "sfGuardAuth/signin" 10.44 ms (1)
+Mar 12 23:35:18 symfony [info] {sfWebDebugLogger} View "Success" for "sfGuardAuth/signin" 33.76 ms (1)
+Mar 12 23:35:18 symfony [info] {sfWebResponse} Send content (66936 o)
+Mar 12 23:36:40 symfony [info] {sfPatternRouting} Connect sfRoute "sf_guard_signin" (/login)
+Mar 12 23:36:40 symfony [info] {sfPatternRouting} Connect sfRoute "sf_guard_signout" (/logout)
+Mar 12 23:36:40 symfony [info] {sfPatternRouting} Connect sfRoute "sf_guard_password" (/request_password)
+Mar 12 23:36:40 symfony [info] {sfPatternRouting} Match route "homepage" (/) for / with parameters array (  'module' => 'default',  'action' => 'index',)
+Mar 12 23:36:40 symfony [info] {sfFilterChain} Executing filter "sfRenderingFilter"
+Mar 12 23:36:40 symfony [info] {sfFilterChain} Executing filter "sfBasicSecurityFilter"
+Mar 12 23:36:40 symfony [info] {sfBasicSecurityFilter} Action "default/index" requires authentication, forwarding to "sfGuardAuth/signin"
+Mar 12 23:36:40 symfony [info] {sfFilterChain} Executing filter "sfRenderingFilter"
+Mar 12 23:36:40 symfony [info] {sfFilterChain} Executing filter "sfExecutionFilter"
+Mar 12 23:36:40 symfony [info] {sfGuardAuthActions} Call "sfGuardAuthActions->executeSignin()"
+Mar 12 23:36:40 symfony [info] {sfPHPView} Render "/home/tangentau/NetBeansProjects/sfproject/plugins/sfGuardPlugin/modules/sfGuardAuth/templates/signinSuccess.php"
+Mar 12 23:36:40 symfony [info] {sfPHPView} Decorate content with "/home/tangentau/NetBeansProjects/sfproject/apps/frontend/templates/layout.php"
+Mar 12 23:36:40 symfony [info] {sfPHPView} Render "/home/tangentau/NetBeansProjects/sfproject/apps/frontend/templates/layout.php"
+Mar 12 23:36:40 symfony [info] {sfWebResponse} Send status "HTTP/1.1 401 Unauthorized"
+Mar 12 23:36:40 symfony [info] {sfWebResponse} Send header "Content-Type: text/html; charset=utf-8"
+Mar 12 23:36:40 symfony [info] {sfWebDebugLogger} Configuration 178.52 ms (12)
+Mar 12 23:36:40 symfony [info] {sfWebDebugLogger} Factories 94.78 ms (1)
+Mar 12 23:36:40 symfony [info] {sfWebDebugLogger} Action "sfGuardAuth/signin" 9.20 ms (1)
+Mar 12 23:36:40 symfony [info] {sfWebDebugLogger} View "Success" for "sfGuardAuth/signin" 21.80 ms (1)
+Mar 12 23:36:40 symfony [info] {sfWebResponse} Send content (66995 o)
+Mar 12 23:36:45 symfony [info] {sfPatternRouting} Connect sfRoute "sf_guard_signin" (/login)
+Mar 12 23:36:45 symfony [info] {sfPatternRouting} Connect sfRoute "sf_guard_signout" (/logout)
+Mar 12 23:36:45 symfony [info] {sfPatternRouting} Connect sfRoute "sf_guard_password" (/request_password)
+Mar 12 23:36:45 symfony [info] {sfPatternRouting} Match route "sf_guard_signin" (/login) for /login with parameters array (  'module' => 'sfGuardAuth',  'action' => 'signin',)
+Mar 12 23:36:45 symfony [info] {sfFilterChain} Executing filter "sfRenderingFilter"
+Mar 12 23:36:45 symfony [info] {sfFilterChain} Executing filter "sfExecutionFilter"
+Mar 12 23:36:45 symfony [info] {sfGuardAuthActions} Call "sfGuardAuthActions->executeSignin()"
+Mar 12 23:36:45 symfony [debug] {sfPropelLogger} time:  0.002 sec | slow:  NO | mem:    9.0 MB | mempeak:    9.0 MB | memdelta:      0.0 B | SET NAMES 'utf8'
+Mar 12 23:36:45 symfony [debug] {sfPropelLogger} time:  0.001 sec | slow:  NO | mem:    9.5 MB | mempeak:    9.5 MB | memdelta:      0.0 B | SELECT sf_guard_user.ID, sf_guard_user.USERNAME, sf_guard_user.ALGORITHM, sf_guard_user.SALT, sf_guard_user.PASSWORD, sf_guard_user.CREATED_AT, sf_guard_user.LAST_LOGIN, sf_guard_user.IS_ACTIVE, sf_guard_user.IS_SUPER_ADMIN FROM `sf_guard_user` WHERE sf_guard_user.USERNAME='tangentau' AND sf_guard_user.IS_ACTIVE=1 LIMIT 1
+Mar 12 23:36:45 symfony [info] {myUser} User is authenticated
+Mar 12 23:36:45 symfony [debug] {sfPropelLogger} time:  0.000 sec | slow:  NO | mem:   12.3 MB | mempeak:   12.3 MB | memdelta:      0.0 B | SELECT sf_guard_user_permission.USER_ID, sf_guard_user_permission.PERMISSION_ID, sf_guard_permission.ID, sf_guard_permission.NAME, sf_guard_permission.DESCRIPTION FROM `sf_guard_user_permission` LEFT JOIN sf_guard_permission ON (sf_guard_user_permission.PERMISSION_ID=sf_guard_permission.ID) WHERE sf_guard_user_permission.USER_ID=1
+Mar 12 23:36:45 symfony [debug] {sfPropelLogger} time:  0.000 sec | slow:  NO | mem:   13.3 MB | mempeak:   13.3 MB | memdelta:      0.0 B | SELECT sf_guard_user_group.USER_ID, sf_guard_user_group.GROUP_ID, sf_guard_group.ID, sf_guard_group.NAME, sf_guard_group.DESCRIPTION FROM `sf_guard_user_group` LEFT JOIN sf_guard_group ON (sf_guard_user_group.GROUP_ID=sf_guard_group.ID) WHERE sf_guard_user_group.USER_ID=1
+Mar 12 23:36:45 symfony [info] {myUser} Add credential(s) ""
+Mar 12 23:36:45 symfony [debug] {sfPropelLogger} time:  0.001 sec | slow:  NO | mem:   13.3 MB | mempeak:   13.3 MB | memdelta:      0.0 B | UPDATE sf_guard_user SET `LAST_LOGIN`='2010-03-12 23:36:45' WHERE sf_guard_user.ID=1
+Mar 12 23:36:45 symfony [info] {sfFrontWebController} Redirect to "http://localhost:8080/frontend_dev.php/"
+Mar 12 23:36:45 symfony [info] {sfWebResponse} Send status "HTTP/1.1 302 Found"
+Mar 12 23:36:45 symfony [info] {sfWebResponse} Send header "Location: http://localhost:8080/frontend_dev.php/"
+Mar 12 23:36:45 symfony [info] {sfWebResponse} Send header "Content-Type: text/html; charset=utf-8"
+Mar 12 23:36:45 symfony [info] {sfWebDebugLogger} Configuration 113.18 ms (10)
+Mar 12 23:36:45 symfony [info] {sfWebDebugLogger} Factories 115.60 ms (1)
+Mar 12 23:36:45 symfony [info] {sfWebDebugLogger} Action "sfGuardAuth/signin" 264.60 ms (1)
+Mar 12 23:36:45 symfony [info] {sfWebResponse} Send content (110 o)
+Mar 12 23:36:45 symfony [info] {sfPatternRouting} Connect sfRoute "sf_guard_signin" (/login)
+Mar 12 23:36:45 symfony [info] {sfPatternRouting} Connect sfRoute "sf_guard_signout" (/logout)
+Mar 12 23:36:45 symfony [info] {sfPatternRouting} Connect sfRoute "sf_guard_password" (/request_password)
+Mar 12 23:36:45 symfony [info] {sfPatternRouting} Match route "homepage" (/) for / with parameters array (  'module' => 'default',  'action' => 'index',)
+Mar 12 23:36:45 symfony [info] {sfFilterChain} Executing filter "sfRenderingFilter"
+Mar 12 23:36:45 symfony [info] {sfFilterChain} Executing filter "sfBasicSecurityFilter"
+Mar 12 23:36:45 symfony [info] {sfFilterChain} Executing filter "sfExecutionFilter"
+Mar 12 23:36:45 symfony [info] {defaultActions} Call "defaultActions->executeIndex()"
+Mar 12 23:36:45 symfony [debug] {sfPropelLogger} time:  0.000 sec | slow:  NO | mem:    8.0 MB | mempeak:    8.0 MB | memdelta:      0.0 B | SET NAMES 'utf8'
+Mar 12 23:36:45 symfony [debug] {sfPropelLogger} time:  0.001 sec | slow:  NO | mem:    8.5 MB | mempeak:    8.5 MB | memdelta:      0.0 B | SELECT sf_test.ID, sf_test.NAME FROM `sf_test`
+Mar 12 23:36:45 symfony [info] {sfPHPView} Render "/home/tangentau/NetBeansProjects/sfproject/apps/frontend/modules/default/templates/indexSuccess.php"
+Mar 12 23:36:45 symfony [info] {sfPHPView} Decorate content with "/home/tangentau/NetBeansProjects/sfproject/apps/frontend/templates/layout.php"
+Mar 12 23:36:45 symfony [info] {sfPHPView} Render "/home/tangentau/NetBeansProjects/sfproject/apps/frontend/templates/layout.php"
+Mar 12 23:36:45 symfony [info] {sfWebResponse} Send status "HTTP/1.1 200 OK"
+Mar 12 23:36:45 symfony [info] {sfWebResponse} Send header "Content-Type: text/html; charset=utf-8"
+Mar 12 23:36:45 symfony [info] {sfWebDebugLogger} Configuration 17.06 ms (10)
+Mar 12 23:36:45 symfony [info] {sfWebDebugLogger} Factories 40.73 ms (1)
+Mar 12 23:36:45 symfony [info] {sfWebDebugLogger} Action "default/index" 22.44 ms (1)
+Mar 12 23:36:45 symfony [info] {sfWebDebugLogger} View "Success" for "default/index" 30.88 ms (1)
+Mar 12 23:36:45 symfony [info] {sfWebResponse} Send content (75098 o)

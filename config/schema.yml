@@ -1,0 +1,5 @@
+# config/schema.yml
+propel:
+  sf_test:
+    id:           ~
+    name:         { type: varchar(255) }

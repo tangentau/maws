@@ -3,3 +3,7 @@
 
 # default values
 #all:
+
+all:
+  sf_guard_plugin:
+    routes_register: true
