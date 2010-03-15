@@ -15,3 +15,15 @@
 #     password: changeme
 #     name:     Kris Wallsmith
 #     email:    kris.wallsmith@symfony-project.com
+
+# user
+SfGuardUser:
+  tangentau:
+    username:   tangentau
+    algorithm:  sha1
+    salt:       3c1cb7a2a5ff1f6469525590505ca2f2
+    password:   e535edaf6a0498af8c5e417430cedb724523d569
+    created_at: 2010-03-15 22:52:57
+    last_login: 2010-03-15 22:52:58
+    is_active:  1
+    is_super_admin: 1

@@ -3,3 +3,22 @@ propel:
   sf_test:
     id:           ~
     name:         { type: varchar(255) }
+
+  maws_filter:
+    id:           ~
+    name:             { type: varchar(255), default: '' }
+    resource:         { type: varchar(255) }
+    resource_type:    { type: integer, required: true, default: 0 }
+    resource_method:  { type: integer, required: true, default: 0 }
+    resource_login:   { type: varchar(255) }
+    resource_pass:    { type: varchar(255) }
+    resource_params:  { type: longvarchar, default: '' }
+    filter:           { type: longvarchar, default: '' }
+    filter_type:      { type: integer, required: true, default: 0 }
+    action:           { type: varchar(255), default: '' }
+    action_type:      { type: integer, required: true, default: 0 }
+    action_param1:    { type: varchar(255), default: '' }
+    action_param2:    { type: varchar(255), default: '' }
+    action_param3:    { type: varchar(255), default: '' }
+
+
