@@ -74,4 +74,13 @@ class filterActions extends sfActions
       $this->redirect('filter/edit?id='.$MawsFilter->getId());
     }
   }
+
+  /***********************************************/
+  public function executeTest(sfWebRequest $request)
+  {
+	$mf= new MawsFilter();
+	$this->c = $mf->Get();
+	$this->d = $mf;
+	$this->debug = $mf->debug;
+  }
 }
