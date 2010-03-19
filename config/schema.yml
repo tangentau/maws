@@ -20,5 +20,26 @@ propel:
     action_param1:    { type: varchar(255), default: '' }
     action_param2:    { type: varchar(255), default: '' }
     action_param3:    { type: varchar(255), default: '' }
+    created_at:   ~
+    updated_at:   ~
+
+
+  maws_thread:
+    id:           ~
+    name:             { type: varchar(255), default: '' }
+    filter_id:        { type: integer, required: true, default: 0 }
+    update_start:     { type: timestamp, required: true }
+    update_period:    { type: integer, required: true, default: 0 }
+    created_at:   ~
+    updated_at:   ~
+
+
+  maws_filter_result:
+    id:           ~
+    name:             { type: varchar(255), default: '' }
+    filter_id:        { type: integer,  foreignTable: maws_filter, foreignReference: id, required: true }
+    thread_id:        { type: integer,  foreignTable: maws_thread, foreignReference: id, required: true }
+    result:           { type: longvarchar, default: '' }
+    created_at:   ~
 
 

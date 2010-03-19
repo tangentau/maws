@@ -30,12 +30,14 @@ abstract class BaseMawsFilterForm extends BaseFormPropel
       'action_param1'   => new sfWidgetFormInputText(),
       'action_param2'   => new sfWidgetFormInputText(),
       'action_param3'   => new sfWidgetFormInputText(),
+      'created_at'      => new sfWidgetFormDateTime(),
+      'updated_at'      => new sfWidgetFormDateTime(),
     ));
 
     $this->setValidators(array(
       'id'              => new sfValidatorPropelChoice(array('model' => 'MawsFilter', 'column' => 'id', 'required' => false)),
       'name'            => new sfValidatorString(array('max_length' => 255, 'required' => false)),
-      'resource'        => new sfValidatorString(array('max_length' => 255)),
+      'resource'        => new sfValidatorString(array('max_length' => 255, 'required' => false)),
       'resource_type'   => new sfValidatorInteger(array('min' => -2147483648, 'max' => 2147483647)),
       'resource_method' => new sfValidatorInteger(array('min' => -2147483648, 'max' => 2147483647)),
       'resource_login'  => new sfValidatorString(array('max_length' => 255, 'required' => false)),
@@ -48,6 +50,8 @@ abstract class BaseMawsFilterForm extends BaseFormPropel
       'action_param1'   => new sfValidatorString(array('max_length' => 255, 'required' => false)),
       'action_param2'   => new sfValidatorString(array('max_length' => 255, 'required' => false)),
       'action_param3'   => new sfValidatorString(array('max_length' => 255, 'required' => false)),
+      'created_at'      => new sfValidatorDateTime(array('required' => false)),
+      'updated_at'      => new sfValidatorDateTime(array('required' => false)),
     ));
 
     $this->widgetSchema->setNameFormat('maws_filter[%s]');

@@ -17,6 +17,10 @@ sf_guard_password:
   param: { module: sfGuardAuth, action: password }
 
 
+test:
+  url:   /t/:id
+  param: { module: filter, action: test }
+
 # default rules
 homepage:
   url:   /

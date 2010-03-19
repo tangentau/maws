@@ -13,9 +13,9 @@ abstract class BaseMawsFilterFormFilter extends BaseFormFilterPropel
   public function setup()
   {
     $this->setWidgets(array(
-      'name'            => new sfWidgetFormFilterInput(array('with_empty' => false)),
-      'resource'        => new sfWidgetFormFilterInput(array('with_empty' => false)),
-      'resource_type'   => new sfWidgetFormFilterInput(),
+      'name'            => new sfWidgetFormFilterInput(),
+      'resource'        => new sfWidgetFormFilterInput(),
+      'resource_type'   => new sfWidgetFormFilterInput(array('with_empty' => false)),
       'resource_method' => new sfWidgetFormFilterInput(array('with_empty' => false)),
       'resource_login'  => new sfWidgetFormFilterInput(),
       'resource_pass'   => new sfWidgetFormFilterInput(),
@@ -27,6 +27,8 @@ abstract class BaseMawsFilterFormFilter extends BaseFormFilterPropel
       'action_param1'   => new sfWidgetFormFilterInput(),
       'action_param2'   => new sfWidgetFormFilterInput(),
       'action_param3'   => new sfWidgetFormFilterInput(),
+      'created_at'      => new sfWidgetFormFilterDate(array('from_date' => new sfWidgetFormDate(), 'to_date' => new sfWidgetFormDate())),
+      'updated_at'      => new sfWidgetFormFilterDate(array('from_date' => new sfWidgetFormDate(), 'to_date' => new sfWidgetFormDate())),
     ));
 
     $this->setValidators(array(
@@ -44,6 +46,8 @@ abstract class BaseMawsFilterFormFilter extends BaseFormFilterPropel
       'action_param1'   => new sfValidatorPass(array('required' => false)),
       'action_param2'   => new sfValidatorPass(array('required' => false)),
       'action_param3'   => new sfValidatorPass(array('required' => false)),
+      'created_at'      => new sfValidatorDateRange(array('required' => false, 'from_date' => new sfValidatorDate(array('required' => false)), 'to_date' => new sfValidatorDate(array('required' => false)))),
+      'updated_at'      => new sfValidatorDateRange(array('required' => false, 'from_date' => new sfValidatorDate(array('required' => false)), 'to_date' => new sfValidatorDate(array('required' => false)))),
     ));
 
     $this->widgetSchema->setNameFormat('maws_filter_filters[%s]');
@@ -76,6 +80,8 @@ abstract class BaseMawsFilterFormFilter extends BaseFormFilterPropel
       'action_param1'   => 'Text',
       'action_param2'   => 'Text',
       'action_param3'   => 'Text',
+      'created_at'      => 'Date',
+      'updated_at'      => 'Date',
     );
   }
 }

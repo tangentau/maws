@@ -78,9 +78,9 @@ class filterActions extends sfActions
   /***********************************************/
   public function executeTest(sfWebRequest $request)
   {
-	$mf= new MawsFilter();
-	$this->c = $mf->Get();
-	$this->d = $mf;
-	$this->debug = $mf->debug;
+//	$mf= new MawsFilter($request->id);
+	$this->mf = MawsFilterPeer::retrieveByPK($request->getParameter('id'));
+	$this->c = $this->mf->Get();
+	$this->debug = $this->mf->debug;
   }
 }

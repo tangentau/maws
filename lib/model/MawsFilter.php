@@ -19,6 +19,11 @@ class MawsFilter extends BaseMawsFilter {
 
 /************************************** КОНСТАНТЫ КЛАССА *******************************/
 
+/*** варианты обращений к http. K.O. ***/
+
+	const	METHOD_GET			= 6001;
+	const	METHOD_POST			= 6002;
+
 /*** типы ИИС: ***/
 
 	const	HTTP_RESOURCE		= 7001;		// страница HTTP-сервера
@@ -26,6 +31,7 @@ class MawsFilter extends BaseMawsFilter {
 	const	HTTP_FILE_RESOURCE	= 7003;		// файл на HTTP-сервере
 	const	FTP_FILE_RESOURCE	= 7004;		// файл на FTP-сервере
 	const	FILTER_RESOURCE		= 7005;		// другой фильтр
+
 
 /*** типы фильтров данных, полученных от ИИС: ***/
 
@@ -60,8 +66,8 @@ class MawsFilter extends BaseMawsFilter {
 
 	protected	$resource_type = self::HTTP_RESOURCE;			// тип ИИС
 	protected	$resource = 'http://www.example.com';
-	protected	$resource_method = 'GET';						// как обращаться к HTTP_RESOURCE
-	protected	$resource_params = array();						// для HTTP_RESOURCE
+	protected	$resource_method = self::METHOD_GET;						// как обращаться к HTTP_RESOURCE
+	protected	$resource_params = '';						// для HTTP_RESOURCE
 	protected	$resource_login = '';
 	protected	$resource_password = '';
 									
@@ -94,6 +100,7 @@ class MawsFilter extends BaseMawsFilter {
 
 /************************************** МЕТОДЫ КЛАССА *******************************/
 
+	/*
 	public function __construct()
 	{
 		parent::__construct();
@@ -113,7 +120,12 @@ class MawsFilter extends BaseMawsFilter {
 		$this->action_param3 = 2;								// первый параметр
 
 	}
+*/
 
+	public function	__toString()
+	{
+		return $this->getName().' ['.$this->getId().']';
+	}
 	/**
 	 * Получает контент информационного источника (ИИС).
 	 * ИИС может быть веб-страничкой, каталогом ftp-сервера, файлом или фильтром.
@@ -337,11 +349,18 @@ class MawsFilter extends BaseMawsFilter {
 		$ch = curl_init();
 
 		// составляем строку с параметрами запроса, наподобие file=ttt.txt&name=aaa.txt
-		$strParams = http_build_query($this->resource_params);
+		if (is_array($this->resource_params))
+		{
+			$strParams = http_build_query($this->resource_params);
+		}
+		else
+		{
+			$strParams = '';
+		}
 
 		if (strlen($strParams)>0) // нужно отослать запрос с параметрами
 		{
-			if (strtolower($this->resource_method)=='post') // отсылаем POST-запрос
+			if ($this->resource_method==self::METHOD_POST) // отсылаем POST-запрос
 			{
 				$strUrl = $this->resource;
 				curl_setopt($ch, CURLOPT_POSTFIELDS, $strParams);
@@ -355,7 +374,7 @@ class MawsFilter extends BaseMawsFilter {
 		{
 			$strUrl = $this->resource;
 		}
-		echo($strUrl);
+
 		// set url
 		curl_setopt($ch, CURLOPT_URL, $strUrl);
 

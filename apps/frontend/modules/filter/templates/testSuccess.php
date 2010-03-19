@@ -13,6 +13,6 @@ print_r($debug);
 <pre>
 <?php
 
-print_r($d);
+print_r($mf);
 ?>
 </pre>
