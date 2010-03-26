@@ -20,6 +20,7 @@ abstract class BaseMawsFilterResultForm extends BaseFormPropel
       'filter_id'  => new sfWidgetFormPropelChoice(array('model' => 'MawsFilter', 'add_empty' => false)),
       'thread_id'  => new sfWidgetFormPropelChoice(array('model' => 'MawsThread', 'add_empty' => false)),
       'result'     => new sfWidgetFormTextarea(),
+      'is_diff'    => new sfWidgetFormInputText(),
       'created_at' => new sfWidgetFormDateTime(),
     ));
 
@@ -29,6 +30,7 @@ abstract class BaseMawsFilterResultForm extends BaseFormPropel
       'filter_id'  => new sfValidatorPropelChoice(array('model' => 'MawsFilter', 'column' => 'id')),
       'thread_id'  => new sfValidatorPropelChoice(array('model' => 'MawsThread', 'column' => 'id')),
       'result'     => new sfValidatorString(array('required' => false)),
+      'is_diff'    => new sfValidatorInteger(array('min' => -2147483648, 'max' => 2147483647, 'required' => false)),
       'created_at' => new sfValidatorDateTime(array('required' => false)),
     ));
 

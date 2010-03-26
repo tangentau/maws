@@ -1,25 +1,23 @@
 # config/schema.yml
 propel:
-  sf_test:
-    id:           ~
-    name:         { type: varchar(255) }
 
-  maws_filter:
+  maws_parser:
     id:           ~
     name:             { type: varchar(255), default: '' }
-    resource:         { type: varchar(255) }
+    description:      { type: varchar(255), default: '' }
+    access:           { type: integer, required: true, default: 0 }
+    resource_url:     { type: varchar(255) }
     resource_type:    { type: integer, required: true, default: 0 }
+    resource_params:  { type: longvarchar, default: '' }
     resource_method:  { type: integer, required: true, default: 0 }
     resource_login:   { type: varchar(255) }
     resource_pass:    { type: varchar(255) }
-    resource_params:  { type: longvarchar, default: '' }
-    filter:           { type: longvarchar, default: '' }
     filter_type:      { type: integer, required: true, default: 0 }
-    action:           { type: varchar(255), default: '' }
+    filter_params:    { type: longvarchar, default: '' }
     action_type:      { type: integer, required: true, default: 0 }
-    action_param1:    { type: varchar(255), default: '' }
-    action_param2:    { type: varchar(255), default: '' }
-    action_param3:    { type: varchar(255), default: '' }
+    action_params:    { type: longvarchar, default: '' }
+    result_type:      { type: integer, required: true, default: 0 }
+    owner_id:         { type: integer,  foreignTable: sf_guard_user, foreignReference: id, required: true }
     created_at:   ~
     updated_at:   ~
 
@@ -27,19 +25,45 @@ propel:
   maws_thread:
     id:           ~
     name:             { type: varchar(255), default: '' }
-    filter_id:        { type: integer, required: true, default: 0 }
+    description:      { type: varchar(255), default: '' }
+    access:           { type: integer, required: true, default: 0 }
+    parser_id:        { type: integer, required: true, default: 0 }
     update_start:     { type: timestamp, required: true }
     update_period:    { type: integer, required: true, default: 0 }
+    result_type:      { type: integer, required: true, default: 0 }
+    owner_id:         { type: integer,  foreignTable: sf_guard_user, foreignReference: id, required: true }
+    checked_at:       { type: timestamp }
     created_at:   ~
     updated_at:   ~
 
 
-  maws_filter_result:
+  maws_parser_result:
     id:           ~
     name:             { type: varchar(255), default: '' }
-    filter_id:        { type: integer,  foreignTable: maws_filter, foreignReference: id, required: true }
+    parser_id:        { type: integer,  foreignTable: maws_parser, foreignReference: id, required: true }
     thread_id:        { type: integer,  foreignTable: maws_thread, foreignReference: id, required: true }
+    result_type:      { type: integer, required: true, default: 0 }
     result:           { type: longvarchar, default: '' }
+    is_diff:          { type: integer, default: 0  }
     created_at:   ~
 
+  maws_page:
+    id:           ~
+    name:             { type: varchar(255), default: '' }
+    description:      { type: varchar(255), default: '' }
+    access:           { type: integer, required: true, default: 0 }
+    result_type:      { type: integer, required: true, default: 0 }
+    owner_id:         { type: integer,  foreignTable: sf_guard_user, foreignReference: id, required: true }
+    created_at:   ~
+    updated_at:   ~
+
+
+  maws_page_thread:
+    id:           ~
+    page_id:          { type: integer,  foreignTable: maws_page, foreignReference: id, required: true }
+    thread_id:        { type: integer,  foreignTable: maws_thread, foreignReference: id, required: true }
+    sort_order:       { type: integer, default: 0  }
+    show_period:      { type: integer, default: 0  }
+    created_at:   ~
+    updated_at:   ~
 

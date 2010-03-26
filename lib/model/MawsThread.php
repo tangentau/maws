@@ -35,4 +35,55 @@ class MawsThread extends BaseMawsThread {
 		return $this->getName().' ['.$this->getId().']';
 	}
 
+	public function ProcessParse()
+	{
+		$this->MawsParser = MawsParserPeer::retrieveByPk($this->getParserId());
+		$this->arMawsParserResults = $this->MawsParser->Get();
+
+		if ($this->arMawsParserResults != MawsParser::EMPTY_RESOURCE )
+		{
+			foreach($this->arMawsParserResults  as $i => $MawsParserResult)
+			{
+				$oMawsParserResult = new MawsParserResult();
+				$oMawsParserResult->setParserId($this->getParserId());
+				$oMawsParserResult->setThreadId($this->getId());
+				$oMawsParserResult ->setResult($MawsParserResult);
+				$oMawsParserResult ->setResultType($this->MawsParser->getResultType());
+				$oMawsParserResult ->setIsDiff(1);
+				$oMawsParserResult ->save();
+			}
+		}
+		else
+		{
+			$oMawsParserResult  = new MawsParserResult();
+			$oMawsParserResult ->setParserId($this->getParserId());
+			$oMawsParserResult ->setThreadId($this->getId());
+			$oMawsParserResult ->setResult(MawsParser::EMPTY_RESOURCE);
+			$oMawsParserResult ->setResultType($this->MawsParser->getResultType());
+			$oMawsParserResult ->setIsDiff(1);
+			$oMawsParserResult ->save();
+		}
+	}
+
+	/**
+	 *
+	 * Возвращает список тредов, у который последнее обновление было слишком давно (больше, чем период обновления треда)
+	 *
+	 * @return array - arrqy of IDs of outdated threads
+	 */
+	static function getOutdatedThreads()
+	{
+		$debugPDO = Propel::getConnection();
+		$query = 'SELECT ID FROM #1# WHERE now() - #2# > #3# ';
+		$query = str_replace('#1#',MawsThreadPeer::TABLE_NAME,$query);
+		$query = str_replace('#2#',MawsThreadPeer::CHECKED_AT,$query);
+		$query = str_replace('#3#',MawsThreadPeer::UPDATE_PERIOD,$query);
+
+		$statement = $debugPDO->prepare($query);
+		$statement->execute(array());
+		$thread_ids = $statement->fetchAll();
+		
+		return $thread_ids;
+	}
+
 } // MawsThread

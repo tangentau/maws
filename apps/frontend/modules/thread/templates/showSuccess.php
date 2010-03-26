@@ -9,8 +9,16 @@
       <td><?php echo $MawsThread->getName() ?></td>
     </tr>
     <tr>
-      <th>Filter:</th>
-      <td><?php echo $MawsThread->getFilterId() ?></td>
+      <th>Description:</th>
+      <td><?php echo $MawsThread->getDescription() ?></td>
+    </tr>
+    <tr>
+      <th>Access:</th>
+      <td><?php echo $MawsThread->getAccess() ?></td>
+    </tr>
+    <tr>
+      <th>Parser:</th>
+      <td><?php echo $MawsThread->getParserId() ?></td>
     </tr>
     <tr>
       <th>Update start:</th>
@@ -19,6 +27,18 @@
     <tr>
       <th>Update period:</th>
       <td><?php echo $MawsThread->getUpdatePeriod() ?></td>
+    </tr>
+    <tr>
+      <th>Result type:</th>
+      <td><?php echo $MawsThread->getResultType() ?></td>
+    </tr>
+    <tr>
+      <th>Owner:</th>
+      <td><?php echo $MawsThread->getOwnerId() ?></td>
+    </tr>
+    <tr>
+      <th>Checked at:</th>
+      <td><?php echo $MawsThread->getCheckedAt() ?></td>
     </tr>
     <tr>
       <th>Created at:</th>

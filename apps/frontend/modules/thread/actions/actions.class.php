@@ -74,4 +74,18 @@ class threadActions extends sfActions
       $this->redirect('thread/edit?id='.$MawsThread->getId());
     }
   }
+
+  public function executeCheck(sfWebRequest $request)
+  {
+
+	$this->thread_ids = MawsThread::getOutdatedThreads();
+
+	foreach($this->thread_ids as $thread_id)
+	{
+		$this->MawsThread = MawsThreadPeer::retrieveByPk($thread_id['ID']);
+		$this->MawsThread->ProcessParse();
+		$this->MawsThread->setCheckedAt(time());
+		$this->MawsThread->save();
+	}
+  }
 }
