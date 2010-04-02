@@ -5,6 +5,10 @@ rendering: ~
 security:  ~
 
 # insert your own filters here
-
+anonymous:                 # Filters need a unique name
+  class: loginanonymousFilter
+ 
 cache:     ~
 execution: ~
+
+

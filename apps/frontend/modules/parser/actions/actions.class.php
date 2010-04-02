@@ -12,7 +12,10 @@ class parserActions extends sfActions
 {
   public function executeIndex(sfWebRequest $request)
   {
-    $this->MawsParsers = MawsParserPeer::doSelect(new Criteria());
+	$UserId = $this->getUser()->getGuardUser()->getId();
+	$c = new Criteria();
+	$c->add(MawsParserPeer::OWNER_ID, $UserId, Criteria::EQUAL);
+    $this->MawsParsers = MawsParserPeer::doSelect($c);
   }
 
   public function executeShow(sfWebRequest $request)

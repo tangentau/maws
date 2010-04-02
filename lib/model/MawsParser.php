@@ -34,6 +34,13 @@ class MawsParser extends BaseMawsParser {
 	const	FTP_FILE_RESOURCE	= 7004;		// файл на FTP-сервере
 	const	FILTER_RESOURCE		= 7005;		// другой фильтр
 
+	public static $arResourceType = array (
+											self::HTTP_RESOURCE => 'http-страница',
+											self::FTP_RESOURCE => 'ftp-каталог',
+											self::HTTP_FILE_RESOURCE => 'http-файл',
+											self::FTP_FILE_RESOURCE => 'ftp-файл',
+											self::FILTER_RESOURCE => 'фильтр MAWS',
+										  );
 
 /*** типы фильтров данных, полученных от ИИС: ***/
 
@@ -41,6 +48,13 @@ class MawsParser extends BaseMawsParser {
 	const	DOM_FILTER			= 8002;		// фильтр DOM-cтруктуры HTML-документа
 	const	CSS_FILTER			= 8003;		// ?
 	const	MATCH_FILTER		= 8004;		// ищем то, что внутри маркеров (начального и закрывающего)
+
+	public static $arFilterType = array (
+											self::REGEXP_FILTER => 'REGEXP',
+											self::DOM_FILTER => 'DOM',
+											self::CSS_FILTER => 'CSS',
+											self::MATCH_FILTER => 'MATCH',
+										  );
 
 
 /*** типы действий над отфильтрованными данными (arFilterResult): ***/
@@ -51,6 +65,24 @@ class MawsParser extends BaseMawsParser {
 	const	GET_COUNT			= 9004;		// взять количество результатов фильтрации
 	const	GET_RANDOM			= 9005;		// взять рандомный результат фильтрации (один или несколько)
 	const	GET_MNTH			= 9006;		// взять N-ный результат фильтрации и M результатов после него
+
+	public static $arActionType = array (
+											self::GET_ALL => 'Всё',
+											self::GET_FIRST_N => 'N первых результатов',
+											self::GET_LAST_N => 'N последних результатов',
+											self::GET_COUNT => 'Число результатов',
+											self::GET_RANDOM => 'Случайный результат',
+											self::GET_MNTH => 'M результатов после N',
+										  );
+
+	// типы результатов
+	const	STRING_RES			= 0;		// текстовые данные
+	const	FLOAT_RES			= 1;		// числовые данные
+
+	public static $arResultType = array (
+											self::STRING_RES => 'Текст',
+											self::FLOAT_RES => 'Число',
+										  );
 
 /*** прочие константы ****/
 
@@ -139,6 +171,63 @@ class MawsParser extends BaseMawsParser {
 	{
 		return $this->getName().' ['.$this->getId().']';
 	}
+
+
+	/**
+	 * Get the [resource_type] column value.
+	 *
+	 * @param      bool $toString cast value to string ot not
+	 * @return     int
+	 */
+	public function getResourceType($toString = false)
+	{
+	  if ($toString)
+	  {
+		return self::$arResourceType[$this->resource_type];
+	  }
+	  else
+	  {
+		return $this->resource_type;
+	  }
+	}
+
+
+	/**
+	 * Get the [filter_type] column value.
+	 *
+	 * @param      bool $toString cast value to string ot not
+	 * @return     int
+	 */
+	public function getFilterType($toString = false)
+	{
+	  if ($toString)
+	  {
+		return self::$arFilterType[$this->filter_type];
+	  }
+	  else
+	  {
+		return $this->filter_type;
+	  }
+	}
+
+	/**
+	 * Get the [result_type] column value.
+	 *
+	 * @param      bool $toString cast value to string ot not
+	 * @return     int
+	 */
+	public function getResultType($toString = false)
+	{
+	  if ($toString)
+	  {
+		return self::$arResultType[$this->result_type];
+	  }
+	  else
+	  {
+		return $this->result_type;
+	  }
+	}
+
 	/**
 	 * Получает контент информационного источника (ИИС).
 	 * ИИС может быть веб-страничкой, каталогом ftp-сервера, файлом или фильтром.

@@ -1,0 +1,75 @@
+body
+{
+	margin:0px;
+	padding:0px;
+	font-family:serif;
+	background:#fffacd;
+}
+
+#main
+{
+	margin:0px;
+	padding:5px;
+  min-height:500px;
+}
+
+div.header
+{
+	width:100%;
+	height:50px;
+  font-size:12px;
+  background:#ccfacd;
+}
+
+
+div.body
+{
+	width:100%;
+	min-height:380px;
+  font-size:12px;
+}
+
+div.footer
+{
+	width:100%;
+	height:50px;
+  font-size:12px;
+  background:#dffacd;
+}
+
+
+span.header_menu
+{
+  font-size:16px;
+  font-weight:bold;
+  color: black;
+}
+
+span.header_menu a
+{
+  padding-left:20px;
+  color: black;
+  text-decoration: underline;
+}
+
+span.header_menu a:hover
+{
+  color: gray;
+  text-decoration: underline;
+}
+
+div.header input.slim
+{
+  font-size:11px;
+}
+
+span.menu
+{
+	color:red;
+}
+
+span.auth
+{
+	color:maroon;
+  float:right;
+}

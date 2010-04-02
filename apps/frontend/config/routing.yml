@@ -26,7 +26,7 @@ insert_result:
 # default rules
 homepage:
   url:   /
-  param: { module: default, action: index }
+  param: { module: main, action: index }
 
 
 # generic rules

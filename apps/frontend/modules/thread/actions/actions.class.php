@@ -18,6 +18,7 @@ class threadActions extends sfActions
   public function executeShow(sfWebRequest $request)
   {
     $this->MawsThread = MawsThreadPeer::retrieveByPk($request->getParameter('id'));
+	$this->MawsThreadContent =  $this->MawsThread->getParserResults();
     $this->forward404Unless($this->MawsThread);
   }
 

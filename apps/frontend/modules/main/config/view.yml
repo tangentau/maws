@@ -1,0 +1,9 @@
+indexSuccess:
+  metas:
+    title: MAWS main page
+
+
+all:
+  stylesheets: [my_style]
+  metas:
+    title: MAWS

@@ -9,6 +9,21 @@
     <?php include_javascripts() ?>
   </head>
   <body>
-    <?php echo $sf_content ?>
+	<div id="main">
+	  <div class="header">
+		<span class="menu">
+		  <?php include_component('main', 'MenuHeader') ?>
+		</span>
+		<span class="auth">
+		  <?php include_component('main', 'AuthHeader') ?>
+		</span>
+	  </div>
+	  <div class="body">
+		<?php echo $sf_content ?>
+	  </div>
+	  <div class="footer">
+		<?php include_partial('main/footer') ?>
+	  </div>
+	</div>
   </body>
 </html>

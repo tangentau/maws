@@ -52,6 +52,17 @@
 </table>
 
 <hr />
+<h1>А теперь - дискотека! </h1>
+<?php
+	foreach($MawsThreadContent as $res)
+	{
+		?>
+		[<?php echo $res->getID() ?>] <?php echo $res->getCreatedAt() ?> --<?php echo $res->getResult() ?><br />
+		<?php
+
+	}
+?>
+<hr />
 
 <a href="<?php echo url_for('thread/edit?id='.$MawsThread->getId()) ?>">Edit</a>
 &nbsp;

@@ -35,34 +35,57 @@ class MawsThread extends BaseMawsThread {
 		return $this->getName().' ['.$this->getId().']';
 	}
 
+	/**
+	 * Загружает парсер, привязанный к треду, выполняет его, и записывает полученный результат в БД
+	 * 
+	 */
 	public function ProcessParse()
 	{
-		$this->MawsParser = MawsParserPeer::retrieveByPk($this->getParserId());
-		$this->arMawsParserResults = $this->MawsParser->Get();
+		$MawsParser = MawsParserPeer::retrieveByPk($this->getParserId());
+		$arMawsParserResults = $MawsParser->Get();
 
-		if ($this->arMawsParserResults != MawsParser::EMPTY_RESOURCE )
+		$oMawsParserResult = new MawsParserResult();
+		$oMawsParserResult->setParserId($this->getParserId());
+		$oMawsParserResult->setThreadId($this->getId());
+
+		if ($arMawsParserResults != MawsParser::EMPTY_RESOURCE )
 		{
-			foreach($this->arMawsParserResults  as $i => $MawsParserResult)
-			{
-				$oMawsParserResult = new MawsParserResult();
-				$oMawsParserResult->setParserId($this->getParserId());
-				$oMawsParserResult->setThreadId($this->getId());
-				$oMawsParserResult ->setResult($MawsParserResult);
-				$oMawsParserResult ->setResultType($this->MawsParser->getResultType());
-				$oMawsParserResult ->setIsDiff(1);
-				$oMawsParserResult ->save();
-			}
+			$oMawsParserResult ->setResult(serialize($arMawsParserResults));
+			$oMawsParserResult ->setIsDiff(1);
 		}
 		else
 		{
-			$oMawsParserResult  = new MawsParserResult();
-			$oMawsParserResult ->setParserId($this->getParserId());
-			$oMawsParserResult ->setThreadId($this->getId());
 			$oMawsParserResult ->setResult(MawsParser::EMPTY_RESOURCE);
-			$oMawsParserResult ->setResultType($this->MawsParser->getResultType());
 			$oMawsParserResult ->setIsDiff(1);
-			$oMawsParserResult ->save();
 		}
+
+		$oMawsParserResult ->setResultType($MawsParser->getResultType());
+		$oMawsParserResult ->save();
+	}
+
+	/**
+	 * Возвращает сохранённые в БД записи этого треда
+	 *
+	 * @param timestamp $start - начало периода, за который вернуть записи
+	 * @param timestamp $end - конец периода, за который вернуть записи
+	 *
+	 */
+	public function getParserResults($start = false, $end = false)
+	{
+
+		$c = new Criteria();
+		$c->add(MawsParserResultPeer::THREAD_ID,$this->getId());
+		if ($start !== false)
+		{
+			$c->add(MawsParserResultPeer::CREATED_AT,$start,Criteria::LESS_THAN);
+		}
+		if ($end !== false)
+		{
+			$c->add(MawsParserResultPeer::CREATED_AT,$end,Criteria::GREATER_THAN);
+		}
+		$c->addDescendingOrderByColumn(MawsParserResultPeer::CREATED_AT);
+		$arMawsParserResults = MawsParserResultPeer::doSelect($c);
+		return $arMawsParserResults;
 	}
 
 	/**
@@ -85,5 +108,6 @@ class MawsThread extends BaseMawsThread {
 		
 		return $thread_ids;
 	}
+
 
 } // MawsThread
