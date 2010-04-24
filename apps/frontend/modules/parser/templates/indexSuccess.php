@@ -24,5 +24,7 @@
     <?php endforeach; ?>
   </tbody>
 </table>
-
-  <a href="<?php echo url_for('parser/new') ?>">New</a>
+<br />
+<div>
+  <a href="<?php echo url_for('parser/new') ?>">Добавить новый фильтр</a>
+</div>

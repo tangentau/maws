@@ -1,3 +1,3 @@
-<h1>Edit MawsParser</h1>
+<h1>Редактирование фильтра</h1>
 
-<?php include_partial('form', array('form' => $form)) ?>
+<?php include_partial('parser_form', array('form' => $form, 'errors' => $errors, 'form_action'=> $form_action)) ?>

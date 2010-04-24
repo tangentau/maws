@@ -12,7 +12,26 @@ class threadActions extends sfActions
 {
   public function executeIndex(sfWebRequest $request)
   {
-    $this->MawsThreads = MawsThreadPeer::doSelect(new Criteria());
+	$UserId = $this->getUser()->getGuardUser()->getId();
+	$c = new Criteria();
+	$c->add(MawsThreadPeer::OWNER_ID, $UserId, Criteria::EQUAL);
+    $this->MawsThreads = MawsThreadPeer::doSelect($c);
+
+	$arOwners = array();
+
+	foreach ($this->MawsThreads as $i => $MawsThread)
+	{
+	  $OwnerId = $MawsThread->getOwnerId();
+	  if (!array_key_exists($OwnerId, $arOwners))
+	  {
+		$arOwners[$OwnerId] = sfGuardUserPeer::retrieveByPK($OwnerId);
+	  }
+
+	  $this->MawsThreads[$i]->strOwnerName = $arOwners[$OwnerId]->getUsername();
+	  
+	  $MawsParser = MawsParserPeer::retrieveByPK($MawsThread->getFilterId());
+	  $this->MawsThreads[$i]->strFilterName = $MawsParser->getName();
+	}
   }
 
   public function executeShow(sfWebRequest $request)
@@ -24,7 +43,35 @@ class threadActions extends sfActions
 
   public function executeNew(sfWebRequest $request)
   {
-    $this->form = new MawsThreadForm();
+    if ($request->getParameter('id') == 'new') // сохраняем новую ленту
+	{
+	  $MawsThread = new MawsThread();
+	  $this->form = $MawsThread->GetFormData($request);
+	  $res = $MawsThread->SaveFromForm($this->form,$this->getUser());
+	  if ($res === true)
+	  {
+		$this->redirect('thread/edit?id='.$MawsThread->getId()); // успешно создали новую ленту
+	  }
+	  else
+	  {
+		// никуда не редиректим, а показываем всё ту же формочку добавления
+		$this->errors = $res; // а тут будут сообщения об ошибках при создании ленты
+	  }
+	}
+	else // показываем пустую формочку
+	{
+	  $arAccessKeys = array_keys(MawsParser::$arAccessType);
+	  $arResultKeys = array_keys(MawsParser::$arResultType);
+
+	  $this->form = array (
+							'id'			  => 'new',
+							'name'			  => 'Безымянная лента',
+							'filter_id'		  => 0,
+							'description'	  => '',
+							'access'		  => $arAccessKeys[0],
+							'result_type'	  => $arResultKeys[0],
+	  );
+	}
   }
 
   public function executeCreate(sfWebRequest $request)

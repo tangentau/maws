@@ -1,82 +1,176 @@
-<table>
-  <tbody>
+<table border="1" cellpadding="5" cellspacing="1">
+  <tbody align="left">
+	<tr>
+	  <td colspan="2">
+		<h2>Фильтр "<?php echo $MawsParser->getName() ?>"</h2>
+	  </td>
+	</tr>
     <tr>
-      <th>Id:</th>
-      <td><?php echo $MawsParser->getId() ?></td>
-    </tr>
-    <tr>
-      <th>Name:</th>
-      <td><?php echo $MawsParser->getName() ?></td>
-    </tr>
-    <tr>
-      <th>Description:</th>
+      <th>Описание фильтра:</th>
       <td><?php echo $MawsParser->getDescription() ?></td>
     </tr>
     <tr>
-      <th>Access:</th>
-      <td><?php echo $MawsParser->getAccess() ?></td>
+      <th>Кто имеет доступ<br/> к этому фильтру:</th>
+      <td><?php echo $MawsParser->getAccess(1) ?></td>
+    </tr>
+	<tr>
+	  <td colspan="2">
+		<h2>Что фильтруется:</h2>
+	  </td>
+	</tr>
+    <tr>
+      <th>Тип источника данных:</th>
+      <td><?php echo $MawsParser->getResourceType(1) ?></td>
     </tr>
     <tr>
-      <th>Resource url:</th>
+      <th>Адрес источника данных:</th>
       <td><?php echo $MawsParser->getResourceUrl() ?></td>
     </tr>
+	<?php if (in_array($MawsParser->getResourceType(),array(MawsParser::HTTP_RESOURCE,MawsParser::HTTP_FILE_RESOURCE))): ?>
     <tr>
-      <th>Resource type:</th>
-      <td><?php echo $MawsParser->getResourceType() ?></td>
+      <th>Параметры:</th>
+      <td>
+		<?php $arResourceParams = $MawsParser->getResourceParams(1); ?>
+		<table border="1" cellpadding="3" cellspacing="1">
+		  <tr>
+			<th>Название</th>
+			<th>Значение</th>
+		  </tr>
+		<?php foreach ($arResourceParams as $name => $value): ?>
+		  <tr>
+			<td><?php echo $name ?></td>
+			<td><?php echo $value ?></td>
+		  </tr>
+		<?php endforeach; ?>
+		</table>
+	  </td>
     </tr>
     <tr>
-      <th>Resource params:</th>
-      <td><?php echo $MawsParser->getResourceParams() ?></td>
+      <th>Метод передачи параметров:</th>
+      <td><?php echo $MawsParser->getResourceMethod(1) ?></td>
     </tr>
+	<?php endif; ?>
     <tr>
-      <th>Resource method:</th>
-      <td><?php echo $MawsParser->getResourceMethod() ?></td>
-    </tr>
-    <tr>
-      <th>Resource login:</th>
+      <th>Логин:</th>
       <td><?php echo $MawsParser->getResourceLogin() ?></td>
     </tr>
     <tr>
-      <th>Resource pass:</th>
+      <th>Пароль:</th>
       <td><?php echo $MawsParser->getResourcePass() ?></td>
     </tr>
+	<tr>
+	  <td colspan="2">
+		<h2>Как фильтруется:</h2>
+	  </td>
+	</tr>
     <tr>
-      <th>Filter type:</th>
-      <td><?php echo $MawsParser->getFilterType() ?></td>
+      <th>Тип фильтра:</th>
+      <td><?php echo $MawsParser->getFilterType(1) ?></td>
     </tr>
     <tr>
-      <th>Filter params:</th>
-      <td><?php echo $MawsParser->getFilterParams() ?></td>
+      <th>Параметры фильтра:</th>
+	  <?php $arFilterParams = $MawsParser->getFilterParams(1); ?>
+	  <?php if ($MawsParser->getFilterType()==MawsParser::REGEXP_FILTER): ?>
+      <td>Регулярное выражение: <?php echo $arFilterParams['regexp'] ?></td>
+	  <?php elseif ($MawsParser->getFilterType()==MawsParser::DOM_FILTER): ?>
+	  <td>XML-селектор: <?php echo $arFilterParams['dom_select'] ?></td>
+	  <?php elseif ($MawsParser->getFilterType()==MawsParser::MATCH_FILTER): ?>
+	  <td>
+		<table border="1" cellpadding="3" cellspacing="1">
+		  <tr>
+			<td>Начальный маркер:</td>
+			<td><?php echo $arFilterParams['start_marker'] ?></td>
+		  </tr>
+		  <tr>
+			<td>Конечный маркер:</td>
+			<td><?php echo $arFilterParams['end_marker'] ?></td>
+		  </tr>
+		</table>
+	  </td>
+	  <?php endif; ?>
+    </tr>
+	<tr>
+	  <td colspan="2">
+		<h2>Результаты фильтра:</h2>
+	  </td>
+	</tr>
+    <tr>
+      <th>Результат фильтра:</th>
+      <td><?php echo $MawsParser->getResultType(1) ?></td>
     </tr>
     <tr>
-      <th>Action type:</th>
-      <td><?php echo $MawsParser->getActionType() ?></td>
+      <th>Действие над результатами:</th>
+      <td><?php echo $MawsParser->getActionType(1) ?></td>
+    </tr>
+	<?php if (in_array($MawsParser->getActionType(),array(MawsParser::GET_FIRST_N,MawsParser::GET_LAST_N,MawsParser::GET_MNTH))): ?>
+    <tr>
+      <th>Параметры действия:</th>
+	  <?php $arActionParams = $MawsParser->getActionParams(1); ?>
+      <td>
+		<?php if (in_array($MawsParser->getActionType(),array(MawsParser::GET_FIRST_N,MawsParser::GET_LAST_N,MawsParser::GET_MNTH))): ?>
+		N: <?php echo $arActionParams['n']?>
+		<?php endif; ?>
+		<?php if (in_array($MawsParser->getActionType(),array(MawsParser::GET_MNTH))): ?>
+		<br />M: <?php echo $arActionParams['m']?>
+		<?php endif; ?>
+	  </td>
+    </tr>
+	<?php endif; ?>
+	<tr>
+	  <td colspan="2">
+		<h2>Прочие параметры:</h2>
+	  </td>
+	</tr>
+    <tr>
+      <th>Владелец фильтра:</th>
+      <td><?php echo $strOwnerName ?></td>
     </tr>
     <tr>
-      <th>Action params:</th>
-      <td><?php echo $MawsParser->getActionParams() ?></td>
-    </tr>
-    <tr>
-      <th>Result type:</th>
-      <td><?php echo $MawsParser->getResultType() ?></td>
-    </tr>
-    <tr>
-      <th>Owner:</th>
-      <td><?php echo $MawsParser->getOwnerId() ?></td>
-    </tr>
-    <tr>
-      <th>Created at:</th>
+      <th>Создан:</th>
       <td><?php echo $MawsParser->getCreatedAt() ?></td>
     </tr>
     <tr>
-      <th>Updated at:</th>
+      <th>Изменён:</th>
       <td><?php echo $MawsParser->getUpdatedAt() ?></td>
     </tr>
   </tbody>
 </table>
-
 <hr />
 
-<a href="<?php echo url_for('parser/edit?id='.$MawsParser->getId()) ?>">Edit</a>
+<h2>Проверочное получение результатов фильтра</h2>
+
+<table border="1" cellpadding="5" cellspacing="1">
+  <tbody align="left">
+	<?php if (strlen($strMawsParserContent) > 0): ?>
+	<tr>
+	  <td colspan="2">
+		<h2>Результаты фильтра:</h2>
+	  </td>
+	</tr>
+	  <?php if (count($arMawsParserResults) > 0): ?>
+		<?php foreach ($arMawsParserResults as $i => $value): ?>
+		<tr>
+		  <th>#<?php echo $i+1 ?>:</th>
+		  <td><?php echo $value ?></td>
+		</tr>
+		<?php endforeach; ?>
+	  <?php else: ?>
+		Нет результатов.
+	  <?php endif; ?>
+	<tr>
+      <td colspan="2">Загруженные данные:</td>
+    </tr>
+	<tr>
+      <td colspan="2"><?php echo $strMawsParserContent ?> </td>
+    </tr>
+	<?php else: ?>
+	<tr>
+      <td colspan="2">Не удалось загрузить данные для фильтра!:</td>
+    </tr>
+	<?php endif; ?>
+  </tbody>
+</table>
+<br />
+<a href="<?php echo url_for('parser/edit?id='.$MawsParser->getId()) ?>">Редактировать этот фильтр</a>
 &nbsp;
-<a href="<?php echo url_for('parser/index') ?>">List</a>
+<a href="<?php echo url_for('parser/index') ?>">Перейти к списку фильтров</a>
