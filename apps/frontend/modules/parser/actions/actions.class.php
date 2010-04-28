@@ -18,6 +18,25 @@ class parserActions extends sfActions
     $this->MawsParsers = MawsParserPeer::doSelect($c);
   }
 
+  public function executeForeign(sfWebRequest $request)
+  {
+	$UserId = $this->getUser()->getGuardUser()->getId();
+	$c = new Criteria();
+	$c->add(MawsParserPeer::OWNER_ID, $UserId, Criteria::NOT_EQUAL);
+	if ($this->getUser()->isAnon())
+	{
+	  $c->add(MawsParserPeer::ACCESS, MawsParser::EVERYONE_ACCESS, Criteria::EQUAL);
+	}
+	else
+	{
+	  $AccessCriterion = $c->getNewCriterion(MawsParserPeer::ACCESS, MawsParser::EVERYONE_ACCESS, Criteria::EQUAL);
+	  $AccessCriterion2 = $c->getNewCriterion(MawsParserPeer::ACCESS, MawsParser::REGISTERED_ACCESS, Criteria::EQUAL);
+	  $AccessCriterion->addOr($AccessCriterion2);
+	  $c->addAnd($AccessCriterion);
+	}
+    $this->MawsParsers = MawsParserPeer::doSelect($c);
+  }
+
   public function executeShow(sfWebRequest $request)
   {
     $this->MawsParser = MawsParserPeer::retrieveByPk($request->getParameter('id'));
@@ -49,6 +68,14 @@ class parserActions extends sfActions
 	}
 	else // показываем пустую формочку
 	{
+	  if ($this->getUser()->isAnon())
+	  {
+		$arAccess[MawsParser::EVERYONE_ACCESS] = MawsParser::$arAccessType[MawsParser::EVERYONE_ACCESS];
+	  }
+	  else
+	  {
+		$arAccess = MawsParser::$arAccessType;
+	  }
 	  $arAccessKeys = array_keys(MawsParser::$arAccessType);
 	  $arResultKeys = array_keys(MawsParser::$arResultType);
 	  $arResourceKeys = array_keys(MawsParser::$arResourceType);
@@ -61,6 +88,7 @@ class parserActions extends sfActions
 							'name'			  => 'Безымянный фильтр',
 							'description'	  => '',
 							'access'		  => $arAccessKeys[0],
+							'arAccessType'	  => $arAccess,
 							'result_type'	  => $arResultKeys[0],
 							'resource_type'	  => $arResourceKeys[0],
 							'resource_url'	  => '',
@@ -99,7 +127,7 @@ class parserActions extends sfActions
   public function executeEdit(sfWebRequest $request)
   {
     $this->forward404Unless($MawsParser = MawsParserPeer::retrieveByPk($request->getParameter('id')), sprintf('Object MawsParser does not exist (%s).', $request->getParameter('id')));
-
+	$this->id = $MawsParser->getId();
 	$this->errors = array();
 	$this->form_action = 'save';
 
@@ -107,9 +135,11 @@ class parserActions extends sfActions
 	{
 	  $this->form = $MawsParser->GetFormData($request);
 	  $res = $MawsParser->SaveFromForm($this->form,$this->getUser());
+
+
 	  if ($res === true)
 	  {
-		$this->redirect('parser/edit?id='.$MawsParser->getId()); // успешно сохранили парсер
+		$this->redirect('parser/edit?id='.$this->id); // успешно сохранили парсер
 	  }
 	  else
 	  {
@@ -120,6 +150,16 @@ class parserActions extends sfActions
 	else // показываем формочку
 	{
 	  $this->form = $MawsParser->toFormArray();
+
+	  if ($this->getUser()->isAnon())
+	  {
+		$arAccess[MawsParser::EVERYONE_ACCESS] = MawsParser::$arAccessType[MawsParser::EVERYONE_ACCESS];
+	  }
+	  else
+	  {
+		$arAccess = MawsParser::$arAccessType;
+	  }
+	  $this->form['arAccessType'] = $arAccess;
 	}
 
   }

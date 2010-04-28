@@ -16,6 +16,7 @@ class loginanonymousFilter extends sfFilter
 
       if ($user->isAnonymous())
 	  {
+		$this->getContext()->getLogger()->info('$user->isAnonymous()');
 		$class = sfConfig::get('app_sf_guard_plugin_signin_form', 'sfGuardFormSignin');
 		$this->form = new $class();
 
@@ -29,11 +30,13 @@ class loginanonymousFilter extends sfFilter
 		}
 		else
 		{
+		  $this->getContext()->getLogger()->info('not_POST');
 		  $AnonymousLogin = sfConfig::get('app_anonymous_login', 'anonymous');
 		  $c = new Criteria();
 		  $c->add(sfGuardUserPeer::USERNAME, $AnonymousLogin, Criteria::LIKE);
-		  //$obUser = sfGuardUserPeer::doSelectOne($c);
-		  $obUser = sfGuardUserPeer::retrieveByPK(2);
+		  $obUser = sfGuardUserPeer::doSelectOne($c);
+		  $this->getContext()->getLogger()->info($obUser);
+		  //$obUser = sfGuardUserPeer::retrieveByPK(2);
 		  $user->signin($obUser);
 		}
       }

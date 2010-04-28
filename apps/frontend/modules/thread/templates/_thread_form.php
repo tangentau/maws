@@ -1,5 +1,28 @@
 <script type="application/javascript">
 
+  function ResultTypeShowHide(value){
+
+	if (value.toString()== '<?php echo MawsThread::FLOAT_RES ?>'){
+	  $('tr.text_filters').hide();
+	  $('tr.number_filters').show();
+	}
+	else {
+	  $('tr.text_filters').show();
+	  $('tr.number_filters').hide();
+	}
+  }
+
+  $(document).ready(function(){
+
+	$('#result_type').change(function() {
+	  ResultTypeShowHide(this.value);
+	  return false;
+	});
+
+	ResultTypeShowHide($('#result_type').attr('value'));
+	
+  });
+
 </script>
 <?php foreach ($errors as $error):?>
 <div class="error_message"><?php echo $error?></div>
@@ -33,7 +56,7 @@
 		  Описание ленты:
 		</td>
 		<td>
-		  <textarea name="description" rows="5" cols="30"><?php echo $form['description'] ?></textarea>
+		  <textarea name="description" id="description" rows="5" cols="30"><?php echo $form['description'] ?></textarea>
 		</td>
 	  </tr>
 	  <tr>
@@ -42,7 +65,7 @@
 		</td>
 		<td>
 		  <select name="access" id="access">
-			<?php foreach (MawsParser::$arAccessType as $key=>$value): ?>
+			<?php foreach ($form['arAccessType'] as $key=>$value): ?>
 			  <option value="<?php echo $key?>" <?php if ($form['access']==$key) : ?> selected="" <?php endif; ?> ><?php echo $value ?></option>
 			<?php endforeach; ?>
 		  </select>
@@ -54,10 +77,54 @@
 		</td>
 		<td>
 		  <select name="result_type" id="result_type">
-			<?php foreach (MawsParser::$arResultType as $key=>$value): ?>
+			<?php foreach (MawsThread::$arResultType as $key=>$value): ?>
 			  <option value="<?php echo $key?>" <?php if ($form['result_type']==$key) : ?> selected="" <?php endif; ?> ><?php echo $value ?></option>
 			<?php endforeach; ?>
 		  </select>
+		</td>
+	  </tr>
+	  <tr class="text_filters">
+		<td>
+		  Текстовый фильтр, используемый лентой:
+		</td>
+		<td>
+		  <select name="text_parser" id="text_parser">
+			<?php foreach ($form['arTextParsers'] as $key=>$value): ?>
+			  <option value="<?php echo $key?>" <?php if ($form['text_parser']==$key) : ?> selected="" <?php endif; ?> ><?php echo $value ?></option>
+			<?php endforeach; ?>
+		  </select>
+		</td>
+	  </tr>
+	  <tr class="number_filters">
+		<td>
+		  Числовой фильтр, используемый лентой:
+		</td>
+		<td>
+		  <select name="number_parser" id="number_parser">
+			<?php foreach ($form['arNumberParsers'] as $key=>$value): ?>
+			  <option value="<?php echo $key?>" <?php if ($form['number_parser']==$key) : ?> selected="" <?php endif; ?> ><?php echo $value ?></option>
+			<?php endforeach; ?>
+		  </select>
+		</td>
+	  </tr>
+	  <tr>
+		<td>
+		  Частота обновления ленты:
+		</td>
+		<td>
+		  <select name="update_period" id="update_period">
+			<?php foreach (MawsThread::$arUpdatePeriods as $key=>$value): ?>
+			  <option value="<?php echo $key?>" <?php if ($form['update_period']==$key) : ?> selected="" <?php endif; ?> ><?php echo $value ?></option>
+			<?php endforeach; ?>
+		  </select>
+		</td>
+	  </tr>
+	  <tr>
+		<td>
+		  Когда начинать обновлять ленту:
+		</td>
+		<td>
+		  <input type="text" name="update_start" id="update_start" value="<?php echo $form['update_start'] ?>" />
 		</td>
 	  </tr>
     </tbody>

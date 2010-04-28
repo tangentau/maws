@@ -142,7 +142,7 @@
 		  Описание фильтра:
 		</td>
 		<td>
-		  <textarea name="description" rows="5" cols="30"><?php echo $form['description'] ?></textarea>
+		  <textarea name="description" id="description" rows="5" cols="30"><?php echo $form['description'] ?></textarea>
 		</td>
 	  </tr>
 	  <tr>
@@ -151,7 +151,7 @@
 		</td>
 		<td>
 		  <select name="access" id="access">
-			<?php foreach (MawsParser::$arAccessType as $key=>$value): ?>
+			<?php foreach ($form['arAccessType'] as $key=>$value): ?>
 			  <option value="<?php echo $key?>" <?php if ($form['access']==$key) : ?> selected="" <?php endif; ?> ><?php echo $value ?></option>
 			<?php endforeach; ?>
 		  </select>

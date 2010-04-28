@@ -30,6 +30,21 @@ class sfGuardAuthActions extends BasesfGuardAuthActions
 		return $this->redirect('@homepage');
 	  }
     }
+	else
+	{
+	  if ($request->isMethod('post'))
+	  {
+	  }
+	  else
+	  {
+		$AnonymousLogin = sfConfig::get('app_anonymous_login', 'anonymous');
+		$c = new Criteria();
+		$c->add(sfGuardUserPeer::USERNAME, $AnonymousLogin, Criteria::LIKE);
+		$obUser = sfGuardUserPeer::doSelectOne($c);
+		$user->signin($obUser);
+	  }
+
+	}
 
     if ($request->isXmlHttpRequest())
     {

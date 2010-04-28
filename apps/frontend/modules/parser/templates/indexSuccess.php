@@ -3,6 +3,7 @@
 <table border="1" cellpadding="5" cellspacing="1" >
   <thead>
     <tr>
+	  <th>Id</th>
       <th>Название</th>
       <th>Описание</th>
       <th>Источник данных</th>
@@ -14,6 +15,7 @@
   <tbody>
     <?php foreach ($MawsParsers as $MawsParser): ?>
     <tr>
+	  <td><?php echo $MawsParser->getId() ?></td>
       <td><a href="<?php echo url_for('parser/show?id='.$MawsParser->getId()) ?>"><?php echo $MawsParser->getName() ?></a></td>
       <td><?php echo $MawsParser->getDescription() ?></td>
       <td><?php echo $MawsParser->getResourceUrl() ?></td>
@@ -26,5 +28,6 @@
 </table>
 <br />
 <div>
-  <a href="<?php echo url_for('parser/new') ?>">Добавить новый фильтр</a>
+  <a href="<?php echo url_for('parser/new') ?>">Добавить новый фильтр</a>	<br />
+  <a href="<?php echo url_for('parser/foreign') ?>">Остальные фильтры</a>
 </div>

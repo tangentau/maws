@@ -21,10 +21,27 @@ class MawsParser extends BaseMawsParser {
 
 /************************************** КОНСТАНТЫ КЛАССА *******************************/
 
+/*** доступ к фильтру: ***/
+
+	const	EVERYONE_ACCESS		= 5001;		// доступен всем
+	const	OWNER_ACCESS		= 5002;		// доступен только владельцу
+	const	REGISTERED_ACCESS	= 5003;		// доступен только зарегистриоованным
+
+	public static $arAccessType = array (
+											self::EVERYONE_ACCESS => 'Все пользователи',
+											self::OWNER_ACCESS => 'Только я',
+											self::REGISTERED_ACCESS => 'Зарегистрированные пользователи',
+										  );
+
 /*** варианты обращений к http. K.O. ***/
 
 	const	METHOD_GET			= 6001;
 	const	METHOD_POST			= 6002;
+
+	public static $arResourceMethod= array (
+											self::METHOD_GET => 'GET',
+											self::METHOD_POST => 'POST',
+										  );
 
 /*** типы ИИС: ***/
 
@@ -46,14 +63,12 @@ class MawsParser extends BaseMawsParser {
 
 	const	REGEXP_FILTER		= 8001;		// старые добрые регулярки
 	const	DOM_FILTER			= 8002;		// фильтр DOM-cтруктуры HTML-документа
-	const	CSS_FILTER			= 8003;		// ?
-	const	MATCH_FILTER		= 8004;		// ищем то, что внутри маркеров (начального и закрывающего)
+	const	MATCH_FILTER		= 8003;		// ищем то, что внутри маркеров (начального и закрывающего)
 
 	public static $arFilterType = array (
-											self::REGEXP_FILTER => 'REGEXP',
-											self::DOM_FILTER => 'DOM',
-											self::CSS_FILTER => 'CSS',
-											self::MATCH_FILTER => 'MATCH',
+											self::REGEXP_FILTER => 'Регулярное выражение',
+											self::DOM_FILTER => 'XML-анализ',
+											self::MATCH_FILTER => 'Указание маркеров',
 										  );
 
 
@@ -67,12 +82,12 @@ class MawsParser extends BaseMawsParser {
 	const	GET_MNTH			= 9006;		// взять N-ный результат фильтрации и M результатов после него
 
 	public static $arActionType = array (
-											self::GET_ALL => 'Всё',
-											self::GET_FIRST_N => 'N первых результатов',
-											self::GET_LAST_N => 'N последних результатов',
-											self::GET_COUNT => 'Число результатов',
-											self::GET_RANDOM => 'Случайный результат',
-											self::GET_MNTH => 'M результатов после N',
+											self::GET_ALL => 'Взять все результаты',
+											self::GET_FIRST_N => 'Взять N первых результатов',
+											self::GET_LAST_N => 'Взять N последних результатов',
+											self::GET_COUNT => 'Взять число результатов',
+											self::GET_RANDOM => 'Взять случайный результат',
+											self::GET_MNTH => 'Взять M результатов после N',
 										  );
 
 	// типы результатов
@@ -100,13 +115,14 @@ class MawsParser extends BaseMawsParser {
 
 /*** используемый ИИС: ***/
 
+	/*
 	protected	$resource_type = self::HTTP_RESOURCE;			// тип ИИС
 	protected	$resource_url = 'http://www.example.com';
 	protected	$resource_method = self::METHOD_GET;						// как обращаться к HTTP_RESOURCE
 	protected	$resource_params = '';						// для HTTP_RESOURCE
 	protected	$resource_login = '';
 	protected	$resource_password = '';
-
+*/
 
 /*** данные, полученных от ИИС: ***/
 
@@ -167,11 +183,209 @@ class MawsParser extends BaseMawsParser {
 	}
 
 
+	/**
+	 * Делает массив из параметров, пришедших от формы создания/редактирования фильтра
+	 *
+	 * @param      object $request собственно параметры
+	 * @return     array
+	 */
+	public static function GetFormData($request)
+	{
+	  	$form = array (
+						'id'			  => 'new',
+						'name'			  => $request->getParameter('name'),
+						'description'	  => $request->getParameter('description'),
+						'access'		  => $request->getParameter('access'),
+						'result_type'	  => $request->getParameter('result_type'),
+						'resource_type'	  => $request->getParameter('resource_type'),
+						'resource_url'	  => $request->getParameter('resource_url'),
+						'resource_param_name' => $request->getParameter('resource_param_name'),
+						'resource_param_value' => $request->getParameter('resource_param_value'),
+						'resource_login'  => $request->getParameter('resource_login'),
+						'resource_pass'	  => $request->getParameter('resource_pass'),
+						'resource_method' => $request->getParameter('resource_method'),
+						'filter_type'	  => $request->getParameter('filter_type'),
+						'filter_params'	  => $request->getParameter('filter_params'),
+						'action_type'	  => $request->getParameter('action_type'),
+						'action_params'	  => $request->getParameter('action_params'),
+		);
+
+		$form['resource_params'] = array();
+
+		unset($form['resource_param_name']['#i#']);
+		unset($form['resource_param_value']['#i#']);
+
+		foreach ($form['resource_param_name'] as $i => $name)
+		{
+		  $form['resource_params'][$name] = $form['resource_param_value'][$i];
+		}
+
+
+		return $form;
+	}
+
+
+	/**
+	 * Делает массив из параметров фильтра, для подстановки в поля формы редактирования
+	 *
+	 * @return     array
+	 */
+	public function toFormArray()
+	{
+	  	$form = array (
+						'id'			  => $this->getId(),
+						'name'			  => $this->getName(),
+						'description'	  => $this->getDescription(),
+						'access'		  => $this->getAccess(),
+						'result_type'	  => $this->getResultType(),
+						'resource_type'	  => $this->getResourceType(),
+						'resource_url'	  => $this->getResourceUrl(),
+						'resource_params' => unserialize($this->getResourceParams()),
+						'resource_login'  => $this->getResourceLogin(),
+						'resource_pass'	  => $this->getResourcePass(),
+						'resource_method' => $this->getResourceMethod(),
+						'filter_type'	  => $this->getFilterType(),
+						'filter_params'	  => unserialize($this->getFilterParams()),
+						'action_type'	  => $this->getActionType(),
+						'action_params'	  => unserialize($this->getActionParams()),
+		);
+
+		
+		$form['resource_param_name'] = array();
+		$form['resource_param_value'] = array();
+
+		foreach ($form['resource_params'] as $name => $value)
+		{
+		  $form['resource_param_name'][] = $name;
+		  $form['resource_param_value'][] = $value;
+		}
+
+		return $form;
+	}
+
+
+	/**
+	 * Validates form input data and, if it is correct, creates new MawsParser
+	 * @param array $form
+	 * @param object $sfUser
+	 */
+	public function SaveFromForm($form = array(),$sfUser = false)
+	{
+	  $UserId = $sfUser->getGuardUser()->getId();
+
+	  $errors = array();
+	  if (!($UserId>0))
+	  {
+		$errors[] = 'Не авторизованный пользователь.';
+	  }
+	  if (strlen($form['name'])<=0)
+	  {
+		$errors[] = 'Не указано название фильтра.';
+	  }
+	  if (strlen($form['resource_url'])<=0)
+	  {
+		$errors[] = 'Не указан URL.';
+	  }
+	  if (strlen(implode('',$form['filter_params']))==0)
+	  {
+		$errors[] = 'Не указаны параметры фильтра.';
+	  }
+	  if (strlen(implode('',$form['action_params']))==0) // параметры N и M не указаны
+	  {
+		if (in_array($form['action_type'],array(self::GET_FIRST_N,self::GET_LAST_N,self::GET_MNTH))) // но действие над результатами таково, что они требуются
+		{
+		  $errors[] = 'Не указаны параметры действий над результатами фильтра.';
+		}
+	  }
+
+	  if (count($errors)==0)
+	  {
+		$this->setName($form['name']);
+		$this->setDescription($form['description']);
+		$this->setAccess($form['access']);
+		$this->setFilterType($form['filter_type']);
+		$this->setFilterParams(serialize($form['filter_params']));
+		$this->setResourceType($form['resource_type']);
+		$this->setResourceUrl($form['resource_url']);
+		$this->setResourceMethod($form['resource_method']);
+		$this->setResourceLogin($form['resource_login']);
+		$this->setResourcePass($form['resource_pass']);
+		$this->setResourceParams(serialize($form['resource_params']));
+		$this->setResultType($form['result_type']);
+		$this->setActionType($form['action_type']);
+		$this->setActionParams(serialize($form['action_params']));
+		$this->setOwnerId($UserId);
+		$this->save();
+		return true;
+	  }
+	  else
+	  {
+		return $errors;
+	  }
+	}
+
 	public function	__toString()
 	{
 		return $this->getName().' ['.$this->getId().']';
 	}
 
+
+
+
+	/**
+	 * Get the [access] column value.
+	 *
+	 * @param      bool $toString cast value to string ot not
+	 * @return     int
+	 */
+	public function getAccess($toString = false)
+	{
+	  if ($toString)
+	  {
+		return self::$arAccessType[$this->access];
+	  }
+	  else
+	  {
+		return $this->access;
+	  }
+	}
+
+
+	/**
+	 * Get the [action_type] column value.
+	 *
+	 * @param      bool $toString cast value to string ot not
+	 * @return     int
+	 */
+	public function getActionType($toString = false)
+	{
+	  if ($toString)
+	  {
+		return self::$arActionType[$this->action_type];
+	  }
+	  else
+	  {
+		return $this->action_type;
+	  }
+	}
+
+	/**
+	 * Get the [action_params] column value.
+	 *
+	 * @param      bool $toArray cast value to array ot not
+	 * @return     mixed
+	 */
+	public function getActionParams($toArray = false)
+	{
+	  if ($toArray)
+	  {
+		return unserialize($this->action_params);
+	  }
+	  else
+	  {
+		return $this->action_params;
+	  }
+	}
 
 	/**
 	 * Get the [resource_type] column value.
@@ -188,6 +402,72 @@ class MawsParser extends BaseMawsParser {
 	  else
 	  {
 		return $this->resource_type;
+	  }
+	}
+
+
+	/**
+	 * Get the [resource_method] column value.
+	 *
+	 * @param      bool $toString cast value to string ot not
+	 * @return     int
+	 */
+	public function getResourceMethod($toString = false)
+	{
+	  if ($toString)
+	  {
+		return self::$arResourceMethod[$this->resource_method];
+	  }
+	  else
+	  {
+		return $this->resource_method;
+	  }
+	}
+
+	/**
+	 * Get the username of the owner.
+	 *
+	 * @return     string
+	 */
+	public function getOwnerName()
+	{
+	  $Owner = sfGuardUserPeer::retrieveByPK($this->getOwnerId());
+	  return $Owner->getUsername();
+	}
+
+	/**
+	 * Get the [resource_params] column value.
+	 *
+	 * @param      bool $toArray cast value to array ot not
+	 * @return     mixed
+	 */
+	public function getResourceParams($toArray = false)
+	{
+	  if ($toArray)
+	  {
+		return unserialize($this->resource_params);
+	  }
+	  else
+	  {
+		return $this->resource_params;
+	  }
+	}
+
+	/**
+	 * Get the [filter_params] column value.
+	 *
+	 * @param      bool $toArray cast value to array ot not
+	 * @return     mixed
+	 */
+	public function getFilterParams($toArray = false)
+	{
+	  if ($toArray)
+	  {
+		return unserialize($this->filter_params);
+	  }
+	  else
+	  {
+		return $this->filter_params;
 	  }
 	}
 
@@ -274,9 +554,21 @@ class MawsParser extends BaseMawsParser {
 		}
 
 		// $this->strContent contains the output string
+		$this->debug[] = '=='.$strRes;
 		$this->strContent = $strRes;
 
 		return $this;
+	}
+
+
+	/**
+	 * Геттер.
+	 *
+	 *
+	 **/
+	public function getContent()
+	{
+		return $this->strContent;
 	}
 
 	/**
@@ -292,7 +584,10 @@ class MawsParser extends BaseMawsParser {
 			case self::MATCH_FILTER:			// оставляем только то, что между начальными и загрывающими маркерами
 			{
 				$arFilterParams = unserialize($this->filter_params);
-
+				foreach ($arFilterParams as $i => $val)
+				{
+				  $arFilterParams[strtoupper($i)] = $val;
+				}
 				$arFilterResult = explode($arFilterParams['START_MARKER'],$this->strContent); // разрезаем контент на кусочки после открывающего маркера
 
 				// НО! т.к. explode разрезает строку на куски До и После, то первый кусок из полученных всегда будет лишним.
@@ -312,9 +607,8 @@ class MawsParser extends BaseMawsParser {
 							if (!($pos===false)) // маркер найден
 							{
 								$strMatch = substr($strMatch, 0, $pos); // откидываем всё, что после маркера
+								$this->arFilterResult[] = $strMatch;
 							}
-
-							$this->arFilterResult[] = $strMatch;
 						}
 					}
 
@@ -348,6 +642,11 @@ class MawsParser extends BaseMawsParser {
 			case self::GET_ALL:			// оставляем все результаты
 			{
 				$this->arActionResult = $this->arFilterResult;
+				break;
+			}
+			case self::GET_COUNT:		// количество результатов
+			{
+				$this->arActionResult = array(count($this->arFilterResult));
 				break;
 			}
 			default:					// оставляем все результаты
@@ -518,9 +817,10 @@ class MawsParser extends BaseMawsParser {
 		$ch = curl_init();
 
 		// составляем строку с параметрами запроса, наподобие file=ttt.txt&name=aaa.txt
-		if (is_array($this->resource_params))
+
+		if (is_array(unserialize($this->resource_params)))
 		{
-			$strParams = http_build_query($this->resource_params);
+			$strParams = http_build_query(unserialize($this->resource_params));
 		}
 		else
 		{

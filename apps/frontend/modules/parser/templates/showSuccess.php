@@ -171,6 +171,15 @@
   </tbody>
 </table>
 <br />
+<div>
 <a href="<?php echo url_for('parser/edit?id='.$MawsParser->getId()) ?>">Редактировать этот фильтр</a>
-&nbsp;
+  <br />
+</div>
+<div>
 <a href="<?php echo url_for('parser/index') ?>">Перейти к списку фильтров</a>
+  <br />
+</div>
+<div>
+  <a href="<?php echo url_for('parser/delete?id='.$id) ?>" onclick="return confirm('Вы действительно хотите удалить этот фильтр?');">Удалить фильтр</a>
+  <br />
+</div>

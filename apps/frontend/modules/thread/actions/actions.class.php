@@ -17,6 +17,40 @@ class threadActions extends sfActions
 	$c->add(MawsThreadPeer::OWNER_ID, $UserId, Criteria::EQUAL);
     $this->MawsThreads = MawsThreadPeer::doSelect($c);
 
+	foreach ($this->MawsThreads as $i => $MawsThread)
+	{
+	  $MawsParser = MawsParserPeer::retrieveByPK($MawsThread->getParserId());
+
+	  if ($MawsParser)
+	  {
+		$this->MawsThreads[$i]->strParserName = $MawsParser->getName();
+	  }
+	  else
+	  {
+		$this->MawsThreads[$i]->strParserName = 'фильтр не найден';
+	  }
+	}
+  }
+
+  public function executeForeign(sfWebRequest $request)
+  {
+	$UserId = $this->getUser()->getGuardUser()->getId();
+	$c = new Criteria();
+	$c->add(MawsThreadPeer::OWNER_ID, $UserId, Criteria::NOT_EQUAL);
+	if ($this->getUser()->isAnon())
+	{
+	  $c->add(MawsThreadPeer::ACCESS, MawsThread::EVERYONE_ACCESS, Criteria::EQUAL);
+	}
+	else
+	{
+	  $AccessCriterion = $c->getNewCriterion(MawsThreadPeer::ACCESS, MawsThread::EVERYONE_ACCESS, Criteria::EQUAL);
+	  $AccessCriterion2 = $c->getNewCriterion(MawsThreadPeer::ACCESS, MawsThread::REGISTERED_ACCESS, Criteria::EQUAL);
+	  $AccessCriterion->addOr($AccessCriterion2);
+	  $c->addAnd($AccessCriterion);
+	}
+
+	$this->MawsThreads = MawsThreadPeer::doSelect($c);
+	
 	$arOwners = array();
 
 	foreach ($this->MawsThreads as $i => $MawsThread)
@@ -28,21 +62,55 @@ class threadActions extends sfActions
 	  }
 
 	  $this->MawsThreads[$i]->strOwnerName = $arOwners[$OwnerId]->getUsername();
-	  
-	  $MawsParser = MawsParserPeer::retrieveByPK($MawsThread->getFilterId());
-	  $this->MawsThreads[$i]->strFilterName = $MawsParser->getName();
+
+	  $MawsParser = MawsParserPeer::retrieveByPK($MawsThread->getParserId());
+	  $this->MawsThreads[$i]->strParserName = $MawsParser->getName();
 	}
   }
 
   public function executeShow(sfWebRequest $request)
   {
     $this->MawsThread = MawsThreadPeer::retrieveByPk($request->getParameter('id'));
+	$this->id = $request->getParameter('id');
+
+	$MawsParser = MawsParserPeer::retrieveByPK($this->MawsThread->getParserId());
+	if ($MawsParser)
+	{
+		$this->MawsThread->strParserName = $MawsParser->getName();
+	}
 	$this->MawsThreadContent =  $this->MawsThread->getParserResults();
     $this->forward404Unless($this->MawsThread);
   }
 
   public function executeNew(sfWebRequest $request)
   {
+	$this->errors = array();
+
+
+	$UserId = $this->getUser()->getGuardUser()->getId();
+	
+	$c_text = new Criteria();
+
+	if ($this->getUser()->isAnon())
+	{
+	  $c_text->add(MawsParserPeer::ACCESS, MawsParser::EVERYONE_ACCESS, Criteria::EQUAL);
+	}
+	else
+	{
+	  $AccessCriterion = $c_text->getNewCriterion(MawsParserPeer::ACCESS, MawsParser::EVERYONE_ACCESS, Criteria::EQUAL);
+	  $AccessCriterion2 = $c_text->getNewCriterion(MawsParserPeer::ACCESS, MawsParser::REGISTERED_ACCESS, Criteria::EQUAL);
+	  $AccessCriterion->addOr($AccessCriterion2);
+	  $c_text->addAnd($AccessCriterion);
+	}
+
+	$c_number = clone $c_text;
+	
+	$c_text->add(MawsParserPeer::RESULT_TYPE, MawsParser::STRING_RES, Criteria::EQUAL);
+	$c_number->add(MawsParserPeer::RESULT_TYPE, MawsParser::FLOAT_RES, Criteria::EQUAL);
+
+    $this->MawsTextParsers = MawsParserPeer::doSelect($c_text);
+	$this->MawsNumberParsers = MawsParserPeer::doSelect($c_number);
+
     if ($request->getParameter('id') == 'new') // сохраняем новую ленту
 	{
 	  $MawsThread = new MawsThread();
@@ -61,15 +129,47 @@ class threadActions extends sfActions
 	else // показываем пустую формочку
 	{
 	  $arAccessKeys = array_keys(MawsParser::$arAccessType);
-	  $arResultKeys = array_keys(MawsParser::$arResultType);
+	  $arResultKeys = array_keys(MawsThread::$arResultType);
+
+	  if ($this->getUser()->isAnon())
+	  {
+		$arAccess[MawsThread::EVERYONE_ACCESS] = MawsThread::$arAccessType[MawsThread::EVERYONE_ACCESS];
+	  }
+	  else
+	  {
+		$arAccess = MawsThread::$arAccessType;
+	  }
+
+	  $text_parser = 0;
+	  $arTextParsers = array();
+	  foreach ($this->MawsTextParsers as $i => $MawsTextParser)
+	  {
+		if (!$text_parser) { $text_parser = $MawsTextParser->getId(); }
+		$arTextParsers[$MawsTextParser->getId()] = '['.$MawsTextParser->getId().'] '.$MawsTextParser->getName();
+	  }
+
+	  $number_parser = 0;
+	  $arNumberParsers = array();
+	  foreach ($this->MawsNumberParsers as $i => $MawsNumberParser)
+	  {
+		if (!$number_parser) { $number_parser = $MawsNumberParser->getId(); }
+		$arNumberParsers[$MawsNumberParser->getId()] = '['.$MawsNumberParser->getId().'] '.$MawsNumberParser->getName();
+	  }
 
 	  $this->form = array (
 							'id'			  => 'new',
 							'name'			  => 'Безымянная лента',
-							'filter_id'		  => 0,
+							'result_type'	  => MawsThread::STRING_RES,
+							'text_parser'	  => $text_parser,
+							'number_parser'	  => $number_parser,
+							'arTextParsers'	  => $arTextParsers,
+							'arNumberParsers' => $arNumberParsers,
 							'description'	  => '',
 							'access'		  => $arAccessKeys[0],
+							'arAccessType'	  => $arAccess,
 							'result_type'	  => $arResultKeys[0],
+							'update_period'	  => 3600,
+							'update_start'	  => date('Y-m-d H:i:s'),
 	  );
 	}
   }
@@ -88,7 +188,81 @@ class threadActions extends sfActions
   public function executeEdit(sfWebRequest $request)
   {
     $this->forward404Unless($MawsThread = MawsThreadPeer::retrieveByPk($request->getParameter('id')), sprintf('Object MawsThread does not exist (%s).', $request->getParameter('id')));
-    $this->form = new MawsThreadForm($MawsThread);
+
+	$this->id = $request->getParameter('id');
+	$this->errors = array();
+	$this->form_action = 'save';
+
+	$UserId = $this->getUser()->getGuardUser()->getId();
+
+	$c_text = new Criteria();
+
+	if ($this->getUser()->isAnon())
+	{
+	  $c_text->add(MawsParserPeer::ACCESS, MawsParser::EVERYONE_ACCESS, Criteria::EQUAL);
+	}
+	else
+	{
+	  $AccessCriterion = $c_text->getNewCriterion(MawsParserPeer::ACCESS, MawsParser::EVERYONE_ACCESS, Criteria::EQUAL);
+	  $AccessCriterion2 = $c_text->getNewCriterion(MawsParserPeer::ACCESS, MawsParser::REGISTERED_ACCESS, Criteria::EQUAL);
+	  $AccessCriterion->addOr($AccessCriterion2);
+	  $c_text->addAnd($AccessCriterion);
+	}
+
+	$c_number = clone $c_text;
+	
+	$c_text->add(MawsParserPeer::RESULT_TYPE, MawsParser::STRING_RES, Criteria::EQUAL);
+	$c_number->add(MawsParserPeer::RESULT_TYPE, MawsParser::FLOAT_RES, Criteria::EQUAL);
+
+    $this->MawsTextParsers = MawsParserPeer::doSelect($c_text);
+	$this->MawsNumberParsers = MawsParserPeer::doSelect($c_number);
+
+	if ($request->getParameter('form_action') == 'save') // сохраняем изменения
+	{
+	  $this->form = $MawsThread->GetFormData($request);
+	  $res = $MawsThread->SaveFromForm($this->form,$this->getUser());
+	  if ($res === true)
+	  {
+		$this->redirect('thread/edit?id='.$MawsThread->getId()); // успешно сохранили ленту
+	  }
+	  else
+	  {
+		// никуда не редиректим, а показываем всё ту же формочку добавления
+		$this->errors = $res; // а тут будут сообщения об ошибках при создании ленты
+	  }
+	}
+	else // показываем формочку
+	{
+
+	  if ($this->getUser()->isAnon())
+	  {
+		$arAccess[MawsThread::EVERYONE_ACCESS] = MawsThread::$arAccessType[MawsThread::EVERYONE_ACCESS];
+	  }
+	  else
+	  {
+		$arAccess = MawsThread::$arAccessType;
+	  }
+
+	  $arTextParsers = array();
+	  foreach ($this->MawsTextParsers as $i => $MawsTextParser)
+	  {
+		$arTextParsers[$MawsTextParser->getId()] = '['.$MawsTextParser->getId().'] '.$MawsTextParser->getName();
+	  }
+
+	  $arNumberParsers = array();
+	  foreach ($this->MawsNumberParsers as $i => $MawsNumberParser)
+	  {
+		$arNumberParsers[$MawsNumberParser->getId()] = '['.$MawsNumberParser->getId().'] '.$MawsNumberParser->getName();
+	  }
+
+	  $this->form = $MawsThread->toFormArray();
+
+	  $this->form['arTextParsers']	  = $arTextParsers;
+	  $this->form['arNumberParsers']  = $arNumberParsers;
+	  $this->form['arAccessType']	  = $arAccess;
+	  $this->form['text_parser']	  = $this->form['parser_id'];
+	  $this->form['number_parser']	  = $this->form['parser_id'];
+	}
   }
 
   public function executeUpdate(sfWebRequest $request)
