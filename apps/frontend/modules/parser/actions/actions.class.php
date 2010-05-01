@@ -40,6 +40,18 @@ class parserActions extends sfActions
   public function executeShow(sfWebRequest $request)
   {
     $this->MawsParser = MawsParserPeer::retrieveByPk($request->getParameter('id'));
+
+	$UserId = $this->getUser()->getGuardUser()->getId();
+
+	if ($this->MawsParser->getOwnerId() == $UserId)
+	{
+	  $this->owner = true;
+	}
+	else
+	{
+	  $this->owner = false;
+	}
+
 	$this->MawsParserOwner = sfGuardUserPeer::retrieveByPK($this->MawsParser->getOwnerId());
 	$this->strOwnerName = $this->MawsParserOwner->getUsername();
 	$this->arMawsParserResults = $this->MawsParser->Get();
@@ -127,7 +139,21 @@ class parserActions extends sfActions
   public function executeEdit(sfWebRequest $request)
   {
     $this->forward404Unless($MawsParser = MawsParserPeer::retrieveByPk($request->getParameter('id')), sprintf('Object MawsParser does not exist (%s).', $request->getParameter('id')));
+
+	$UserId = $this->getUser()->getGuardUser()->getId();
+	if ($MawsParser->getOwnerId() == $UserId)
+	{
+	  $this->owner = true;
+	}
+	else
+	{
+	  $this->owner = false;
+	}
 	$this->id = $MawsParser->getId();
+
+	$this->arMawsParserResults = $MawsParser->Get();
+	$this->strMawsParserContent = $MawsParser->getContent();
+
 	$this->errors = array();
 	$this->form_action = 'save';
 
@@ -177,12 +203,21 @@ class parserActions extends sfActions
 
   public function executeDelete(sfWebRequest $request)
   {
+	$this->errors = array();
     $request->checkCSRFProtection();
 
-    $this->forward404Unless($MawsParser = MawsParserPeer::retrieveByPk($request->getParameter('id')), sprintf('Object MawsParser does not exist (%s).', $request->getParameter('id')));
-    $MawsParser->delete();
+	$this->forward404Unless($MawsParser = MawsParserPeer::retrieveByPk($request->getParameter('id')), sprintf('Object MawsParser does not exist (%s).', $request->getParameter('id')));
 
-    $this->redirect('parser/index');
+	try {
+      $MawsParser->delete();
+      $this->redirect('parser/index');
+	}
+	catch (PropelException $e)
+	{
+	  $this->errors[] = $e->GetMessage();
+	}
+
+
   }
 
   protected function processForm(sfWebRequest $request, sfForm $form)

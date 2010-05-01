@@ -123,7 +123,6 @@
     <tfoot>
       <tr>
         <td colspan="2">
-          &nbsp;<a href="<?php echo url_for('parser/index') ?>">Перейти к списку фильтров</a>
           <input type="submit" value="Сохранить этот фильтр" />
         </td>
       </tr>
@@ -272,6 +271,18 @@
 		</td>
 		<td>
   		  <input type="text" name="filter_params[regexp]" id="filter_params[regexp]" value="<?php echo $form['filter_params']['regexp'] ?>" />
+		</td>
+	  </tr>
+	  <tr class="tr_regexp">
+		<td>
+		  Взять в качестве результата:
+		</td>
+		<td>
+		  <select name="filter_params[regexp_type]" id="filter_params[regexp_type]">
+			<?php foreach (MawsParser::$arRegexpFilterType as $key=>$value): ?>
+			  <option value="<?php echo $key?>" <?php if ($form['filter_params']['regexp_type']==$key) : ?> selected="" <?php endif; ?> ><?php echo $value ?></option>
+			<?php endforeach; ?>
+		  </select>
 		</td>
 	  </tr>
 	  <tr class="tr_domselect">

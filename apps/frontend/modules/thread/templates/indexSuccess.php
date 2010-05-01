@@ -28,7 +28,7 @@
   </tbody>
 </table>
 <br />
-<div>
-  <a href="<?php echo url_for('thread/new') ?>">Создать новую ленту</a>	<br />
+<div class="links_list">
+  <a href="<?php echo url_for('thread/new') ?>">Создать новую ленту</a>
   <a href="<?php echo url_for('thread/foreign') ?>">Остальные ленты</a>
 </div>

@@ -37,7 +37,6 @@
     <tfoot>
       <tr>
         <td colspan="2">
-          &nbsp;<a href="<?php echo url_for('thread/index') ?>">Перейти к списку лент</a>
           <input type="submit" value="Сохранить эту ленту" />
         </td>
       </tr>

@@ -29,7 +29,7 @@
     <?php endforeach; ?>
   </tbody>
 </table>
-<div>
-  <a href="<?php echo url_for('thread/new') ?>">Создать новую ленту</a>	<br />
+<div class="links_list">
+  <a href="<?php echo url_for('thread/new') ?>">Создать новую ленту</a>
   <a href="<?php echo url_for('thread/index') ?>">Мои ленты</a>
 </div>

@@ -1,32 +1,29 @@
-<h1>MawsPages List</h1>
+<h1>Мои сводки</h1>
 
-<table>
+<table border="1" cellpadding="5" cellspacing="1" >
   <thead>
     <tr>
-      <th>Id</th>
-      <th>Name</th>
-      <th>Description</th>
-      <th>Access</th>
-      <th>Result type</th>
-      <th>Owner</th>
-      <th>Created at</th>
-      <th>Updated at</th>
+	  <th>Id</th>
+      <th>Название</th>
+      <th>Описание</th>
+      <th>Тип данных</th>
+      <th>Период показа</th>
     </tr>
   </thead>
   <tbody>
     <?php foreach ($MawsPages as $MawsPage): ?>
     <tr>
-      <td><a href="<?php echo url_for('page/show?id='.$MawsPage->getId()) ?>"><?php echo $MawsPage->getId() ?></a></td>
-      <td><?php echo $MawsPage->getName() ?></td>
+      <td><?php echo $MawsPage->getId() ?></td>
+	  <td><a href="<?php echo url_for('page/show?id='.$MawsPage->getId()) ?>"><?php echo $MawsPage->getName() ?></a></td>
       <td><?php echo $MawsPage->getDescription() ?></td>
-      <td><?php echo $MawsPage->getAccess() ?></td>
-      <td><?php echo $MawsPage->getResultType() ?></td>
-      <td><?php echo $MawsPage->getOwnerId() ?></td>
-      <td><?php echo $MawsPage->getCreatedAt() ?></td>
-      <td><?php echo $MawsPage->getUpdatedAt() ?></td>
+      <td><?php echo $MawsPage->getResultType(1) ?></td>
+      <td><?php echo $MawsPage->getShowPeriod(1) ?></td>
     </tr>
     <?php endforeach; ?>
   </tbody>
 </table>
-
-  <a href="<?php echo url_for('page/new') ?>">New</a>
+<br />
+<div class="links_list">
+  <a href="<?php echo url_for('page/new') ?>">Добавить новую сводку</a>
+  <a href="<?php echo url_for('page/foreign') ?>">Остальные сводки</a>
+</div>

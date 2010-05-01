@@ -71,7 +71,18 @@
       <th>Параметры фильтра:</th>
 	  <?php $arFilterParams = $MawsParser->getFilterParams(1); ?>
 	  <?php if ($MawsParser->getFilterType()==MawsParser::REGEXP_FILTER): ?>
-      <td>Регулярное выражение: <?php echo $arFilterParams['regexp'] ?></td>
+      <td>
+		<table border="1" cellpadding="3" cellspacing="1">
+		  <tr>
+			<td>Регулярное выражение:</td>
+			<td><?php echo $arFilterParams['regexp'] ?></td>
+		  </tr>
+		  <tr>
+			<td>Выборка:</td>
+			<td><?php echo MawsParser::$arRegexpFilterType[$arFilterParams['regexp_type']] ?></td>
+		  </tr>
+		</table>
+	  </td>
 	  <?php elseif ($MawsParser->getFilterType()==MawsParser::DOM_FILTER): ?>
 	  <td>XML-селектор: <?php echo $arFilterParams['dom_select'] ?></td>
 	  <?php elseif ($MawsParser->getFilterType()==MawsParser::MATCH_FILTER): ?>
@@ -171,15 +182,10 @@
   </tbody>
 </table>
 <br />
-<div>
-<a href="<?php echo url_for('parser/edit?id='.$MawsParser->getId()) ?>">Редактировать этот фильтр</a>
-  <br />
-</div>
-<div>
-<a href="<?php echo url_for('parser/index') ?>">Перейти к списку фильтров</a>
-  <br />
-</div>
-<div>
-  <a href="<?php echo url_for('parser/delete?id='.$id) ?>" onclick="return confirm('Вы действительно хотите удалить этот фильтр?');">Удалить фильтр</a>
-  <br />
+<div class="links_list">
+  <a href="<?php echo url_for('parser/index') ?>">Перейти к списку фильтров</a>
+  <?php if ($owner): ?>
+  <a href="<?php echo url_for('parser/edit?id='.$MawsParser->getId()) ?>">Редактировать этот фильтр</a>
+  <a class="delete" href="<?php echo url_for('parser/delete?id='.$id) ?>" onclick="return confirm('Вы действительно хотите удалить этот фильтр?');">Удалить фильтр</a>
+  <?php endif; ?>
 </div>

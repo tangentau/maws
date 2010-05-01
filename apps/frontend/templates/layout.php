@@ -5,26 +5,32 @@
     <?php include_metas() ?>
     <?php include_title() ?>
     <link rel="shortcut icon" href="/favicon.ico" />
-	<?php use_javascript('jquery-1.4.2.min.js') ?>
-    <?php include_stylesheets() ?>
+	<script type="text/javascript" src="/js/jquery-1.4.2.min.js"></script>
+	<script type="text/javascript" src="/js/colorpicker.js"></script>
+	<script type="text/javascript" src="/js/eye.js"></script>
+	<script type="text/javascript" src="/js/utils.js"></script>
+	<?php include_stylesheets() ?>
     <?php include_javascripts() ?>
+	<link rel="stylesheet" media="screen" type="text/css" href="/css/colorpicker.css" />
   </head>
   <body>
-	<div id="main">
+    <div class="body">
 	  <div class="header">
-		<span class="menu">
+		<div class="menu">
 		  <?php include_component('main', 'MenuHeader') ?>
-		</span>
-		<span class="auth">
+		</div>
+		<div class="auth">
 		  <?php include_component('main', 'AuthHeader') ?>
-		</span>
+		</div>
 	  </div>
-	  <div class="body">
+	  <div class="content">
 		<?php echo $sf_content ?>
 	  </div>
-	  <div class="footer">
-		<?php include_partial('main/footer') ?>
-	  </div>
+	  <div class="clearfloat"></div>
+	  <div class="empty"></div>
+	</div>
+	<div class="footer">
+	  <?php include_partial('main/footer') ?>
 	</div>
   </body>
 </html>

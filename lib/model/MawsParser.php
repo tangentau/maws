@@ -71,6 +71,19 @@ class MawsParser extends BaseMawsParser {
 											self::MATCH_FILTER => 'Указание маркеров',
 										  );
 
+	const	ALL_REGEXP			= 0;		// берём $matches[0] из результатов работы preg_match_all
+	const	FIRST_SUBSET		= 1;		// берём $matches[1] из результатов работы preg_match_all
+	const	SECOND_SUBSET		= 2;		// берём $matches[2] из результатов работы preg_match_all
+	const	THIRD_SUBSET		= 3;		// берём $matches[3] из результатов работы preg_match_all
+
+
+	public static $arRegexpFilterType = array (
+											self::ALL_REGEXP => 'Полное соответствие выражению',
+											self::FIRST_SUBSET => 'Только первое внутреннее соответствие',
+											self::SECOND_SUBSET => 'Только второе внутреннее соответствие',
+											self::THIRD_SUBSET => 'Только третье внутреннее соответствие',
+										  );
+
 
 /*** типы действий над отфильтрованными данными (arFilterResult): ***/
 
@@ -579,15 +592,18 @@ class MawsParser extends BaseMawsParser {
 	 **/
 	public function DoFilter()
 	{
+
+		$arFilterParams = unserialize($this->filter_params);
+		foreach ($arFilterParams as $i => $val)
+		{
+		  $arFilterParams[strtoupper($i)] = $val;
+		}
+		
 		switch ($this->filter_type)		// смотрим тип фильтра: как именно нужно отфильтровать контент?
 		{
 			case self::MATCH_FILTER:			// оставляем только то, что между начальными и загрывающими маркерами
 			{
-				$arFilterParams = unserialize($this->filter_params);
-				foreach ($arFilterParams as $i => $val)
-				{
-				  $arFilterParams[strtoupper($i)] = $val;
-				}
+
 				$arFilterResult = explode($arFilterParams['START_MARKER'],$this->strContent); // разрезаем контент на кусочки после открывающего маркера
 
 				// НО! т.к. explode разрезает строку на куски До и После, то первый кусок из полученных всегда будет лишним.
@@ -612,13 +628,21 @@ class MawsParser extends BaseMawsParser {
 						}
 					}
 
-					// теперь из всего контента остлось только то, что между начальными и загрывающими маркерами
+					// теперь из всего контента осталось только то, что между начальными и закрывающими маркерами
 				}
 				else	// ничего не нашлось
 				{
 					// оставляем $this->arFilterResult таким, как есть (т.е. пустым)
 				}
 
+				break;
+			}
+			case self::REGEXP_FILTER:	// оставляем только то, что подходит под регулярное выражение
+			{
+				$arMatches = array();
+				preg_match_all('/'.$arFilterParams['REGEXP'].'/',$this->strContent,$arMatches);
+				if ((isset($arMatches[$arFilterParams['REGEXP_TYPE']])) && (is_array($arMatches[$arFilterParams['REGEXP_TYPE']])))
+					$this->arFilterResult = $arMatches[$arFilterParams['REGEXP_TYPE']];
 				break;
 			}
 			default:			// ничего не фильтруем
@@ -637,6 +661,13 @@ class MawsParser extends BaseMawsParser {
 	 **/
 	public function DoActions()
 	{
+
+		$arActionParams = unserialize($this->action_params);
+
+		if (isset($arActionParams['n'])) $n = $arActionParams['n'];
+
+		if (isset($arActionParams['m'])) $m = $arActionParams['m'];
+
 		switch ($this->action_type)		// смотрим, что конкретно нужно сделать с результатами
 		{
 			case self::GET_ALL:			// оставляем все результаты
@@ -644,9 +675,62 @@ class MawsParser extends BaseMawsParser {
 				$this->arActionResult = $this->arFilterResult;
 				break;
 			}
+			case self::GET_FIRST_N:			// оставляем первые N результатов
+			{
+				$arResult = array();
+
+				for ($i = 0; $i < $n; $i++)
+				{
+				  if (isset($this->arFilterResult[$i]))
+					$arResult[] = $this->arFilterResult[$i];
+				}
+				$this->arActionResult = $arResult;
+				break;
+			}
+			case self::GET_LAST_N:			// оставляем последние N результатов
+			{
+				$arResult = array();
+				$count = count($this->arFilterResult);
+				for ($i = $count - $n; $i < $count; $i++)
+				{
+				  if (isset($this->arFilterResult[$i]))
+					$arResult[] = $this->arFilterResult[$i];
+				}
+				$this->arActionResult = $arResult;
+				break;
+			}
 			case self::GET_COUNT:		// количество результатов
 			{
 				$this->arActionResult = array(count($this->arFilterResult));
+				break;
+			}
+			case self::GET_RANDOM:	//
+			{
+				$arResult = array();
+				$count = count($this->arFilterResult);
+				$i=0;
+				while ($i<1)
+				{
+				  $rand = rand(0,count($this->arFilterResult));
+				  if (isset($this->arFilterResult[$rand]))
+				  {
+				  	$arResult[] = $this->arFilterResult[$rand];
+					$i++;
+				  }
+				}
+				$this->arActionResult = $arResult;
+				break;
+			}
+			case self::GET_MNTH:	// взять N результатов после M
+			{
+				$arResult = array();
+
+				for ($i = $n; $i < $m+$n; $i++)
+				{
+				  if (isset($this->arFilterResult[$i]))
+					$arResult[] = $this->arFilterResult[$i];
+				}
+				$this->arActionResult = $arResult;
 				break;
 			}
 			default:					// оставляем все результаты

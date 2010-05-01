@@ -22,66 +22,125 @@
     </tr>
   </tbody>
 </table>
-
 <hr />
 <h1>Содержимое ленты</h1>
 <?php $MawsThreadContent = $sf_data->getRaw('MawsThreadContent'); ?>
 <?php if (count($MawsThreadContent) > 0): ?>
-<table  border="1" cellpadding="5" cellspacing="1" >
-  <tbody>
-    <tr>
-	  <th>id</th>
-      <th>Время</th>
-	  <th>#</th>
-	  <th>Результат</th>
-    </tr>
-	<?php foreach($MawsThreadContent as $res): ?>
-	  <?php $arRes = unserialize($res->getResult()); ?>
-	  <?php $date_time = str_replace(' ', '<br />',$res->getCreatedAt()); ?>
-	  <?php if (count($arRes) > 0) { $rowspan = count($arRes); } else { $rowspan = 1; } ?>
+  <?php if ($MawsThread->getResultType() == MawsThread::STRING_RES): ?>
+  <table  border="1" cellpadding="5" cellspacing="1" >
+	<tbody>
 	  <tr>
-		<td rowspan="<?php echo $rowspan ?>"><?php echo $res->getID() ?></td>
-		<td rowspan="<?php echo $rowspan ?>"><?php echo $date_time ?></td>
-		<?php if (count($arRes) > 0): ?>
-		  <?php foreach($arRes as $i => $result): ?>
-			  <?php if ($i>=1): ?>
-				</tr>
-				<tr>
-			  <?php endif; ?>
+		<th>Время</th>
+		<th>#</th>
+		<th>Результат</th>
+	  </tr>
+	  <?php foreach($MawsThreadContent as $res): ?>
+		<?php $arRes = unserialize($res->getResult()); ?>
+		<?php $date_time = str_replace(' ', '<br />',$res->getCreatedAt()); ?>
+		<?php if (count($arRes) > 0) { $rowspan = count($arRes); } else { $rowspan = 1; } ?>
+		<tr>
+		  <td rowspan="<?php echo $rowspan ?>"><span title="<?php echo $res->getID() ?>"><?php echo $date_time ?></span></td>
+		  <?php if (count($arRes) > 0): ?>
+			<?php foreach($arRes as $i => $result): ?>
+				<?php if ($i>=1): ?>
+				  </tr>
+				  <tr>
+				<?php endif; ?>
+				  <td>
+					#<?php echo $i+1 ?>
+				  </td>
+				  <td>
+					<?php echo $result ?>
+				  </td>
+				<?php if ($i==($rowspan-1)): ?>
+				  </tr>
+				<?php endif; ?>
+				<?php endforeach; ?>
+			  <?php else: ?>
 				<td>
-				  #<?php echo $i+1 ?>
+				  Нет результатов.
 				</td>
-				<td>
-				  <?php echo $result ?>
-				</td>
-			  <?php if ($i==($rowspan-1)): ?>
 				</tr>
 			  <?php endif; ?>
-			  <?php endforeach; ?>
-			<?php else: ?>
-			  <td>
-				Нет результатов.
-			  </td>
-			  </tr>
-			<?php endif; ?>
-	<?php endforeach; ?>
-  </tbody>
-</table>
+	  <?php endforeach; ?>
+	</tbody>
+  </table>
+  <?php else: ?>
+  <table  border="1" cellpadding="5" cellspacing="1" >
+	<tbody>
+	  <tr>
+		<th>Время</th>
+		<th>Результаты</th>
+		<th>Мин.</th>
+		<th>Макс.</th>
+		<th>Среднее</th>
+		<th>Сумма</th>
+		<th>Количество</th>
+	  </tr>
+	  <?php foreach($MawsThreadContent as $res): ?>
+		<?php $arRes = unserialize($res->getResult()); ?>
+		<?php foreach($arRes as $i => $n): ?>
+		  <?php $arRes[$i] = toolBox::floatval($n); ?>
+		<?php endforeach; ?>
+		<?php $ar_sum = array_sum($arRes); ?>
+		<?php $ar_count = count($arRes); ?>
+		<?php $date_time = str_replace(' ', '<br />',$res->getCreatedAt()); ?>
+		<tr>
+		  <td><span title="<?php echo $res->getID() ?>"><?php echo $date_time ?></span></td>
+		  <?php if (count($arRes) > 0): ?>
+		  <td>
+			<?php echo implode(', ',$arRes) ?>
+		  </td>
+		  <td>
+			<?php echo min($arRes) ?>
+		  </td>
+		  <td>
+			<?php echo max($arRes) ?>
+		  </td>
+		  <td>
+			<?php echo round($ar_sum/$ar_count,2) ?>
+		  </td>
+		  <td>
+			<?php echo $ar_sum ?>
+		  </td>
+		  <td>
+			<?php echo $ar_count ?>
+		  </td>
+		  <?php else: ?>
+		  <td>
+			  Нет результатов.
+		  </td>
+		  <td>
+			  0
+		  </td>
+		  <td>
+			  0
+		  </td>
+		  <td>
+			  0
+		  </td>
+		  <td>
+			  0
+		  </td>
+		  <td>
+			  0
+		  </td>
+		  <?php endif; ?>
+		</tr>
+	  <?php endforeach; ?>
+	</tbody>
+  </table>
+  <?php endif; ?>
 <?php else: ?>
   Нет результатов.
 <?php endif; ?>
 <hr />
-<div>
+<div class="links_list">
+  <a href="<?php echo url_for('thread/index') ?>">Перейти к списку лент</a>
+  <?php if ($owner): ?>
   <a href="<?php echo url_for('thread/edit?id='.$MawsThread->getId()) ?>">Редактировать ленту</a>
-  <br />
-</div>
-<div>
-  <a href="<?php echo url_for('thread/delete?id='.$id) ?>" onclick="return confirm('Вы действительно хотите удалить эту ленту?');">Удалить ленту</a>
-  <br />
-</div>
-<div>
-  <a href="<?php echo url_for('thread/index') ?>">Перейти к списку</a>
-  <br />
+  <a class="delete" href="<?php echo url_for('thread/delete?id='.$id) ?>" onclick="return confirm('Вы действительно хотите удалить эту ленту?');">Удалить ленту</a>
+  <?php endif; ?>
 </div>
 
 

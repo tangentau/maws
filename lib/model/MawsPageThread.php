@@ -29,4 +29,31 @@ class MawsPageThread extends BaseMawsPageThread {
 		parent::__construct();
 	}
 
+
+	/**
+	 * Declares an association between this object and a MawsThread object.
+	 *
+	 * @param      MawsThread $v
+	 * @return     MawsPageThread The current object (for fluent API support)
+	 * @throws     PropelException
+	 */
+	public function setMawsThreadId($ThreadId)
+	{
+		if ($ThreadId === null) {
+			$this->setThreadId(NULL);
+		} else {
+			$this->setThreadId($ThreadId);
+		}
+/*
+		$this->aMawsThread = $v;
+
+		// Add binding for other direction of this n:n relationship.
+		// If this object has already been added to the MawsThread object, it will not be re-added.
+		if ($v !== null) {
+			$v->addMawsPageThread($this);
+		}
+*/
+		return $this;
+	}
+
 } // MawsPageThread

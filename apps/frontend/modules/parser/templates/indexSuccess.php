@@ -27,7 +27,7 @@
   </tbody>
 </table>
 <br />
-<div>
-  <a href="<?php echo url_for('parser/new') ?>">Добавить новый фильтр</a>	<br />
+<div class="links_list">
+  <a href="<?php echo url_for('parser/new') ?>">Добавить новый фильтр</a>
   <a href="<?php echo url_for('parser/foreign') ?>">Остальные фильтры</a>
 </div>

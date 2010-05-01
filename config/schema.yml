@@ -53,6 +53,7 @@ propel:
     description:      { type: varchar(255), default: '' }
     access:           { type: integer, required: true, default: 0 }
     result_type:      { type: integer, required: true, default: 0 }
+    show_period:      { type: integer, default: 0  }
     owner_id:         { type: integer,  foreignTable: sf_guard_user, foreignReference: id, required: true }
     created_at:   ~
     updated_at:   ~
@@ -63,7 +64,7 @@ propel:
     page_id:          { type: integer,  foreignTable: maws_page, foreignReference: id, required: true }
     thread_id:        { type: integer,  foreignTable: maws_thread, foreignReference: id, required: true }
     sort_order:       { type: integer, default: 0  }
-    show_period:      { type: integer, default: 0  }
+    color:            { type: integer, default: 0  }
     created_at:   ~
     updated_at:   ~
 
