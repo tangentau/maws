@@ -39,7 +39,7 @@ class sfGuardAuthActions extends BasesfGuardAuthActions
 	  {
 		$AnonymousLogin = sfConfig::get('app_anonymous_login', 'anonymous');
 		$c = new Criteria();
-		$c->add(sfGuardUserPeer::USERNAME, $AnonymousLogin, Criteria::LIKE);
+		$c->add(sfGuardUserPeer::USERNAME, $AnonymousLogin, Criteria::EQUAL);
 		$obUser = sfGuardUserPeer::doSelectOne($c);
 		$user->signin($obUser);
 	  }

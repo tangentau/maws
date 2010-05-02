@@ -2,8 +2,8 @@
 <table>
   <tr>
     <td>
-	  Привет,<br />
-	  <?php print_r($UserName); ?>
+	  Привет,
+	  <div class="username"><?php print_r($UserName); ?></div>
 	</td>
 	<?php if ($isAnonymous): ?>
 	<td>
@@ -21,12 +21,15 @@
 	  </form>
 	</td>
 	<td>
-	  <?php echo link_to('Регистрация', 'main/register') ?><br />
-	  <?php echo link_to('Забыл пароль', 'main/password') ?>
+	  <div class="user_menu">
+		<?php echo link_to('Регистрация', 'user/new') ?><br />
+		<?php echo link_to('Забыл пароль', 'user/password') ?>
+	  </div>
 	</td>
 	<?php else: ?>
 	<td>
-	  <div class="logout">
+	  <div class="user_menu">
+		<?php echo link_to('Сменить настройки', 'user/edit?id='.$UserId) ?><br/>
 		<?php echo link_to('Выйти', 'main/logout') ?>
 	  </div>
 	</td>

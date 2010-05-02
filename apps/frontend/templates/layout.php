@@ -9,9 +9,15 @@
 	<script type="text/javascript" src="/js/colorpicker.js"></script>
 	<script type="text/javascript" src="/js/eye.js"></script>
 	<script type="text/javascript" src="/js/utils.js"></script>
+	<script type="text/javascript" src="/js/jquery.single-ddm.min.js"></script>
+	<!--[if IE]><script language="javascript" type="text/javascript" src="/js/flot/excanvas.min.js"></script><![endif]-->
+	<script type="text/javascript" src="/js/flot/jquery.flot.js"></script>
+	
+	<link rel="stylesheet" media="screen" type="text/css" href="/css/colorpicker.css" />
+	<link rel="stylesheet" media="screen" type="text/css" href="/css/menu.css" />
+	<link rel="stylesheet" media="screen" type="text/css" href="/css/flot.css" />
 	<?php include_stylesheets() ?>
     <?php include_javascripts() ?>
-	<link rel="stylesheet" media="screen" type="text/css" href="/css/colorpicker.css" />
   </head>
   <body>
     <div class="body">

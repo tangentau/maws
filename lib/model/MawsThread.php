@@ -54,6 +54,19 @@ class MawsThread extends BaseMawsThread {
 											192800  => 'Раз в двое суток',
 										  );
 
+	public static $arShowPeriods = array (
+											600	  => '10 минут',
+											1800  => 'Полчаса',
+											3600  => 'Час',
+											7200  => 'Два часа',
+											18000  => '5 часов',
+											43200  => '12 часов',
+											86400  => 'Cутки',
+											192800  => 'Двое суток',
+											604800  => 'Неделя',
+											2592000  => 'Месяц',
+										  );
+
 	/**
 	 * Initializes internal state of MawsThread object.
 	 * @see        parent::__construct()

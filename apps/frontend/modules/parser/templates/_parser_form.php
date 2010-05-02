@@ -287,10 +287,30 @@
 	  </tr>
 	  <tr class="tr_domselect">
 		<td>
-		  DOM-селектор:
+		  XPATH-селектор:
 		</td>
 		<td>
-  		  <input type="text" name="filter_params[domselect]" id="filter_params[domselect]" value="<?php echo $form['filter_params']['domselect'] ?>" />
+  		  <input type="text" name="filter_params[xpath]" id="filter_params[xpath]" value="<?php echo $form['filter_params']['xpath'] ?>" />
+		</td>
+	  </tr>
+	  <tr class="tr_domselect">
+		<td>
+		  Что взять из найденных элементов:
+		</td>
+		<td>
+  		  <select name="filter_params[xpath_param]" id="filter_params[xpath_param]">
+			<?php foreach (MawsParser::$arXpathFilterType as $key=>$value): ?>
+			  <option value="<?php echo $key?>" <?php if ($form['filter_params']['xpath_param']==$key) : ?> selected="" <?php endif; ?> ><?php echo $value ?></option>
+			<?php endforeach; ?>
+		  </select>
+		</td>
+	  </tr>
+	  <tr class="tr_domselect">
+		<td>
+		  Атрибут (если требуется):
+		</td>
+		<td>
+  		  <input type="text" name="filter_params[dom_attr]" id="filter_params[dom_attr]" value="<?php echo $form['filter_params']['dom_attr'] ?>" />
 		</td>
 	  </tr>
 	  <tr class="tr_markers">

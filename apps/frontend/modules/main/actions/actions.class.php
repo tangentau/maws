@@ -12,9 +12,13 @@ class mainActions extends sfActions
 {
   public function executeIndex(sfWebRequest $request)
   {
-    $this->a = '444';
+    
   }
 
+  public function executeHelp(sfWebRequest $request)
+  {
+
+  }
   public function executeLogout(sfWebRequest $request)
   {
 	$this->forward('sfGuardAuth', 'signout');

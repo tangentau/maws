@@ -24,9 +24,10 @@ class sfGuardUserAdminForm extends BasesfGuardUserForm
     $this->widgetSchema['sf_guard_user_group_list']->setLabel('Groups');
     $this->widgetSchema['sf_guard_user_permission_list']->setLabel('Permissions');
 
-    $this->widgetSchema['password'] = new sfWidgetFormInputPassword();
+	$this->widgetSchema['username'] = new sfWidgetFormInputText(array('label' => 'Имя пользователя:'));
+    $this->widgetSchema['password'] = new sfWidgetFormInputPassword(array('label' => 'Пароль:'));
     $this->validatorSchema['password']->setOption('required', false);
-    $this->widgetSchema['password_again'] = new sfWidgetFormInputPassword();
+    $this->widgetSchema['password_again'] = new sfWidgetFormInputPassword(array('label' => 'Повторите пароль:'));
     $this->validatorSchema['password_again'] = clone $this->validatorSchema['password'];
 
     $this->widgetSchema->moveField('password_again', 'after', 'password');

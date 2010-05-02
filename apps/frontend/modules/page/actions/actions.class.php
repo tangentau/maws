@@ -48,14 +48,37 @@ class pageActions extends sfActions
 
 	$UserId = $this->getUser()->getGuardUser()->getId();
 
+	$this->access = false;
+
 	if ($this->MawsPage->getOwnerId() == $UserId)
 	{
 	  $this->owner = true;
+	  $this->access = true;
 	}
 	else
 	{
+	  if ($this->MawsPage->getAccess() == MawsPage::EVERYONE_ACCESS)
+	  {
+		$this->access = true;
+	  }
+	  elseif ($this->MawsPage->getAccess() == MawsPage::REGISTERED_ACCESS)
+	  {
+		if ($this->getUser()->isAnon()) $this->access = false;
+		elseif ($UserId > 0) $this->access = true;
+	  }
+	  elseif ($this->MawsPage->getAccess() == MawsPage::OWNER_ACCESS)
+	  {
+		if ($this->MawsPage->getOwnerId() == $UserId) $this->access = true;
+		else $this->access = false;
+	  }
+
 	  $this->owner = false;
 	}
+
+	$this->period = intval($request->getParameter('period'));
+	if ($this->period <= 0) $this->period = $this->MawsPage->getShowPeriod();
+	$start_time = time() - $this->period;
+
 
 	$this->MawsPageThreads = $this->MawsPage->getThreads();
 
@@ -64,16 +87,50 @@ class pageActions extends sfActions
 	{
 	  $MawsThread = MawsThreadPeer::retrieveByPk($MawsPageThread['id']);
 	  $this->MawsPageThreads[$i]['thread'] = $MawsThread;
-	  $this->MawsPageThreads[$i]['parser_results']  = $MawsThread->getParserResults();
+	  $this->MawsPageThreads[$i]['parser_results']  = $MawsThread->getParserResults(false,$start_time);
 	  foreach ($this->MawsPageThreads[$i]['parser_results'] as $MawsParserResult)
 	  {
-		if (!isset($this->MawsPageResults[$MawsParserResult->getCreatedAt()]))
+		$time = substr($MawsParserResult->getCreatedAt(),0,-3);
+		if (!isset($this->MawsPageResults[$time]))
 		{
-		  $this->MawsPageResults[$MawsParserResult->getCreatedAt()] = array();
+		  $this->MawsPageResults[$time] = array();
 		}
 
-		$this->MawsPageResults[$MawsParserResult->getCreatedAt()][$MawsPageThread['id']] = unserialize($MawsParserResult->getResult());
+		$arRes = unserialize($MawsParserResult->getResult());
+		$this->MawsPageResults[$time][$MawsPageThread['id']]['data'] = $arRes;
+		if ($this->MawsPage->getResultType() == MawsPage::FLOAT_RES)
+		{
+		  $this->MawsPageResults[$time][$MawsPageThread['id']]['raw_data'] = $arRes;
+		  if (is_array($arRes))
+		  {
+			foreach($arRes as $i => $n)
+			{
+			  $arRes[$i] = toolBox::floatval($n);
+			}
 
+			$ar_sum = array_sum($arRes);
+			$ar_count = count($arRes);
+			$this->MawsPageResults[$time][$MawsPageThread['id']]['data'] = implode(', ',$arRes);
+			$this->MawsPageResults[$time][$MawsPageThread['id']]['min'] = min($arRes);
+			$this->MawsPageResults[$time][$MawsPageThread['id']]['max'] = max($arRes);
+
+			if ($ar_count >0)
+			  $this->MawsPageResults[$time][$MawsPageThread['id']]['mid'] = round($ar_sum/$ar_count,2);
+			else $this->MawsPageResults[$time][$MawsPageThread['id']]['mid'] = 0;
+
+			$this->MawsPageResults[$time][$MawsPageThread['id']]['sum'] = $ar_sum;
+			$this->MawsPageResults[$time][$MawsPageThread['id']]['count'] = $ar_count;
+		  }
+		  else
+		  {
+			$this->MawsPageResults[$time][$MawsPageThread['id']]['data'] = 0;
+			$this->MawsPageResults[$time][$MawsPageThread['id']]['min'] = 0;
+			$this->MawsPageResults[$time][$MawsPageThread['id']]['max'] = 0;
+			$this->MawsPageResults[$time][$MawsPageThread['id']]['mid'] = 0;
+			$this->MawsPageResults[$time][$MawsPageThread['id']]['sum'] = 0;
+			$this->MawsPageResults[$time][$MawsPageThread['id']]['count'] = 0;
+		  }
+		}
 	  }
 	}
 

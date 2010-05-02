@@ -68,3 +68,10 @@ propel:
     created_at:   ~
     updated_at:   ~
 
+  sf_guard_user_profile:
+    _attributes: { phpName: sfGuardUserProfile }
+    id:          ~
+    user_id:          { type: integer, foreignTable: sf_guard_user, foreignReference: id, required: true, onDelete: cascade }
+    email:            { type: varchar(255), default: '' }
+    main_thread:      { type: integer, default: 0 }
+    main_page:        { type: integer, default: 0 }

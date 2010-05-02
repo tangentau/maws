@@ -72,14 +72,34 @@ class threadActions extends sfActions
   {
 	$this->MawsThread = MawsThreadPeer::retrieveByPk($request->getParameter('id'));
 	$UserId = $this->getUser()->getGuardUser()->getId();
+
+	$this->access = false;
+
 	if ($this->MawsThread->getOwnerId() == $UserId)
 	{
 	  $this->owner = true;
+	  $this->access = true;
 	}
 	else
 	{
+	  if ($this->MawsThread->getAccess() == MawsThread::EVERYONE_ACCESS)
+	  {
+		$this->access = true;
+	  }
+	  elseif ($this->MawsThread->getAccess() == MawsThread::REGISTERED_ACCESS)
+	  {
+		if ($this->getUser()->isAnon()) $this->access = false;
+		elseif ($UserId > 0) $this->access = true;
+	  }
+	  elseif ($this->MawsThread->getAccess() == MawsThread::OWNER_ACCESS)
+	  {
+		if ($this->MawsThread->getOwnerId() == $UserId) $this->access = true;
+		else $this->access = false;
+	  }
+
 	  $this->owner = false;
 	}
+
 	$this->id = $request->getParameter('id');
 
 	$MawsParser = MawsParserPeer::retrieveByPK($this->MawsThread->getParserId());
@@ -87,7 +107,12 @@ class threadActions extends sfActions
 	{
 		$this->MawsThread->strParserName = $MawsParser->getName();
 	}
-	$this->MawsThreadContent =  $this->MawsThread->getParserResults();
+
+	$this->period = intval($request->getParameter('period'));
+	if ($this->period <= 0) $this->period = 3600 * 24;
+	$start_time = time() - $this->period;
+
+	$this->MawsThreadContent =  $this->MawsThread->getParserResults(false,$start_time);
     $this->forward404Unless($this->MawsThread);
   }
 

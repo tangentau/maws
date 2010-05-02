@@ -43,12 +43,30 @@ class parserActions extends sfActions
 
 	$UserId = $this->getUser()->getGuardUser()->getId();
 
+	$this->access = false;
+
 	if ($this->MawsParser->getOwnerId() == $UserId)
 	{
 	  $this->owner = true;
+	  $this->access = true;
 	}
 	else
 	{
+	  if ($this->MawsParser->getAccess() == MawsParser::EVERYONE_ACCESS)
+	  {
+		$this->access = true;
+	  }
+	  elseif ($this->MawsParser->getAccess() == MawsParser::REGISTERED_ACCESS)
+	  {
+		if ($this->getUser()->isAnon()) $this->access = false;
+		elseif ($UserId > 0) $this->access = true;
+	  }
+	  elseif ($this->MawsParser->getAccess() == MawsParser::OWNER_ACCESS)
+	  {
+		if ($this->MawsParser->getOwnerId() == $UserId) $this->access = true;
+		else $this->access = false;
+	  }
+
 	  $this->owner = false;
 	}
 
@@ -110,12 +128,7 @@ class parserActions extends sfActions
 							'resource_pass'	  => '',
 							'resource_method' => $arMethodKeys[0],
 							'filter_type'	  => $arFilterKeys[0],
-							'filter_params'	  => array	(
-														  'regexp'=>'',
-														  'domselect'=>'',
-														  'start_marker'=>'',
-														  'end_marker'=>'',
-												  ),
+							'filter_params'	  => MawsParser::$arFilterParams,
 							'action_type'	  => $arActionKeys[0],
 							'action_params'	  => array	(
 														  'n'=>'1',

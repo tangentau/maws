@@ -12,7 +12,7 @@ generator:
 
     config:
       fields:
-        password_again: { label: "Password (again)" }
+        password_again: { label: "Повторите пароль" }
 
       list:
         title:   User list

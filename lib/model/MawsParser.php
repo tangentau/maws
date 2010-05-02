@@ -71,6 +71,8 @@ class MawsParser extends BaseMawsParser {
 											self::MATCH_FILTER => 'Указание маркеров',
 										  );
 
+	// варианты выборки результатов разбора документа по регулярке
+
 	const	ALL_REGEXP			= 0;		// берём $matches[0] из результатов работы preg_match_all
 	const	FIRST_SUBSET		= 1;		// берём $matches[1] из результатов работы preg_match_all
 	const	SECOND_SUBSET		= 2;		// берём $matches[2] из результатов работы preg_match_all
@@ -84,6 +86,28 @@ class MawsParser extends BaseMawsParser {
 											self::THIRD_SUBSET => 'Только третье внутреннее соответствие',
 										  );
 
+
+	// варианты выборки результатов разбора документа по XPATH
+
+	const	DOM_NODEVALUE		= 0;		//  nodeValue()
+	const	DOM_ATTRVALUE		= 1;		// getAttribute()
+
+	public static $arXpathFilterType = array (
+											self::DOM_NODEVALUE => 'Содержимое элемента',
+											self::DOM_ATTRVALUE => 'Атрибут элемента',
+										  );
+
+
+	// значения по умолчанию для параметров фильтра
+	public static $arFilterParams =		array (
+											'regexp' => '<p>(.*?)</p>',
+											'regexp_type' => self::ALL_REGEXP,
+											'xpath' => '//p',
+											'xpath_param' => self::DOM_NODEVALUE,
+											'dom_attr' => 'class',
+											'start_marker' => '<p>',
+											'end_marker' => '</p>',
+										  );
 
 /*** типы действий над отфильтрованными данными (arFilterResult): ***/
 
@@ -273,6 +297,12 @@ class MawsParser extends BaseMawsParser {
 		  $form['resource_param_value'][] = $value;
 		}
 
+		foreach (self::$arFilterParams as $key => $default_value)
+		if (!isset($form['filter_params'][$key] ))
+		{
+		  $form['filter_params'][$key] = $default_value;
+		}
+
 		return $form;
 	}
 
@@ -299,6 +329,22 @@ class MawsParser extends BaseMawsParser {
 	  {
 		$errors[] = 'Не указан URL.';
 	  }
+	  if ($form['filter_type']==self::REGEXP_FILTER)
+	  {
+		if (strlen($form['filter_params']['regexp'])==0)
+		 {
+		  $errors[] = 'Не задано регулярное выражение.';
+		 }
+	  }
+
+	  if ($form['filter_type']==self::DOM_FILTER)
+	  {
+		if (strlen($form['filter_params']['xpath'])==0)
+		 {
+		  $errors[] = 'Не задан Xpath-селектор.';
+		 }
+	  }
+
 	  if (strlen(implode('',$form['filter_params']))==0)
 	  {
 		$errors[] = 'Не указаны параметры фильтра.';
@@ -643,6 +689,31 @@ class MawsParser extends BaseMawsParser {
 				preg_match_all('/'.$arFilterParams['REGEXP'].'/',$this->strContent,$arMatches);
 				if ((isset($arMatches[$arFilterParams['REGEXP_TYPE']])) && (is_array($arMatches[$arFilterParams['REGEXP_TYPE']])))
 					$this->arFilterResult = $arMatches[$arFilterParams['REGEXP_TYPE']];
+				break;
+			}
+			case self::DOM_FILTER:	// оставляем только то, что подходит под XPATH
+			{
+				$arMatches = array();
+				$dom = new DOMDocument();
+				@$dom->loadHTML($this->strContent);
+				$xpath = new DOMXPath($dom);
+				$result_rows = $xpath->query($arFilterParams['XPATH']);
+
+				//here we loop through our results (a DOMDocument Object)
+				foreach ($result_rows as $result_object)
+				{
+				  if ($arFilterParams['XPATH_PARAM'] == self::DOM_NODEVALUE)
+				  {
+					$arMatches[] = $result_object->nodeValue;
+				  }
+				  else if ($arFilterParams['XPATH_PARAM'] == self::DOM_ATTRVALUE)
+				  {
+					$arMatches[] = $result_object->getAttribute($arFilterParams['DOM_ATTR']);
+				  }
+				}
+
+				$this->arFilterResult = $arMatches;
+				
 				break;
 			}
 			default:			// ничего не фильтруем

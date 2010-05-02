@@ -1,3 +1,4 @@
+<?php if ($access): ?>
 <table  border="1" cellpadding="5" cellspacing="1">
   <tbody>
     <tr>
@@ -37,31 +38,42 @@
 	  <?php foreach($MawsThreadContent as $res): ?>
 		<?php $arRes = unserialize($res->getResult()); ?>
 		<?php $date_time = str_replace(' ', '<br />',$res->getCreatedAt()); ?>
-		<?php if (count($arRes) > 0) { $rowspan = count($arRes); } else { $rowspan = 1; } ?>
-		<tr>
-		  <td rowspan="<?php echo $rowspan ?>"><span title="<?php echo $res->getID() ?>"><?php echo $date_time ?></span></td>
-		  <?php if (count($arRes) > 0): ?>
-			<?php foreach($arRes as $i => $result): ?>
-				<?php if ($i>=1): ?>
-				  </tr>
-				  <tr>
-				<?php endif; ?>
-				  <td>
-					#<?php echo $i+1 ?>
-				  </td>
-				  <td>
-					<?php echo $result ?>
-				  </td>
-				<?php if ($i==($rowspan-1)): ?>
-				  </tr>
-				<?php endif; ?>
+		<?php if ((count($arRes) == 1) && ($arRes[0]==MawsParser::EMPTY_FILTER_RESULT)): ?>
+			<tr>
+			  <td><span title="<?php echo $res->getID() ?>"><?php echo $date_time ?></span></td>
+			  <td colspan="2">
+				Пусто.
+			  </td>
+			</tr>
+		<?php else: ?>
+		  <?php if (count($arRes) > 0) { $rowspan = count($arRes); } else { $rowspan = 1; } ?>
+			<tr>
+			  <td rowspan="<?php echo $rowspan ?>"><span title="<?php echo $res->getID() ?>"><?php echo $date_time ?></span></td>
+			  <?php if (count($arRes) > 0): ?>
+			  	<?php foreach($arRes as $i => $result): ?>
+			  		<?php if ($i>=1): ?>
+			  		  </tr>
+			  		  <tr>
+					<?php endif; ?>
+			  		  <td>
+						#<?php echo $i+1 ?>
+					  </td>
+					  <td>
+						<?php echo $result ?>
+					  </td>
+					<?php if ($i==($rowspan-1)): ?>
+					  </tr>
+					<?php endif; ?>
 				<?php endforeach; ?>
 			  <?php else: ?>
-				<td>
 				  Нет результатов.
 				</td>
 				</tr>
 			  <?php endif; ?>
+		<?php endif; ?>
+
+
+		
 	  <?php endforeach; ?>
 	</tbody>
   </table>
@@ -134,6 +146,27 @@
 <?php else: ?>
   Нет результатов.
 <?php endif; ?>
+<br>
+
+<?php if (isset(MawsThread::$arShowPeriods[$period])): ?>
+  <?php $strPeriod = MawsThread::$arShowPeriods[$period]; ?>
+<?php else: ?>
+  <?php $strPeriod = "$period секунд"; ?>
+<?php endif; ?>
+Показаны результаты за период: [<?php echo $strPeriod; ?>]
+<br>
+<br>
+
+<form action="<?php echo url_for('thread/show?id='.$id) ?>" method="get" >
+  Показать за:
+  <select name="period" id="period">
+	<?php foreach (MawsThread::$arShowPeriods as $key => $value): ?>
+	  <option value="<?php echo $key?>" <?php if ($period == $key) : ?> selected="" <?php endif; ?> ><?php echo $value ?></option>
+	<?php endforeach; ?>
+  </select>
+  <input type="submit" value="Показать" />
+</form>
+
 <hr />
 <div class="links_list">
   <a href="<?php echo url_for('thread/index') ?>">Перейти к списку лент</a>
@@ -142,5 +175,7 @@
   <a class="delete" href="<?php echo url_for('thread/delete?id='.$id) ?>" onclick="return confirm('Вы действительно хотите удалить эту ленту?');">Удалить ленту</a>
   <?php endif; ?>
 </div>
-
+<?php else: ?>
+  Доступ закрыт.
+<?php endif; ?>
 

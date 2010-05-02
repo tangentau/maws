@@ -1,0 +1,15 @@
+/* 
+    Document   : flot
+    Created on : 02.05.2010, 12:34:21
+    Author     : tangentau
+    Description:
+        flot
+*/
+
+
+div#flot {
+    width:600px;
+    height:300px;
+    background-color:white;
+}
+

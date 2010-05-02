@@ -3,5 +3,5 @@
     <?php echo $form ?>
   </table>
 
-  <input type="submit" value="sign in" />
+  <input type="submit" value="Войти" />
 </form>

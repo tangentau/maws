@@ -207,7 +207,10 @@ class MawsPage extends BaseMawsPage {
 		$errors[] = 'Неверный период показа сводки.';
 	  }
 
-
+	  if (!array_key_exists($form['access'],self::$arAccessType))
+	  {
+		$form['access'] = self::EVERYONE_ACCESS;
+	  }
 
 	  if (count($errors)==0)
 	  {

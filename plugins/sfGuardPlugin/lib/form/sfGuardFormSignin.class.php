@@ -5,14 +5,14 @@ class sfGuardFormSignin extends sfForm
   public function configure()
   {
     $this->setWidgets(array(
-      'username' => new sfWidgetFormInput(),
-      'password' => new sfWidgetFormInput(array('type' => 'password')),
-      'remember' => new sfWidgetFormInputCheckbox(),
+      'username' => new sfWidgetFormInput(array('label' => 'Имя пользователя:')),
+      'password' => new sfWidgetFormInput(array('label' => 'Пароль:', 'type' => 'password')),
+      //'remember' => new sfWidgetFormInputCheckbox(),
     ));
 
     $this->setValidators(array(
-      'username' => new sfValidatorString(),
-      'password' => new sfValidatorString(),
+      'username' => new sfValidatorString(array(),array('required' => 'Введите имя пользователя.')),
+      'password' => new sfValidatorString(array(),array('required' => 'Введите пароль.')),
       'remember' => new sfValidatorBoolean(),
     ));
 

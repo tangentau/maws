@@ -13,11 +13,13 @@ class mainComponents extends sfComponents
 	if ($this->user->isAnonymous())
 	{
 	  $this->UserName = 'error'; //$this->Anonymous;
+	  $this->UserId = 0;
 	  $this->isAnonymous = true;
 	}
 	else
 	{
 	  $this->UserName = $this->user->getUsername();
+	  $this->UserId = $this->user->getGuardUser()->getId();
 	  if ($this->UserName == $this->Anonymous)
 	  {
 		$this->isAnonymous = true;
@@ -31,6 +33,29 @@ class mainComponents extends sfComponents
 
   public function executeMenuHeader()
   {
+	$this->user = $this->getUser();
+
+	$this->Anonymous = sfConfig::get('app_anonymous_login', 'anonymous');
+
+	if ($this->user->isAnonymous())
+	{
+	  $this->UserId = 0;
+	  $this->isAnonymous = true;
+	}
+	else
+	{
+	  $this->UserName = $this->user->getUsername();
+	  $this->UserId = $this->user->getGuardUser()->getId();
+	  if ($this->UserName == $this->Anonymous)
+	  {
+		$this->isAnonymous = true;
+	  }
+	  else
+	  {
+		$this->isAnonymous = false;
+	  }
+	}
+
   }
 
 }
