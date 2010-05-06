@@ -145,7 +145,7 @@ class MawsParser extends BaseMawsParser {
 
 	const	MAX_REDIRECTS		= 5;		// макс. число редиректов cURL
 
-	const	MAX_TIMEOUT			= 3;		// макс. время таймаута cURL
+	const	MAX_TIMEOUT			= 15;		// макс. время таймаута cURL
 
 /************************************** РАБОЧИЕ ПЕРЕМЕННЫЕ КЛАССА *******************************/
 
@@ -236,6 +236,7 @@ class MawsParser extends BaseMawsParser {
 						'result_type'	  => $request->getParameter('result_type'),
 						'resource_type'	  => $request->getParameter('resource_type'),
 						'resource_url'	  => $request->getParameter('resource_url'),
+						'parser_id'		  => $request->getParameter('parser_id'),
 						'resource_param_name' => $request->getParameter('resource_param_name'),
 						'resource_param_value' => $request->getParameter('resource_param_value'),
 						'resource_login'  => $request->getParameter('resource_login'),
@@ -257,6 +258,10 @@ class MawsParser extends BaseMawsParser {
 		  $form['resource_params'][$name] = $form['resource_param_value'][$i];
 		}
 
+		if ($form['resource_type'] == self::FILTER_RESOURCE)
+		{
+		  $form['resource_url'] = $form['parser_id'];
+		}
 
 		return $form;
 	}
@@ -277,6 +282,7 @@ class MawsParser extends BaseMawsParser {
 						'result_type'	  => $this->getResultType(),
 						'resource_type'	  => $this->getResourceType(),
 						'resource_url'	  => $this->getResourceUrl(),
+						'parser_id'		  => $this->getResourceUrl(),
 						'resource_params' => unserialize($this->getResourceParams()),
 						'resource_login'  => $this->getResourceLogin(),
 						'resource_pass'	  => $this->getResourcePass(),
@@ -465,6 +471,32 @@ class MawsParser extends BaseMawsParser {
 	}
 
 
+		/**
+	 * Get the [resource_type] column value.
+	 *
+	 * @param      bool $toString cast value to string ot not
+	 * @return     int
+	 */
+	public function getResourceUrl($toString = false)
+	{
+	  if ($toString)
+	  {
+		$MawsParser = MawsParserPeer::retrieveByPk($this->resource_url);
+		if (is_object($MawsParser))
+		{
+		  return 'Фильтр ['.$MawsParser->getId().'] "'.$MawsParser->getName().'"';
+		}
+		else
+		{
+		  return $this->resource_url;
+		}
+	  }
+	  else
+	  {
+		return $this->resource_url;
+	  }
+	}
+
 	/**
 	 * Get the [resource_method] column value.
 	 *
@@ -614,6 +646,7 @@ class MawsParser extends BaseMawsParser {
 
 		// $this->strContent contains the output string
 		$this->debug[] = '=='.$strRes;
+
 		$this->strContent = $strRes;
 
 		return $this;
@@ -649,80 +682,157 @@ class MawsParser extends BaseMawsParser {
 		{
 			case self::MATCH_FILTER:			// оставляем только то, что между начальными и загрывающими маркерами
 			{
-
-				$arFilterResult = explode($arFilterParams['START_MARKER'],$this->strContent); // разрезаем контент на кусочки после открывающего маркера
-
-				// НО! т.к. explode разрезает строку на куски До и После, то первый кусок из полученных всегда будет лишним.
-				// Поэтому при записи результатов будем переписывать все куски, кроме первого.
-
-				if (count($arFilterResult>1)) // если у нас хоть что-то подходящее нашлось
+				if (is_array($this->strContent))
 				{
-					$this->arFilterResult = array();
-					//$this->debug[] = ' $arFilterResult match_filter: '.var_export($arFilterResult,1);
-
-					foreach ($arFilterResult as $i => $strMatch) // в каждом из полученных кусочков
+				  $this->arFilterResult = array();
+				  foreach ($this->strContent as $string)
+				  {
+					$res = $this->MarkerFilter($string, $arFilterParams['START_MARKER'], $arFilterParams['END_MARKER']);
+					if (count($res) > 0)
 					{
-						if ($i>0)				// кроме первого
-						{
-							$pos = strpos($strMatch,$arFilterParams['END_MARKER']); // ищем закрывающий маркер
-
-							if (!($pos===false)) // маркер найден
-							{
-								$strMatch = substr($strMatch, 0, $pos); // откидываем всё, что после маркера
-								$this->arFilterResult[] = $strMatch;
-							}
-						}
+					  $this->arFilterResult = array_merge($this->arFilterResult,$res);
 					}
-
-					// теперь из всего контента осталось только то, что между начальными и закрывающими маркерами
+				  }
 				}
-				else	// ничего не нашлось
+				else
 				{
-					// оставляем $this->arFilterResult таким, как есть (т.е. пустым)
+				  $this->arFilterResult = $this->MarkerFilter($this->strContent, $arFilterParams['START_MARKER'], $arFilterParams['END_MARKER']);
 				}
-
 				break;
 			}
 			case self::REGEXP_FILTER:	// оставляем только то, что подходит под регулярное выражение
 			{
-				$arMatches = array();
-				preg_match_all('/'.$arFilterParams['REGEXP'].'/',$this->strContent,$arMatches);
-				if ((isset($arMatches[$arFilterParams['REGEXP_TYPE']])) && (is_array($arMatches[$arFilterParams['REGEXP_TYPE']])))
-					$this->arFilterResult = $arMatches[$arFilterParams['REGEXP_TYPE']];
+				if (is_array($this->strContent))
+				{
+				  $this->arFilterResult = array();
+				  foreach ($this->strContent as $string)
+				  {
+					$res = $this->RegexpFilter($string, $arFilterParams['REGEXP'], $arFilterParams['REGEXP_TYPE']);
+					if (count($res) > 0)
+					{
+					  $this->arFilterResult = array_merge($this->arFilterResult,$res);
+					}
+				  }
+				}
+				else
+				{
+				  $this->arFilterResult = $this->RegexpFilter($this->strContent, $arFilterParams['REGEXP'], $arFilterParams['REGEXP_TYPE']);
+				}
 				break;
 			}
 			case self::DOM_FILTER:	// оставляем только то, что подходит под XPATH
 			{
-				$arMatches = array();
-				$dom = new DOMDocument();
-				@$dom->loadHTML($this->strContent);
-				$xpath = new DOMXPath($dom);
-				$result_rows = $xpath->query($arFilterParams['XPATH']);
-
-				//here we loop through our results (a DOMDocument Object)
-				foreach ($result_rows as $result_object)
+				if (is_array($this->strContent))
 				{
-				  if ($arFilterParams['XPATH_PARAM'] == self::DOM_NODEVALUE)
+				  $this->arFilterResult = array();
+				  foreach ($this->strContent as $string)
 				  {
-					$arMatches[] = $result_object->nodeValue;
-				  }
-				  else if ($arFilterParams['XPATH_PARAM'] == self::DOM_ATTRVALUE)
-				  {
-					$arMatches[] = $result_object->getAttribute($arFilterParams['DOM_ATTR']);
+					$res = $this->XpathFilter($string, $arFilterParams['XPATH'],$arFilterParams['XPATH_PARAM'],$arFilterParams['DOM_ATTR']);
+					if (count($res) > 0)
+					{
+					  $this->arFilterResult = array_merge($this->arFilterResult,$res);
+					}
 				  }
 				}
-
-				$this->arFilterResult = $arMatches;
-				
+				else
+				{
+				  $this->arFilterResult = $this->XpathFilter($this->strContent, $arFilterParams['XPATH'],$arFilterParams['XPATH_PARAM']);
+				}
 				break;
 			}
 			default:			// ничего не фильтруем
 			{
-				$this->arFilterResult = array($this->strContent);
+				$this->arFilterResult = (array)$this->strContent;
 				break;
 			}
 		}
 		return $this;
+	}
+
+
+
+	/**
+	 * Фильтрует строку согласно начальному и конечному маркерам.
+	 **/
+	public function MarkerFilter($string, $strStartMarker, $strEndMarker)
+	{
+
+	  $arMatches = explode($strStartMarker,$string); // разрезаем контент на кусочки после открывающего маркера
+
+	  // НО! т.к. explode разрезает строку на куски До и После, то первый кусок из полученных всегда будет лишним.
+	  // Поэтому при записи результатов будем переписывать все куски, кроме первого.
+
+	  $arResults = array();
+
+	  if (count($arMatches)>1) // если у нас хоть что-то подходящее нашлось
+	  {
+		  //$this->debug[] = ' $arFilterResult match_filter: '.var_export($arFilterResult,1);
+
+		  foreach ($arMatches as $i => $strMatch) // в каждом из полученных кусочков
+		  {
+			  if ($i>0)				// кроме первого
+			  {
+				  $pos = strpos($strMatch,$strEndMarker); // ищем закрывающий маркер
+
+				  if (!($pos===false)) // маркер найден
+				  {
+					  $strMatch = substr($strMatch, 0, $pos); // откидываем всё, что после маркера
+					  $arResults[] = $strMatch;
+				  }
+			  }
+		  }
+
+		  // теперь из всего контента осталось только то, что между начальными и закрывающими маркерами
+	  }
+	  return $arResults;
+	}
+
+	/**
+	 * Фильтрует строку согласно регулярному выражению
+	 **/
+	public function RegexpFilter($string, $strRegExp, $nRegExpCount)
+	{
+
+	  $arResults = array();
+	  $arMatches = array();
+
+	  preg_match_all('/'.$strRegExp.'/',$string,$arMatches);
+
+	  if ((isset($arMatches[$nRegExpCount])) && (is_array($arMatches[$nRegExpCount])))
+	  {
+		$arResults = $arMatches[$nRegExpCount];
+	  }
+	  
+	  return $arResults;
+	}
+
+	/**
+	 * Фильтрует строку согласно регулярному выражению
+	 **/
+	public function XpathFilter($string, $strXpath, $nSelect, $strAttr)
+	{
+
+	  $arMatches = array();
+
+	  $dom = new DOMDocument();
+	  @$dom->loadHTML($string);
+	  $xpath = new DOMXPath($dom);
+	  $result_rows = $xpath->query($strXpath);
+
+	  //here we loop through our results (a DOMDocument Object)
+	  foreach ($result_rows as $result_object)
+	  {
+		if ($nSelect == self::DOM_NODEVALUE)
+		{
+		  $arMatches[] = $result_object->nodeValue;
+		}
+		else if ($nSelect == self::DOM_ATTRVALUE)
+		{
+		  $arMatches[] = $result_object->getAttribute($strAttr);
+		}
+	  }
+
+	  return $arMatches;
 	}
 
 	/**
@@ -1062,7 +1172,54 @@ class MawsParser extends BaseMawsParser {
 	 **/
 	public function ReadFtpResource()
 	{
-		return '';
+		// create curl resource
+		$ch = curl_init();
+
+		$strUrl = $this->resource_url;
+
+		// set url
+		curl_setopt($ch, CURLOPT_URL, $strUrl);
+
+		if ((strlen($this->resource_pass) > 0) && ((strlen($this->resource_login) > 0)))
+		{
+		  curl_setopt($ch, CURLOPT_USERPWD, $this->resource_login.':'.$this->resource_pass);
+		}
+		//return the transfer as a string
+		curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+
+		curl_setopt($ch,CURLOPT_CONNECTTIMEOUT, self::MAX_TIMEOUT);
+
+		$strRes = curl_exec($ch); // get content
+
+		// close curl resource to free up system resources
+		curl_close($ch);
+		
+		if (strlen($strRes) > 0)
+		{
+		  $strRes = preg_replace("/\s+/",' ; ',$strRes);
+		  $arRes = explode(';',$strRes);
+
+		  $count = count($arRes);
+		  $strRes = '';
+		  $j = 0;
+
+		  for($i = 0; $i < $count-1; $i += 9)
+		  {
+			$j++;
+			$strRes .= "[$j]\t [name: ".$arRes[$i+8].']';
+			$strRes .= "\t [size: ".$arRes[$i+4];
+			$strRes .= "\t [last-modified: ".$arRes[$i+5]." ".$arRes[$i+6]." ".$arRes[$i+7].']';
+			$strRes .= "\t [access: ".$arRes[$i+0].']';
+			$strRes .= "\t [owner: ".$arRes[$i+2].']';
+			$strRes .= "\t [group: ".$arRes[$i+3].']';
+			$strRes .= "\t [files: ".$arRes[$i+1].']';
+			$strRes .= "\r\n";
+
+		  }
+
+		}
+
+		return $strRes;
 	}
 
 	/**
@@ -1070,7 +1227,30 @@ class MawsParser extends BaseMawsParser {
 	 **/
 	public function ReadHttpFileResource()
 	{
-		return '';
+		// create curl resource
+		$ch = curl_init();
+
+		$strUrl = $this->resource_url;
+
+		// set url
+		curl_setopt($ch, CURLOPT_URL, $strUrl);
+
+
+		if ((strlen($this->resource_pass) > 0) && ((strlen($this->resource_login) > 0)))
+		{
+		  curl_setopt($ch, CURLOPT_USERPWD, $this->resource_login.':'.$this->resource_pass);
+		}
+		//return the transfer as a string
+		curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+
+		curl_setopt($ch,CURLOPT_CONNECTTIMEOUT, self::MAX_TIMEOUT);
+
+		$strRes = curl_exec($ch); // get content
+
+		// close curl resource to free up system resources
+		curl_close($ch);
+
+		return $strRes;
 	}
 
 	/**
@@ -1078,7 +1258,30 @@ class MawsParser extends BaseMawsParser {
 	 **/
 	public function ReadFtpFileResource()
 	{
-		return '';
+		// create curl resource
+		$ch = curl_init();
+
+		$strUrl = $this->resource_url;
+
+		// set url
+		curl_setopt($ch, CURLOPT_URL, $strUrl);
+
+
+		if ((strlen($this->resource_pass) > 0) && ((strlen($this->resource_login) > 0)))
+		{
+		  curl_setopt($ch, CURLOPT_USERPWD, $this->resource_login.':'.$this->resource_pass);
+		}
+		//return the transfer as a string
+		curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+
+		curl_setopt($ch,CURLOPT_CONNECTTIMEOUT, self::MAX_TIMEOUT);
+
+		$strRes = curl_exec($ch); // get content
+
+		// close curl resource to free up system resources
+		curl_close($ch);
+
+		return $strRes;
 	}
 
 	/**
@@ -1086,7 +1289,10 @@ class MawsParser extends BaseMawsParser {
 	 **/
 	public function ReadFilterResource()
 	{
-		return '';
+		$MawsParserId = $this->resource_url;
+		$MawsParser = MawsParserPeer::retrieveByPk($MawsParserId);
+
+		return $MawsParser->Get();
 	}
 
 	/**

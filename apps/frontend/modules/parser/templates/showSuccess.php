@@ -25,7 +25,16 @@
 	  </tr>
 	  <tr>
 		<th>Адрес источника данных:</th>
-		<td><?php echo $MawsParser->getResourceUrl() ?></td>
+		<td><?php
+				  if ($MawsParser->getResourceType() == MawsParser::FILTER_RESOURCE)
+				  {
+					echo $MawsParser->getResourceUrl(1);
+				  }
+				  else
+				  {
+					echo $MawsParser->getResourceUrl();
+				  }
+			?></td>
 	  </tr>
 	  <?php if (in_array($MawsParser->getResourceType(),array(MawsParser::HTTP_RESOURCE,MawsParser::HTTP_FILE_RESOURCE))): ?>
 	  <tr>
@@ -148,12 +157,13 @@
 	</tbody>
   </table>
   <hr />
-
+  <?php $strContent = $sf_data->getRaw('strMawsParserContent'); ?>
   <h2>Проверочное получение результатов фильтра</h2>
 
-  <table border="1" cellpadding="5" cellspacing="1">
+   <table border="1" cellpadding="5" cellspacing="1">
 	<tbody align="left">
-	  <?php if (strlen($strMawsParserContent) > 0): ?>
+	  <?php if (((is_array($strContent)) && (count($strContent) > 0))
+			|| ((is_string($strContent)) && (strlen($strContent) > 0))): ?>
 	  <tr>
 		<td colspan="2">
 		  <h2>Результаты фильтра:</h2>
@@ -177,11 +187,30 @@
 		<td colspan="2">Загруженные данные:</td>
 	  </tr>
 	  <tr>
-		<td colspan="2"><?php echo $strMawsParserContent ?> </td>
+		<td colspan="2">
+		<?php
+
+		  if (is_array($strContent))
+		  {
+			$i=1;
+			echo('<table border="1" cellpadding="5" cellspacing="1">');
+			foreach ($strContent as $content)
+			{
+			  echo('<tr><td>#'.$i.'</td><td>'. nl2br($content).'</td></tr>');
+			  $i++;
+			}
+			echo('</table>');
+		  }
+		  else
+		  {
+			echo (nl2br($strContent));
+		  }
+		  ?>
+		</td>
 	  </tr>
 	  <?php else: ?>
 	  <tr>
-		<td colspan="2">Не удалось загрузить данные для фильтра!:</td>
+		<td colspan="2">Не удалось загрузить данные для фильтра!</td>
 	  </tr>
 	  <?php endif; ?>
 	</tbody>

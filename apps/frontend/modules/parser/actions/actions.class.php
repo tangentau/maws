@@ -136,6 +136,26 @@ class parserActions extends sfActions
 												  ),
 	  );
 	}
+	
+	$c = new Criteria();
+	if ($this->getUser()->isAnon())
+	{
+	  $c->add(MawsParserPeer::ACCESS, MawsParser::EVERYONE_ACCESS, Criteria::EQUAL);
+	}
+	else
+	{
+	  $AccessCriterion = $c->getNewCriterion(MawsParserPeer::ACCESS, MawsParser::EVERYONE_ACCESS, Criteria::EQUAL);
+	  $AccessCriterion2 = $c->getNewCriterion(MawsParserPeer::ACCESS, MawsParser::REGISTERED_ACCESS, Criteria::EQUAL);
+	  $AccessCriterion->addOr($AccessCriterion2);
+	  $c->addAnd($AccessCriterion);
+	}
+
+    $this->MawsParsers = MawsParserPeer::doSelect($c);
+
+	foreach ($this->MawsParsers as $parser)
+	{
+	  $this->form['parsers'][$parser->getId()] = "[".$parser->getId()."] ".$parser->getName();
+	}
   }
 
   public function executeCreate(sfWebRequest $request)
@@ -165,6 +185,7 @@ class parserActions extends sfActions
 	$this->id = $MawsParser->getId();
 
 	$this->arMawsParserResults = $MawsParser->Get();
+	//$this->getContext()->getLogger()->info($MawsParser->debug);
 	$this->strMawsParserContent = $MawsParser->getContent();
 
 	$this->errors = array();
@@ -200,6 +221,28 @@ class parserActions extends sfActions
 	  }
 	  $this->form['arAccessType'] = $arAccess;
 	}
+
+	$c = new Criteria();
+	$c->add(MawsParserPeer::ID, $this->id, Criteria::NOT_EQUAL);
+	if ($this->getUser()->isAnon())
+	{
+	  $c->add(MawsParserPeer::ACCESS, MawsParser::EVERYONE_ACCESS, Criteria::EQUAL);
+	}
+	else
+	{
+	  $AccessCriterion = $c->getNewCriterion(MawsParserPeer::ACCESS, MawsParser::EVERYONE_ACCESS, Criteria::EQUAL);
+	  $AccessCriterion2 = $c->getNewCriterion(MawsParserPeer::ACCESS, MawsParser::REGISTERED_ACCESS, Criteria::EQUAL);
+	  $AccessCriterion->addOr($AccessCriterion2);
+	  $c->addAnd($AccessCriterion);
+	}
+
+    $this->MawsParsers = MawsParserPeer::doSelect($c);
+	
+	foreach ($this->MawsParsers as $parser)
+	{
+	  $this->form['parsers'][$parser->getId()] = "[".$parser->getId()."] ".$parser->getName();
+	}
+	$this->MawsParser = $MawsParser;
 
   }
 

@@ -76,18 +76,31 @@ class pageActions extends sfActions
 	}
 
 	$this->period = intval($request->getParameter('period'));
+	$this->col = $request->getParameter('col');
+
+	if (!$this->col)
+	{
+	  $this->col = 'mid';
+	}
+
+	
+	$this->smooth = $request->getParameter('smooth') == 'on';
+	
 	if ($this->period <= 0) $this->period = $this->MawsPage->getShowPeriod();
 	$start_time = time() - $this->period;
 
 
-	$this->MawsPageThreads = $this->MawsPage->getThreads();
+	$this->MawsPageThreads = $this->MawsPage->getThreads($start_time);
 
 	$this->MawsPageResults = array();
 	foreach ($this->MawsPageThreads as $i => $MawsPageThread)
 	{
-	  $MawsThread = MawsThreadPeer::retrieveByPk($MawsPageThread['id']);
-	  $this->MawsPageThreads[$i]['thread'] = $MawsThread;
-	  $this->MawsPageThreads[$i]['parser_results']  = $MawsThread->getParserResults(false,$start_time);
+	  $id = $MawsPageThread['id'];
+	  $this->MawsPageThreads[$i]['thread'] = MawsThreadPeer::retrieveByPk($id);
+
+	  $this->MawsPageThreads[$i]['parser_results'] = $this->MawsPageThreads[$i]['thread']->getParserResults(false,$start_time);
+
+
 	  foreach ($this->MawsPageThreads[$i]['parser_results'] as $MawsParserResult)
 	  {
 		$time = substr($MawsParserResult->getCreatedAt(),0,-3);
@@ -97,10 +110,10 @@ class pageActions extends sfActions
 		}
 
 		$arRes = unserialize($MawsParserResult->getResult());
-		$this->MawsPageResults[$time][$MawsPageThread['id']]['data'] = $arRes;
+		$this->MawsPageResults[$time][$id]['data'] = $arRes;
 		if ($this->MawsPage->getResultType() == MawsPage::FLOAT_RES)
 		{
-		  $this->MawsPageResults[$time][$MawsPageThread['id']]['raw_data'] = $arRes;
+		  $this->MawsPageResults[$time][$id]['raw_data'] = $arRes;
 		  if (is_array($arRes))
 		  {
 			foreach($arRes as $i => $n)
@@ -110,28 +123,30 @@ class pageActions extends sfActions
 
 			$ar_sum = array_sum($arRes);
 			$ar_count = count($arRes);
-			$this->MawsPageResults[$time][$MawsPageThread['id']]['data'] = implode(', ',$arRes);
-			$this->MawsPageResults[$time][$MawsPageThread['id']]['min'] = min($arRes);
-			$this->MawsPageResults[$time][$MawsPageThread['id']]['max'] = max($arRes);
+			$this->MawsPageResults[$time][$id]['data'] = implode(', ',$arRes);
+			$this->MawsPageResults[$time][$id]['min'] = min($arRes);
+			$this->MawsPageResults[$time][$id]['max'] = max($arRes);
 
 			if ($ar_count >0)
-			  $this->MawsPageResults[$time][$MawsPageThread['id']]['mid'] = round($ar_sum/$ar_count,2);
-			else $this->MawsPageResults[$time][$MawsPageThread['id']]['mid'] = 0;
+			  $this->MawsPageResults[$time][$id]['mid'] = round($ar_sum/$ar_count,2);
+			else $this->MawsPageResults[$time][$id]['mid'] = 0;
 
-			$this->MawsPageResults[$time][$MawsPageThread['id']]['sum'] = $ar_sum;
-			$this->MawsPageResults[$time][$MawsPageThread['id']]['count'] = $ar_count;
+			$this->MawsPageResults[$time][$id]['sum'] = $ar_sum;
+			$this->MawsPageResults[$time][$id]['count'] = $ar_count;
 		  }
 		  else
 		  {
-			$this->MawsPageResults[$time][$MawsPageThread['id']]['data'] = 0;
-			$this->MawsPageResults[$time][$MawsPageThread['id']]['min'] = 0;
-			$this->MawsPageResults[$time][$MawsPageThread['id']]['max'] = 0;
-			$this->MawsPageResults[$time][$MawsPageThread['id']]['mid'] = 0;
-			$this->MawsPageResults[$time][$MawsPageThread['id']]['sum'] = 0;
-			$this->MawsPageResults[$time][$MawsPageThread['id']]['count'] = 0;
+			$this->MawsPageResults[$time][$id]['data'] = 0;
+			$this->MawsPageResults[$time][$id]['min'] = 0;
+			$this->MawsPageResults[$time][$id]['max'] = 0;
+			$this->MawsPageResults[$time][$id]['mid'] = 0;
+			$this->MawsPageResults[$time][$id]['sum'] = 0;
+			$this->MawsPageResults[$time][$id]['count'] = 0;
 		  }
 		}
 	  }
+
+	  ksort($this->MawsPageResults);
 	}
 
 

@@ -53,6 +53,15 @@ class MawsPage extends BaseMawsPage {
 											2592000  => 'Месяц',
 										  );
 
+	public static $arGraphColumns = array (
+											'mid' => 'Среднее значение',
+											'max' => 'Максимальное значение',
+											'min' => 'Минимальное значение',
+											'sum' => 'Сумма  значений',
+											'count' => 'Количество значений',
+										  );
+
+
 
 	/**
 	 * Initializes internal state of MawsPage object.

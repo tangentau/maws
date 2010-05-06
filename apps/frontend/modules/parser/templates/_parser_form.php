@@ -8,24 +8,34 @@
 	  if (value.toString() == '<?=MawsParser::HTTP_RESOURCE?>') // http page
 	  {
 		$('.tr_login,_.tr_pass, .tr_params').show();
+		$('.tr_filters').hide();
+		$('.tr_resource_url').show();
 	  }
 	  else if (value.toString() == '<?=MawsParser::FTP_RESOURCE?>') // ftp catalog
 	  {
 		$('.tr_login, .tr_pass').show();
 		$('.tr_params').hide();
+		$('.tr_filters').hide();
+		$('.tr_resource_url').show();
 	  }
 	  else if (value.toString() == '<?=MawsParser::HTTP_FILE_RESOURCE?>') // http-file
 	  {
 		$('.tr_login, .tr_pass, .tr_params').show();
+		$('.tr_filters').hide();
+		$('.tr_resource_url').show();
 	  }
 	  else if (value.toString() == '<?=MawsParser::FTP_FILE_RESOURCE?>') // ftp-file
 	  {
 		$('.tr_login, .tr_pass').show();
 		$('.tr_params').hide();
+		$('.tr_filters').hide();
+		$('.tr_resource_url').show();
 	  }
 	  else if (value.toString() == '<?=MawsParser::FILTER_RESOURCE?>') // фильтр
 	  {
 		$('.tr_login, .tr_pass, .tr_params').hide();
+		$('.tr_filters').show();
+		$('.tr_resource_url').hide();
 	  }
   }
 
@@ -185,12 +195,24 @@
 		  </select>
 		</td>
 	  </tr>
-	  <tr>
+	  <tr class="tr_resource_url">
 		<td>
 		  Адрес (URL):
 		</td>
 		<td>
 		  <input type="text" name="resource_url" id="resource_url" value="<?php echo $form['resource_url'] ?>" />
+		</td>
+	  </tr>
+	  <tr class="tr_filters">
+		<td>
+		  Фильтр:
+		</td>
+		<td>
+		  <select name="parser_id" id="parser_id">
+			<?php foreach ($form['parsers'] as $key=>$value): ?>
+			  <option value="<?php echo $key?>" <?php if ($form['resource_url']==$key) : ?> selected="" <?php endif; ?> ><?php echo $value ?></option>
+			<?php endforeach; ?>
+		  </select>
 		</td>
 	  </tr>
 	  <tr class="tr_login">

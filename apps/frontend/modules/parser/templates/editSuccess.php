@@ -11,12 +11,15 @@
   </div>
   <br />
   <hr />
-
+  <?php $strContent = $sf_data->getRaw('strMawsParserContent'); ?>
   <h2>Проверочное получение результатов фильтра</h2>
-
+  <pre>
+  <?php print_r($MawsParser) ?>
+  </pre>
   <table border="1" cellpadding="5" cellspacing="1">
 	<tbody align="left">
-	  <?php if (strlen($strMawsParserContent) > 0): ?>
+	  <?php if (((is_array($strContent)) && (count($strContent) > 0))
+			|| ((is_string($strContent)) && (strlen($strContent) > 0))): ?>
 	  <tr>
 		<td colspan="2">
 		  <h2>Результаты фильтра:</h2>
@@ -40,11 +43,30 @@
 		<td colspan="2">Загруженные данные:</td>
 	  </tr>
 	  <tr>
-		<td colspan="2"><?php echo $strMawsParserContent ?> </td>
+		<td colspan="2">
+		<?php
+		  
+		  if (is_array($strContent))
+		  {
+			$i=1;
+			echo('<table border="1" cellpadding="5" cellspacing="1">');
+			foreach ($strContent as $content)
+			{
+			  echo('<tr><td>#'.$i.'</td><td>'. nl2br($content).'</td></tr>');
+			  $i++;
+			}
+			echo('</table>');
+		  }
+		  else
+		  {
+			echo (nl2br($strContent));
+		  }
+		  ?>
+		</td>
 	  </tr>
 	  <?php else: ?>
 	  <tr>
-		<td colspan="2">Не удалось загрузить данные для фильтра!:</td>
+		<td colspan="2">Не удалось загрузить данные для фильтра!</td>
 	  </tr>
 	  <?php endif; ?>
 	</tbody>

@@ -79,16 +79,30 @@
   $matrix = array();
   $i=0;
   $j=0;
+
+  if (!$col)
+  {
+	$col = each(MawsPage::$arGraphColumns);
+	$colName = $col['value'];
+	$col = $col['key'];
+  }
+  else
+  {
+	$colName = MawsPage::$arGraphColumns[$col];
+  }
+  
   foreach ($MawsPageThreads as $MawsPageThread)
   {
+
 	$matrix[$j] = array(
-						  'label' => $MawsPageThread['thread']->getName(),
+						  'label' => $MawsPageThread['thread']->getName().' ('.$colName.')',
 						  'lines' => array('show' => true, 'steps' => true),
 						  'color' => '#'.$MawsPageThread['color'],
 						);
 	$j++;
   }
 
+  $prev_value = array();
   foreach ($MawsPageResults as $date => $MawsPageResult)
   {
 	$date_time = str_replace(' ', '<br />',$date);
@@ -96,13 +110,22 @@
 	foreach ($MawsPageThreads as $MawsPageThread)
 	{
 	  $id = $MawsPageThread['id'];
+
 	  if (isset($MawsPageResult[$id]))
 	  {
-		$matrix[$j]['data'][$i] = array($i,floatval($MawsPageResult[$id]['mid']));
+		$matrix[$j]['data'][$i] = array($i,floatval($MawsPageResult[$id][$col]));
+		$prev_value[$id] = floatval($MawsPageResult[$id][$col]);
 	  }
 	  else
 	  {
-		$matrix[$j]['data'][$i] = array($i,0);
+		if (($smooth) && (isset($prev_value[$id])))
+	    {
+			$matrix[$j]['data'][$i] = array($i,$prev_value[$id]);
+		}
+		else
+		{
+		  $matrix[$j]['data'][$i] = array($i,0);
+		}
 	  }
 	  $j++;
 	}
@@ -120,6 +143,9 @@
 
 <div id="flot"></div>
 <br>
+<pre>
+<?php //print_r($MawsPageResults); ?>
+</pre>
 <h3>Данные</h3>
 <div id="data">
   <table border="1" cellpadding="5" cellspacing="1" class="summary">
@@ -161,13 +187,13 @@
 			<?php $id = $MawsPageThread['id']; ?>
 			<?php if (isset($MawsPageResult[$id])): ?>
 			  <?php $arRes = $MawsPageResult[$id]; ?>
-			  <?php foreach ($arColumns as $col): ?>
-			    <td class="<?php echo $col."_".$id ?>"><?php echo $arRes[$col] ?>
+			  <?php foreach ($arColumns as $column): ?>
+			    <td class="<?php echo $column."_".$id ?>"><?php echo $arRes[$column] ?>
 			    </td>
 			  <?php endforeach; ?>
 			<?php else: ?>
-				<?php foreach ($arColumns as $col): ?>
-				  <td class="empty <?php echo $col."_".$id ?>">
+				<?php foreach ($arColumns as $column): ?>
+				  <td class="empty <?php echo $column."_".$id ?>">
 				  </td>
 				<?php endforeach; ?>
 			<?php endif; ?>
@@ -202,7 +228,7 @@
 <?php else: ?>
   <?php $strPeriod = "$period секунд"; ?>
 <?php endif; ?>
-Показаны результаты за период: [<?php echo $strPeriod; ?>]
+Показаны результаты за период: [<?php echo $strPeriod; ?>] <?php if($smooth): ?>, при отсутствии данных на графике показываются предыдущие данные<?php endif; ?>
 <br>
 <br>
 <form action="<?php echo url_for('page/show?id='.$MawsPage->getId()) ?>" method="get" >
@@ -212,6 +238,18 @@
 	  <option value="<?php echo $key?>" <?php if ($period == $key) : ?> selected="" <?php endif; ?> ><?php echo $value ?></option>
 	<?php endforeach; ?>
   </select>
+  <br>
+  <br>
+  <input type="checkbox" name="smooth" id="smooth" <?php if($smooth): ?>checked="checked"<?php endif; ?>/> <label for="smooth">Сглаживать периоды отсутствия данных на графике</label>
+  <br>
+  <br>
+  График по колонке:
+  <select name="col" id="col">
+	<?php foreach (MawsPage::$arGraphColumns as $key => $value): ?>
+	  <option value="<?php echo $key?>" <?php if ($col == $key) : ?> selected="" <?php endif; ?> ><?php echo $value ?></option>
+	<?php endforeach; ?>
+  </select>
+  <br>
   <input type="submit" value="Показать" />
 </form>
 <hr />
