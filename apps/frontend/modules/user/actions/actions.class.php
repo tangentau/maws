@@ -18,6 +18,14 @@ class userActions extends sfActions
   	{
 	  $this->UserId = false;
 	}
+	if ($request->getParameter('registered') == 'yes')
+	{
+	  $this->NewUser = true;
+	}
+	else
+	{
+	  $this->NewUser = false;
+	}
   }
 
   public function executeShow(sfWebRequest $request)
@@ -59,7 +67,15 @@ class userActions extends sfActions
   public function executeEdit(sfWebRequest $request)
   {
     $this->forward404Unless($sfGuardUser = sfGuardUserPeer::retrieveByPk($request->getParameter('id')), sprintf('Object sfGuardUser does not exist (%s).', $request->getParameter('id')));
-    $this->form = new sfGuardUserForm($sfGuardUser);
+	$UserId = $this->getUser()->getGuardUser()->getId();
+	if ($this->getUser()->isAnon())
+  	{
+	  $UserId = false;
+	}
+
+	if ($UserId)
+	  if ($sfGuardUser->getId() == $UserId)
+		$this->form = new sfGuardUserForm($sfGuardUser);
   }
 
   public function executeUpdate(sfWebRequest $request)
@@ -89,8 +105,51 @@ class userActions extends sfActions
     if ($form->isValid())
     {
       $sfGuardUser = $form->save();
+	  
+	  $UserId = $this->getUser()->getGuardUser()->getId();
 
-      $this->redirect('user/edit?id='.$sfGuardUser->getId());
+	  if ($this->getUser()->isAnon())
+	  {
+		$UserId = false;
+	  }
+
+	  if ($UserId)
+	  {
+		$this->redirect('user/edit?id='.$sfGuardUser->getId());
+	  }
+	  else
+	  {
+		$this->redirect('user/index?registered=yes');
+	  }
     }
+  }
+
+  public function executePassword(sfWebRequest $request)
+  {
+	$this->name = $request->getParameter('login');
+	$this->email= $request->getParameter('email');
+
+	if (($this->name) && ($this->email))
+	{
+	  $this->user = sfGuardUserPeer::retrieveByUsername($this->name);
+	  $this->user_email =  $this->user->getProfile()->getEmail();
+	  if (($this->user_email == $this->email))
+	  {
+		$new_password = '123';
+
+		$this->user->setPassword($new_password);
+		$this->user->save();
+
+		$message = $this->getMailer()->compose(
+			array('maws@tangentau.1gb.ru' => 'MAWS'),
+			$this->user_email,
+			'Password Recovery',
+			"Your password for MAWS has been recovered. New password: $new_password , and your login is: ".$this->name
+		);
+
+		$this->getMailer()->send($message);
+
+	  }
+	}
   }
 }

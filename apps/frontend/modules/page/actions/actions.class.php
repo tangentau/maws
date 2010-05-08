@@ -146,7 +146,7 @@ class pageActions extends sfActions
 		}
 	  }
 
-	  ksort($this->MawsPageResults);
+	  krsort($this->MawsPageResults);
 	}
 
 

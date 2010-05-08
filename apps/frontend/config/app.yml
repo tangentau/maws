@@ -8,6 +8,7 @@ all:
   sf_guard_plugin:
     routes_register: true
     success_signin_url: /main/index
+    success_signout_url: /main/index
     profile_class:      sfGuardUserProfile
     profile_field_name: user_id
 

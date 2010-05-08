@@ -1,16 +1,17 @@
 <h2><?php echo $MawsPage->getName() ?></h2>
 <?php if ($access): ?>
+
+<?php $MawsPageResults = $sf_data->getRaw('MawsPageResults'); ?>
+<?php if ($MawsPage->getResultType() == MawsPage::STRING_RES): ?>
 <script type="text/javascript">
 
   $(document).ready(function(){
 
   <?php foreach ($MawsPageThreads as $i => $MawsPageThread): ?>
-	  $('.thr_color<?php echo $i ?>').css("color", "#<?php echo $MawsPageThread['color'] ?>");
+	  $('.thr_color<?php echo $i ?>').css("background-color", "#<?php echo $MawsPageThread['color'] ?>");
   <?php endforeach; ?>
   });
 </script>
-<?php $MawsPageResults = $sf_data->getRaw('MawsPageResults'); ?>
-<?php if ($MawsPage->getResultType() == MawsPage::STRING_RES): ?>
   <table border="1" cellpadding="5" cellspacing="1" class="summary">
 	<tbody align="left">
 		<tr>
@@ -31,14 +32,14 @@
 		  </td>
 		  <?php foreach ($MawsPageThreads as $MawsPageThread): ?>
 			<?php if ((isset($MawsPageResult[$MawsPageThread['id']])) && (is_array($MawsPageResult[$MawsPageThread['id']]))): ?>
-			  <?php if ((count($MawsPageResult[$MawsPageThread['id']]) == 1) && ($MawsPageResult[$MawsPageThread['id']][0]==MawsParser::EMPTY_FILTER_RESULT)): ?>
+			  <?php if ((count($MawsPageResult[$MawsPageThread['id']]['data']) == 0) || ($MawsPageResult[$MawsPageThread['id']]['data'][0]==MawsParser::EMPTY_FILTER_RESULT)): ?>
 			  <td>
 				Пусто.
 			  </td>
 			  <?php else: ?>
 			  <td class="thr_color<?php echo $MawsPageThread['id'] ?>">
 				<table border="1" cellpadding="5" cellspacing="1">
-				<?php foreach ($MawsPageResult[$MawsPageThread['id']] as $j => $MawsParserResult): ?>
+				<?php foreach ($MawsPageResult[$MawsPageThread['id']]['data'] as $j => $MawsParserResult): ?>
 				  <tr>
 					<td>
 					  #<?php echo $j+1 ?>
@@ -62,6 +63,15 @@
 	</tbody>
   </table>
 <?php else: ?>
+<script type="text/javascript">
+
+  $(document).ready(function(){
+
+  <?php foreach ($MawsPageThreads as $i => $MawsPageThread): ?>
+	  $('.thr_color<?php echo $i ?>').css("color", "#<?php echo $MawsPageThread['color'] ?>");
+  <?php endforeach; ?>
+  });
+</script>
 <br>
 <h3>График</h3>
 <script type="text/javascript">
@@ -72,7 +82,10 @@
 	  series: {
 		lines: { show: true },
 		points: { show: true }
-	  }
+	  },
+	  xaxis: {
+                mode: "time"
+			 }
 	};
 
 	var data = <?php
@@ -105,7 +118,7 @@
   $prev_value = array();
   foreach ($MawsPageResults as $date => $MawsPageResult)
   {
-	$date_time = str_replace(' ', '<br />',$date);
+	$date_time = toolBox::dates_interconv('Y-m-d H:i:s', 'U', $date.':00') * 1000;
 	$j = 0;
 	foreach ($MawsPageThreads as $MawsPageThread)
 	{
@@ -113,18 +126,18 @@
 
 	  if (isset($MawsPageResult[$id]))
 	  {
-		$matrix[$j]['data'][$i] = array($i,floatval($MawsPageResult[$id][$col]));
+		$matrix[$j]['data'][$i] = array($date_time,floatval($MawsPageResult[$id][$col]));
 		$prev_value[$id] = floatval($MawsPageResult[$id][$col]);
 	  }
 	  else
 	  {
 		if (($smooth) && (isset($prev_value[$id])))
 	    {
-			$matrix[$j]['data'][$i] = array($i,$prev_value[$id]);
+			$matrix[$j]['data'][$i] = array($date_time,$prev_value[$id]);
 		}
 		else
 		{
-		  $matrix[$j]['data'][$i] = array($i,0);
+		  $matrix[$j]['data'][$i] = array($date_time,0);
 		}
 	  }
 	  $j++;
@@ -239,6 +252,7 @@
 	<?php endforeach; ?>
   </select>
   <br>
+  <?php if ($MawsPage->getResultType() == MawsPage::FLOAT_RES): ?>
   <br>
   <input type="checkbox" name="smooth" id="smooth" <?php if($smooth): ?>checked="checked"<?php endif; ?>/> <label for="smooth">Сглаживать периоды отсутствия данных на графике</label>
   <br>
@@ -250,6 +264,7 @@
 	<?php endforeach; ?>
   </select>
   <br>
+  <?php endif; ?>
   <input type="submit" value="Показать" />
 </form>
 <hr />

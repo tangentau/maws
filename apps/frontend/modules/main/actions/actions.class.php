@@ -28,4 +28,6 @@ class mainActions extends sfActions
   {
 	$this->forward('sfGuardAuth', 'signin');
   }
+
+
 }

@@ -23,12 +23,16 @@ class mainComponents extends sfComponents
 	  if ($this->UserName == $this->Anonymous)
 	  {
 		$this->isAnonymous = true;
+		$this->UserEmail = '';
 	  }
 	  else
 	  {
 		$this->isAnonymous = false;
+		$this->UserEmail = $this->getUser()->getProfile()->getEmail();
 	  }
 	}
+	
+
   }
 
   public function executeMenuHeader()

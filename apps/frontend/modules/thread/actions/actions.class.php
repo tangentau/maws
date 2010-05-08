@@ -110,6 +110,17 @@ class threadActions extends sfActions
 
 	$this->period = intval($request->getParameter('period'));
 	if ($this->period <= 0) $this->period = 3600 * 24;
+
+	$this->col = $request->getParameter('col');
+
+	if (!$this->col)
+	{
+	  $this->col = 'mid';
+	}
+
+
+	$this->smooth = $request->getParameter('smooth') == 'on';
+
 	$start_time = time() - $this->period;
 
 	$this->MawsThreadContent =  $this->MawsThread->getParserResults(false,$start_time);

@@ -3,7 +3,7 @@
   <tr>
     <td>
 	  Привет,
-	  <div class="username"><?php print_r($UserName); ?></div>
+	  <div title="<?php echo($UserEmail); ?>" class="username"><?php echo($UserName); ?></div>
 	</td>
 	<?php if ($isAnonymous): ?>
 	<td>

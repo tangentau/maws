@@ -78,6 +78,95 @@
 	</tbody>
   </table>
   <?php else: ?>
+<br>
+<h3>График</h3>
+<script type="text/javascript">
+
+  $(document).ready(function(){
+
+	var options = {
+	  series: {
+		lines: { show: true },
+		points: { show: true }
+	  },
+	  xaxis: {
+                mode: "time"
+			 }
+	};
+
+	var data = <?php
+  $matrix = array();
+  $i=0;
+
+  if (!$col)
+  {
+	$col = each(MawsThread::$arGraphColumns);
+	$colName = $col['value'];
+	$col = $col['key'];
+  }
+  else
+  {
+	$colName = MawsThread::$arGraphColumns[$col];
+  }
+
+	$matrix = array(
+						  'label' => $MawsThread->getName().' ('.$colName.')',
+						  'lines' => array('show' => true, 'steps' => true),
+						  'color' => '#000000',
+						);
+
+  $prev_value = array();
+
+  $i = 0;
+  krsort($MawsThreadContent);
+  
+  foreach($MawsThreadContent as $res)
+  {
+	$arRes = unserialize($res->getResult());
+	$date_time = toolBox::dates_interconv('Y-m-d H:i:s', 'U',$res->getCreatedAt()) * 1000;
+	foreach($arRes as $j => $n)
+	{
+	  $arRes['values'][$j] = toolBox::floatval($n);
+	}
+
+	if (count($arRes) > 0)
+	{
+	  $ar_sum = array_sum($arRes['values']);
+	  $ar_count = count($arRes['values']);
+
+	  $arRes['min'] = min($arRes['values']);
+	  $arRes['max'] = max($arRes['values']);
+	  $arRes['mid'] = round($ar_sum/$ar_count,2);
+	  $arRes['sum'] = $ar_sum;
+	  $arRes['count'] = $ar_count;
+
+	  $matrix['data'][$i] = array($date_time ,floatval($arRes[$col]));
+	  $prev_value = floatval($arRes[$col]);
+	}
+	else
+	{
+	  if (($smooth) && (isset($prev_value)))
+	  {
+		$matrix['data'][$i] = array($date_time,$prev_value);
+	  }
+	  else
+	  {
+	    $matrix['data'][$i] = array($date_time,0);
+	  }
+	}
+	$i++;
+  }
+
+  echo json_encode(array($matrix));
+?>;
+
+	$.plot($("#flot"), data, options);
+
+  });
+
+</script>
+
+<div id="flot"></div>
   <table  border="1" cellpadding="5" cellspacing="1" >
 	<tbody>
 	  <tr>
@@ -164,6 +253,19 @@
 	  <option value="<?php echo $key?>" <?php if ($period == $key) : ?> selected="" <?php endif; ?> ><?php echo $value ?></option>
 	<?php endforeach; ?>
   </select>
+<?php if ($MawsThread->getResultType() == MawsThread::FLOAT_RES): ?>
+  <br>
+  <input type="checkbox" name="smooth" id="smooth" <?php if($smooth): ?>checked="checked"<?php endif; ?>/> <label for="smooth">Сглаживать периоды отсутствия данных на графике</label>
+  <br>
+  <br>
+  График по колонке:
+  <select name="col" id="col">
+	<?php foreach (MawsPage::$arGraphColumns as $key => $value): ?>
+	  <option value="<?php echo $key?>" <?php if ($col == $key) : ?> selected="" <?php endif; ?> ><?php echo $value ?></option>
+	<?php endforeach; ?>
+  </select>
+  <br>
+  <?php endif; ?>
   <input type="submit" value="Показать" />
 </form>
 
